@@ -1,0 +1,24 @@
+mixin formChangeMutil(path, isDelete)
+    form(
+        action=path
+        method= "POST"
+        form-change-multi
+    )
+        .d-flex.align-items-start 
+            .form-group 
+                select(name="type" class="form-control")
+                    option(disabled selected) -- Chọn một hành động -- 
+                    option(value="active") Hoạt động
+                    option(value="inactive") Dừng hoạt động
+                    option(value="deleteMany") Xóa sản phẩm
+                    option(value="changePosition") Thay đổi vị trí
+                    if(isDelete)
+                        option(value="restore") Khôi phục sản phẩm
+            .form-group 
+                input(
+                    type= "text"
+                    name= "ids"
+                    value=""
+                    class ="form-control d-none"
+                )
+            button(type="submit" class="btn btn-primary") Áp dụng

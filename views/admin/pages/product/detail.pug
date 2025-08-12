@@ -1,0 +1,48 @@
+extends ../../layouts/default.pug
+block main 
+    h1(class="mb-4") Chi tiết sản phẩm 
+    
+    if(product.title)
+        h2(class="mb-4") #{product.title}
+    if(product.price)
+        div(class="mb-4") Giá: <b>#{product.price} </b>
+    if(product.discountPercentage)
+        div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
+    if(product.stock)
+        div(class="mb-4") Còn lại: <b>#{product.stock} </b>
+    if(product.thumbnail)
+        div(class="mb-4")
+            img(
+                src=product.thumbnail 
+                style ="width: 100px"
+            )
+    if(product.status)
+        div(class="mb-4")
+            span Trạng thái: 
+            if(product.status=== "active")
+                span(class="badge badge-success") Hoạt động
+            else 
+                span(class="badge badge-danger") Dừng hoạt động
+    if(product.position)
+        div(class="mb-4") Vị trí: <b>#{product.position}</b>
+    if(product.description)
+        div(class="mb-4") #{product.description}
+    row 
+        col-6 
+            a(
+                href=`${PATH_ADMIN}/product/edit/${product.id}`
+                class="btn btn-warning btn-sm"
+            ) Sửa
+        col-6 
+            button(
+                class="btn btn-danger btn-sm ml-1"
+                button-delete
+                data_id= product.id    
+            ) Xóa
+    form(
+        action=""
+        method="POST"
+        id="form-delete"
+        data-path=`${PATH_ADMIN}/product/delete`
+    )
+    script(src="/admin/js/product.js") 

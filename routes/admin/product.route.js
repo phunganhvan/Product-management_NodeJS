@@ -2,13 +2,20 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer')
 //thư viện để upload file ảnh
+
+const uploadCloud= require('../../middlewares/admin/uploadToCloud.middlewares');
+
+
+
 const controller = require("../../controllers/admin/product.controller");
-const storage = require("../../helpers/storageMulter");
+// const storage = require("../../helpers/storageMulter");
+// của multer
 
 const validate = require("../../validates/admin/product.validate");
 
-const upload = multer({ dest: './public/uploads', storage: storage() })
-
+const upload = multer();
+// const upload = multer({ dest: './public/uploads', storage: storage() })
+//upload theo folder
 router.get("/", controller.index);
 //router giao diện trang chủ product
 router.patch("/change-status/:status/:id", controller.changeStatus);
@@ -25,6 +32,7 @@ router.get("/create", controller.create);
 router.post(
     "/create",
     upload.single("thumbnail"),
+    uploadCloud.uploads,
     validate.createPost,
     controller.createPost)
 //logic tọa mới

@@ -198,11 +198,11 @@ module.exports.createPost = async(req, res) =>{
     const count = await Product.countDocuments();
     req.body.position = parseInt(req.body.position) || (count+1);
     // console.log(req.body);
-    if(req.file){
-        req.body.thumbnail=`/uploads/${req.file.filename}`;
-    }
+    // if(req.file){
+    //     req.body.thumbnail=`/uploads/${req.file.filename}`;
+    // }
     const product= new Product(req.body);
-    // // console.log(product);
+    // // // console.log(product);
     await product.save();
     res.redirect(`${systemConfig.prefixAdmin}/product`);
     // res.send("OK");

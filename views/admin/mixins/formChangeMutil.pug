@@ -8,13 +8,13 @@ mixin formChangeMutil(path, isDelete)
             .form-group 
                 select(name="type" class="form-control")
                     option(disabled selected) -- Chọn một hành động --
-                    if(role.permission.includes("product_edit")) 
+                    if(role.permission.includes("products_edit")) 
                         option(value="active") Hoạt động
                         option(value="inactive") Dừng hoạt động
                         option(value="changePosition") Thay đổi vị trí
                         if(isDelete)
                             option(value="restore") Khôi phục sản phẩm
-                    if(role.permission.includes("product_delete"))
+                    if(role.permission.includes("products_delete"))
                         option(value="deleteMany") Xóa sản phẩm
             .form-group 
                 input(

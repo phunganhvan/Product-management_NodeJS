@@ -1,5 +1,7 @@
 const express = require('express');
 //import express
+const path = require('path');
+
 const methodOverride= require("method-override");
 // ghi đè phương thức
 const bodyParser= require('body-parser')
@@ -9,6 +11,7 @@ const flash= require('express-flash')
 const cookieParser= require('cookie-parser')
 const session= require('express-session');
 //2 thư viện áp dụng cho flash
+
 
 
 require('dotenv').config();
@@ -29,6 +32,8 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: false}));
 //body parser
 
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// trình soạn thảo văn bản TinyMCE
 
 const port = process.env.PORT;
 const route = require("./routes/client/index.route");

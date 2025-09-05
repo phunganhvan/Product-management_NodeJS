@@ -1,0 +1,39 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main 
+    if(role.permission.includes("roles_edit"))
+        h1(class="mb-4") Chỉnh sửa sản phẩm 
+        +alert-error(3000)
+        +alert-success(3000)
+        form(
+            action=`${PATH_ADMIN}/roles/edit/${record.id}?_method=PATCH` 
+            id="form-edit-product-category"
+            method="POST"
+            enctype="multipart/form-data"
+        ) 
+            div(class="form-group")
+                label(for="title") Tiêu đề
+                input(
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    value= record.title
+                )
+            div(class="form-group")
+                label(for="desc") Mô tả ngắn
+                textarea(
+                    class="form-control"
+                    id="desc"
+                    name="description"
+                    rows="3"
+                    value=record.description
+                ) #{record.description}
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Cập nhật
+    else 
+        h1(class="text-center") Bạn không có quyền truy cập trang này
+    script(src="/admin/js/product.js")

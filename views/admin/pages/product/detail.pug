@@ -4,6 +4,9 @@ block main
     
     if(product.title)
         h2(class="mb-4") #{product.title}
+    if(product.product_category_id)
+        div(class="mb-4")
+            label(for="product_category_id") Danh mục: <b>#{category.title}</b>
     if(product.price)
         div(class="mb-4") Giá: <b>#{product.price} </b>
     if(product.discountPercentage)
@@ -26,7 +29,7 @@ block main
     if(product.position)
         div(class="mb-4") Vị trí: <b>#{product.position}</b>
     if(product.description)
-        div(class="mb-4") #{product.description}
+        div(class="mb-4") !{product.description}
     row 
         col-6 
             a(

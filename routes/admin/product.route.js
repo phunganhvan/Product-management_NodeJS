@@ -41,7 +41,7 @@ router.get("/edit/:id", controller.edit);
 // giao diện chỉnh sửa sản phaamr
 
 //product/edit/:id [PATCH]
-router.patch("/edit/:id", upload.single("thumbnail"),
+router.patch("/edit/:id", upload.single("thumbnail"), uploadCloud.uploads,
     validate.createPost, controller.editPatch)
 // product/detail/:id
 router.get("/detail/:id", controller.detail)

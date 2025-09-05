@@ -4,16 +4,13 @@ mongoose.plugin(slug);
 const productSchema= new mongoose.Schema(
     {
         title: String,
-        description: String,
-        product_category_id: {
+        parent_id:{
             type: String,
-            default: ""
+            default: "",
         },
-        price: Number,
-        discountPercentage: Number,
+        description: String,
         thumbnail: String,
         status: String,
-        stock: Number,
         position: Number,
         deleted: {
             type: Boolean,
@@ -31,6 +28,6 @@ const productSchema= new mongoose.Schema(
     }
 );
 
-const Product = mongoose.model('Product', productSchema, "products");
+const ProductCategory = mongoose.model('ProductCategory', productSchema, "products-category");
 // tên - tên schema - tên connection trong db
-module.exports = Product;
+module.exports = ProductCategory;

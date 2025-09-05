@@ -76,7 +76,7 @@ block main
                                         name="position"
                                     )
                                 td  
-                                    if(role.permission.includes("product_edit"))
+                                    if(role.permission.includes("products_edit"))
                                         if(item.status==="active")
                                             a(
                                                 href="javascript:;" 
@@ -103,20 +103,20 @@ block main
                                                 class="badge badge-danger"
                                             ) Không hoạt động 
                                 td 
-                                    if(role.permission.includes("products-edit"))
+                                    if(role.permission.includes("products_edit"))
                                         a(
                                             href=`${PATH_ADMIN}/product/edit/${item.id}`
                                             class="btn btn-warning btn-sm"
                                         ) Sửa
-                                        if(find.deleted)
-                                            button(
-                                                class="btn btn-danger btn-sm ml-1"
-                                                button-restore
-                                                data_id= item.id    
-                                            ) Khôi phục 
-                                    
+                                    if(find.deleted)
+                                        button(
+                                            class="btn btn-danger btn-sm ml-1"
+                                            button-restore
+                                            data_id= item.id    
+                                        ) Khôi phục 
+                                
                                     else
-                                        if(role.permission.includes("products-delete"))
+                                        if(role.permission.includes("products_delete"))
                                             button(
                                                 class="btn btn-danger btn-sm ml-1"
                                                 button-delete

@@ -3,6 +3,8 @@ include ../../mixins/filterStatus.pug
 include ../../mixins/formSearch.pug
 include ../../mixins/alert.pug
 include ../../mixins/table-tree.pug
+include ../../mixins/formChangeMutil.pug
+include ../../mixins/moment.pug
 block main 
     if(role.permission.includes("products-category_view"))
         h1 Danh mục sản phẩm 
@@ -21,6 +23,7 @@ block main
                 .card-body
                     .row 
                         .col-8 
+                            +formChangeMutil(`${PATH_ADMIN}/product-category/change-multi?_method=PATCH`, isDelete, "product_Category")
                         .col-4
                             if(role.permission.includes("products-category_create")) 
                                 a(
@@ -40,6 +43,8 @@ block main
                                 th Tiêu đề
                                 th Vị trí
                                 th Trạng thái 
+                                th Người tạo
+                                th Người chỉnh sửa
                                 th Hành động
             
                         tbody   
@@ -61,7 +66,7 @@ block main
             action=""
             method="POST"
             id="form-restore"
-            data-path=`${PATH_ADMIN}/product/restore`
+            data-path=`${PATH_ADMIN}/product-category/restore`
         )
     else 
         h1 Bạn không có quyền truy cập trang này

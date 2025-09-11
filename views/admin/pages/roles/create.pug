@@ -9,7 +9,7 @@ block main
             action=`${PATH_ADMIN}/roles/create`
             method="POST"
         )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="title") Tên nhóm quyền 
                 input(
                     type="text"
@@ -18,7 +18,7 @@ block main
                     name="title"    
                     required
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="description") Mô tả 
                 textarea(
                     class="form-control"
@@ -27,7 +27,7 @@ block main
                     rows="3"
                     required
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 button(
                     type="submit"
                     class="btn btn-primary"

@@ -5,6 +5,7 @@ include ../../mixins/pagination.pug
 include ../../mixins/formChangeMutil.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
+include ../../mixins/moment.pug
 block main 
 
     if(role.permission.includes("products_view"))
@@ -24,7 +25,7 @@ block main
             .card-body
                 .row 
                     .col-8
-                        +formChangeMutil(`${PATH_ADMIN}/product/change-multi?_method=PATCH`, isDelete)
+                        +formChangeMutil(`${PATH_ADMIN}/product/change-multi?_method=PATCH`, isDelete, "product")
                     .col-4 
                         if(role.permission.includes("products_create"))
                             a(
@@ -51,8 +52,9 @@ block main
                             th Giá
                             th Vị trí
                             th Trạng thái 
+                            th Người tạo
+                            th Người chỉnh sửa
                             th Hành động
-                    
                     tbody 
                         each item, index in products
                             tr 
@@ -103,6 +105,16 @@ block main
                                                 class="badge badge-danger"
                                             ) Không hoạt động 
                                 td 
+                                    p #{item.accountFullname}
+                                    p 
+                                        +formatDateTime(item.createdBy.createdAt)
+                                td 
+                                    - const updatedBy= item.updatedBy.slice(-1)[0];
+                                    - if(updatedBy)
+                                        p #{updatedBy.accountFullname}
+                                        p 
+                                            +formatDateTime(updatedBy.updatedAt)
+                                td 
                                     if(role.permission.includes("products_edit"))
                                         a(
                                             href=`${PATH_ADMIN}/product/edit/${item.id}`
@@ -110,7 +122,7 @@ block main
                                         ) Sửa
                                     if(find.deleted)
                                         button(
-                                            class="btn btn-danger btn-sm ml-1"
+                                            class="btn btn-primary btn-sm ml-1"
                                             button-restore
                                             data_id= item.id    
                                         ) Khôi phục 

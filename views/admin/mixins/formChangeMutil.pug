@@ -1,4 +1,4 @@
-mixin formChangeMutil(path, isDelete)
+mixin formChangeMutil(path, isDelete, typePage)
     form(
         action=path
         method= "POST"
@@ -8,14 +8,15 @@ mixin formChangeMutil(path, isDelete)
             .form-group 
                 select(name="type" class="form-control")
                     option(disabled selected) -- Chọn một hành động --
-                    if(role.permission.includes("products_edit")) 
+                    if((role.permission.includes("products_edit") && typePage=="product")||(role.permission.includes("products-category_edit") && typePage=="product_Category")) 
                         option(value="active") Hoạt động
                         option(value="inactive") Dừng hoạt động
                         option(value="changePosition") Thay đổi vị trí
                         if(isDelete)
                             option(value="restore") Khôi phục sản phẩm
-                    if(role.permission.includes("products_delete"))
-                        option(value="deleteMany") Xóa sản phẩm
+                        else
+                            if((role.permission.includes("products_delete") && typePage=="product")||(role.permission.includes("products-category_delete") && typePage=="product_Category"))
+                                option(value="deleteMany") Xóa sản phẩm
             .form-group 
                 input(
                     type= "text"

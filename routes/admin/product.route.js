@@ -46,4 +46,8 @@ router.patch("/edit/:id", upload.single("thumbnail"), uploadCloud.uploads,
 // product/detail/:id
 router.get("/detail/:id", controller.detail)
 
+router.patch("/restore/:id", controller.restoreOne)
+
+
+
 module.exports = router;

@@ -11,7 +11,7 @@ block main
             method="POST"
             enctype="multipart/form-data"
         ) 
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="title") Tiêu đề
                 input(
                     type="text"
@@ -19,7 +19,7 @@ block main
                     id="title"
                     name="title"
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="product_category_id") Danh mục
                 select(
                     class="form-control"
@@ -29,7 +29,27 @@ block main
                     option(value="") -- Chọn loại danh mục --
                     if(category)
                         +select-tree(category,1 , "")
-            div(class="form-group")
+            div(class="mb-3") Sản phẩm nổi bật
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured1"
+                    name="featured"
+                    value="1"
+                )
+                label(for="featured1" class="form-check-label") Có
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured0"
+                    name="featured"
+                    value="0"
+                    checked
+                )
+                label(for="featured0" class="form-check-label") Không 
+            div(class="mb-3")
                 label(for="desc") Mô tả
                 textarea(
                     class="form-control textarea-mce"
@@ -37,7 +57,7 @@ block main
                     name="description"
                     rows="3"
                 )
-            //- div(class="form-group")
+            //- div(class="mb-3")
             //-     label(for="content") Nội dung
             //-     textarea(
             //-         class="form-control textarea-mce"
@@ -45,7 +65,7 @@ block main
             //-         name="content"
             //-         rows="5"
             //-     )    
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="price") Giá
                 input(
                     class="form-control"
@@ -54,7 +74,7 @@ block main
                     value="0"
                     min="0"
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="discountPercentage") % Giảm giá
                 input(
                     type="number"
@@ -64,7 +84,7 @@ block main
                     value="0"
                     min="0"
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="stock") Số lượng 
                 input(
                     type= "number"
@@ -74,7 +94,7 @@ block main
                     value="0"
                     min="0"
                 )
-            div(class="form-group" upload-image)
+            div(class="mb-3" upload-image)
                 label(for="thumbnail" style="display: block;") Ảnh 
                 input(
                     type= "file"
@@ -94,7 +114,7 @@ block main
                 p(
                     close-preview
                 ) Close
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="position") Vị trí
                 input(
                     type="number"
@@ -104,7 +124,7 @@ block main
                     placeholder="Tự động tăng"
                     min="1"
                 )
-            div(class="form-group form-check form-check-inline")
+            div(class="mb-3 form-check form-check-inline")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -114,7 +134,7 @@ block main
                     checked
                 )
                 label(for="statusActive" class="form-check-label") Hoạt động 
-            div(class="form-group form-check form-check-inline")
+            div(class="mb-3 form-check form-check-inline")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -123,7 +143,7 @@ block main
                     value="inactive"
                 )
                 label(for="statusInActive" class="form-check-label") Dừng hoạt động
-            //- div(class="form-group")
+            //- div(class="mb-3")
             //-     label(for="deleted") Deleted
             //-     input(
             //-         type="text"
@@ -132,7 +152,7 @@ block main
             //-         name="deleted"
             //-         value="false"
             //-     )
-            div(class="form-group")
+            div(class="mb-3")
                 button(
                     type="submit"
                     class="btn btn-primary"

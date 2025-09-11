@@ -22,4 +22,10 @@ router.patch("/change-status/:status/:id", controller.changeStatus);
 router.get("/edit/:id", controller.edit);
 router.patch("/edit/:id", upload.single("thumbnail"), uploadCloud.uploads,
     validate.createPost, controller.editPatch)
+
+router.patch("/change-multi", controller.changeMulti)
+router.delete("/delete/:id", controller.deleteProductCategory)
+router.patch("/restore", controller.restore)
+
+router.patch("/restore/:id", controller.restoreOne)
 module.exports = router;

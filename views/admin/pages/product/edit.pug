@@ -12,7 +12,7 @@ block main
             method="POST"
             enctype="multipart/form-data"
         ) 
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="title") Tiêu đề
                 input(
                     type="text"
@@ -21,7 +21,7 @@ block main
                     name="title"
                     value= product.title
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="product_category_id") Danh mục
                 select(
                     class="form-control"
@@ -31,7 +31,28 @@ block main
                     option(value="") -- Chọn loại danh mục --
                     if(category)
                         +select-tree(category,1 , product.product_category_id)
-            div(class="form-group")
+            div(class="mb-3") Sản phẩm nổi bật
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured1"
+                    name="featured"
+                    value="1"
+                    checked= (product.featured== "1"? true: false)
+                )
+                label(for="featured1" class="form-check-label") Có
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured0"
+                    name="featured"
+                    value="0"
+                    checked= (product.featured== "0"? true: false)
+                )
+                label(for="featured0" class="form-check-label") Không 
+            div(class="mb-3")
                 label(for="desc") Mô tả
                 textarea(
                     class="form-control"
@@ -40,7 +61,7 @@ block main
                     rows="5"
                     value=product.description
                 ) #{product.description}
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="price") Giá
                 input(
                     class="form-control"
@@ -49,7 +70,7 @@ block main
                     value= product.price
                     min="0"
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="discountPercentage") % Giảm giá
                 input(
                     type="number"
@@ -59,7 +80,7 @@ block main
                     value=product.discountPercentage
                     min="0"
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="stock") Số lượng 
                 input(
                     type= "number"
@@ -69,7 +90,7 @@ block main
                     value=product.stock
                     min="0"
                 )
-            div(class="form-group" upload-image)
+            div(class="mb-3" upload-image)
                 label(for="thumbnail" style="display: block;") Ảnh 
                 input(
                     type= "file"
@@ -90,7 +111,7 @@ block main
                 p(
                     close-preview
                 ) Close
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="position") Vị trí
                 input(
                     type="number"
@@ -101,7 +122,7 @@ block main
                     min="1"
                     value=product.position
                 )
-            div(class="form-group form-check form-check-inline")
+            div(class="mb-3 form-check form-check-inline")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -111,7 +132,7 @@ block main
                     checked=(product.status== "active"? true: false)
                 )
                 label(for="statusActive" class="form-check-label") Hoạt động 
-            div(class="form-group form-check form-check-inline")
+            div(class="mb-3 form-check form-check-inline")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -121,7 +142,7 @@ block main
                     checked=(product.status== "inactive"? true: false)
                 )
                 label(for="statusInActive" class="form-check-label") Dừng hoạt động
-            div(class="form-group")
+            div(class="mb-3")
                 button(
                     type="submit"
                     class="btn btn-primary"

@@ -12,7 +12,7 @@ const cookieParser= require('cookie-parser')
 const session= require('express-session');
 //2 thư viện áp dụng cho flash
 
-
+const moment= require("moment")
 
 require('dotenv').config();
 const database = require('./config/database');
@@ -54,6 +54,9 @@ route(app);
 routeAdmin(app);
 //app local variabble
 app.locals.PATH_ADMIN= systemConfig.prefixAdmin;
+
+
+app.locals.moment= moment
 // router => trả về gì ( phản hồi)
 app.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`);

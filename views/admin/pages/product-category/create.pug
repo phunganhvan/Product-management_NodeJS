@@ -11,7 +11,7 @@ block main
             method="POST"
             enctype="multipart/form-data"
         )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="title") Tiêu đề
                 input(
                     type="text"
@@ -20,7 +20,7 @@ block main
                     name="title"
                     required 
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="parent_id") Danh mục cha
                 select(
                     class="form-control"
@@ -36,7 +36,7 @@ block main
                 //-     id="parent_id"
                 //-     name="parent_id"
                 //- )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="desc") Mô tả
                 textarea(
                     type="text"
@@ -45,7 +45,7 @@ block main
                     name="description"
                     rows="5"
                 )
-            div(class="form-group" upload-image)
+            div(class="mb-3" upload-image)
                 label(for="thumbnail" style="display: block;") Ảnh 
                 input(
                     type= "file"
@@ -65,7 +65,7 @@ block main
                 p(
                     close-preview
                 ) Close
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="position") Vị trí
                 input(
                     type="number"
@@ -75,7 +75,7 @@ block main
                     placeholder="Tự động tăng"
                     min="1"
                 )
-            div(class="form-group form-check form-check-inline")
+            div(class="mb-3 form-check form-check-inline")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -85,7 +85,7 @@ block main
                     checked
                 )
                 label(for="statusActive" class="form-check-label") Hoạt động 
-            div(class="form-group form-check form-check-inline")
+            div(class="mb-3 form-check form-check-inline")
                 input(
                     type="radio"
                     class="form-check-input"
@@ -94,7 +94,7 @@ block main
                     value="inactive"
                 )
                 label(for="statusInActive" class="form-check-label") Dừng hoạt động
-            div(class="form-group")
+            div(class="mb-3")
                 button(
                     type="submit"
                     class="btn btn-primary"

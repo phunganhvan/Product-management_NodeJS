@@ -118,7 +118,7 @@ if (formChangeMulti) {
         const typeAction = e.target.elements.type.value;
         // console.log(typeAction);
         if (typeAction == "deleteMany") {
-            const isConfirm = confirm("Bạn có chắc chắn muốn xóa những sản phẩm này?");
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa những lựa chọn này?");
             if (!isConfirm) {
                 return;
             }

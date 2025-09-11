@@ -11,7 +11,7 @@ block main
             method="POST"
             enctype="multipart/form-data"
         ) 
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="title") Tiêu đề
                 input(
                     type="text"
@@ -20,7 +20,7 @@ block main
                     name="title"
                     value= record.title
                 )
-            div(class="form-group")
+            div(class="mb-3")
                 label(for="desc") Mô tả ngắn
                 textarea(
                     class="form-control"
@@ -29,7 +29,7 @@ block main
                     rows="3"
                     value=record.description
                 ) #{record.description}
-            div(class="form-group")
+            div(class="mb-3")
                 button(
                     type="submit"
                     class="btn btn-primary"

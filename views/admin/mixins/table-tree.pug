@@ -1,3 +1,4 @@
+include ./moment.pug
 mixin table-tree(records, level=1)
     each item in records
         - const prefix = Array(level+1).join("--")
@@ -50,17 +51,35 @@ mixin table-tree(records, level=1)
 
                 //- a(href="#" class="badge badge-danger") Không hoạt động 
             td 
+                p #{item.accountFullname}
+                p 
+                    +formatDateTime(item.createdBy.createdAt)
+            td 
+                - const updatedBy= item.updatedBy.slice(-1)[0];
+                - if(updatedBy)
+                    p #{updatedBy.accountFullname}
+                    p 
+                        +formatDateTime(updatedBy.updatedAt)
+            td 
                 if(role.permission.includes("products-category_edit"))
                     a(
                         href=`${PATH_ADMIN}/product-category/edit/${item.id}`
                         class="btn btn-warning btn-sm"
                     ) Sửa
-                if(role.permission.includes("products-category_delete"))
-                    button(
-                        class="btn btn-danger btn-sm ml-1"
-                        button-delete
-                        data_id= item.id    
-                    ) Xóa 
+                    if(isDelete)
+                        button(
+                            button-restore
+                            data_id= item.id 
+                            class="btn btn-primary btn-sm"
+                        ) Khôi phục
+                    else 
+                        if(role.permission.includes("products-category_delete"))
+                            button(
+                                class="btn btn-danger btn-sm ml-1"
+                                button-delete
+                                data_id= item.id    
+                            ) Xóa 
+
                 a(
                     href=`${PATH_ADMIN}/product-category/detail/${item.id}`
                     class="btn btn-secondary btn-sm"

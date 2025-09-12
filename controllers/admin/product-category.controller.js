@@ -6,7 +6,7 @@ const search = require("../../helpers/search");
 const createTreeHelper = require("../../helpers/create-tree");
 const ProductCategory = require("../../models/product-category.model");
 const Product = require("../../models/product.model");
-const Account= require("../../models/account.model")
+const Account = require("../../models/account.model")
 module.exports.index = async (req, res) => {
     let find = {
         deleted: false,
@@ -88,6 +88,23 @@ module.exports.create = async (req, res) => {
 }
 module.exports.createPost = async (req, res) => {
     // await console.log(req.body)
+
+    const permission = res.locals.role.permission
+    if (permission.includess("products-category_create")) {
+        const count = await ProductCategory.countDocuments();
+        req.body.position = parseInt(req.body.position) || (count + 1)
+        req.body.createdBy = {
+            accountId: res.locals.user.id
+        };
+        const record = new ProductCategory(req.body);
+        await record.save()
+        req.flash("success", "Bạn đã tạo mới danh mục thành công");
+        res.redirect(`${systemConfig.prefixAdmin}/product-category`)
+    } else {
+        return;
+    }
+
+
     const count = await ProductCategory.countDocuments();
     req.body.position = parseInt(req.body.position) || (count + 1)
     req.body.createdBy = {
@@ -101,15 +118,21 @@ module.exports.createPost = async (req, res) => {
 }
 
 module.exports.changeStatus = async (req, res) => {
-    const status = req.params.status;
-    const id = req.params.id;
-    const updatedBy = {
-        accountId: res.locals.user.id,
-        updatedAt: new Date()
+    const permission = res.locals.role.permission
+    if (permission.includess("products-category_edit")) {
+        const status = req.params.status;
+        const id = req.params.id;
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        await ProductCategory.updateOne({ _id: id }, { status: status, $push: { updatedBy: updatedBy } });
+        req.flash("success", "Bạn đã cập nhật trạng thái sản phẩm thành công");
+        res.redirect(req.get('Referrer'));
     }
-    await ProductCategory.updateOne({ _id: id }, { status: status, $push: { updatedBy: updatedBy } });
-    req.flash("success", "Bạn đã cập nhật trạng thái sản phẩm thành công");
-    res.redirect(req.get('Referrer'));
+    else{
+        return;
+    }
 }
 
 module.exports.edit = async (req, res) => {
@@ -133,157 +156,189 @@ module.exports.edit = async (req, res) => {
 }
 
 module.exports.editPatch = async (req, res) => {
-    req.body.position = parseInt(req.body.position);
-    // console.log(req.body);
-    try {
+    const permission = res.locals.role.permission
+    if (permission.includes("products-category_edit")) {
+        req.body.position = parseInt(req.body.position);
+        // console.log(req.body);
+        try {
+            const updatedBy = {
+                accountId: res.locals.user.id,
+                updatedAt: new Date()
+            }
+            await ProductCategory.updateOne({ _id: req.params.id }, {
+                ...req.body,
+                $push: { updatedBy: updatedBy }
+            });
+            req.flash("success", "Bạn đã cập nhật danh mục thành công");
+            res.redirect(req.get(`Referrer`));
+        } catch (error) {
+            req.flash("error", "Đã có lỗi xảy ra, vui lòng thử lại");
+            res.redirect(req.get(`Referrer`));
+        }
+    }
+    else {
+        return;
+    }
+
+}
+
+module.exports.changeMulti = async (req, res) => {
+    const permission = res.locals.role.permission
+    if (permission.includess("products-category_edit")) {
+        // console.log(req.body);
+        const type = req.body.type;
+        const ids = req.body.ids.split(", ");
         const updatedBy = {
             accountId: res.locals.user.id,
             updatedAt: new Date()
         }
-        await ProductCategory.updateOne({ _id: req.params.id }, {
-            ...req.body,
-            $push: { updatedBy: updatedBy }
-        });
-        req.flash("success", "Bạn đã cập nhật danh mục thành công");
-        res.redirect(req.get(`Referrer`));
-    } catch (error) {
-        req.flash("error", "Đã có lỗi xảy ra, vui lòng thử lại");
-        res.redirect(req.get(`Referrer`));
-    }
-}
+        switch (type) {
+            case "active":
 
-module.exports.changeMulti = async (req, res) => {
-    console.log(req.body);
-    const type = req.body.type;
-    const ids = req.body.ids.split(", ");
-    const updatedBy = {
-        accountId: res.locals.user.id,
-        updatedAt: new Date()
-    }
-    switch (type) {
-        case "active":
-
-            await ProductCategory.updateMany(
-                {
-                    _id: { $in: ids }
-                },
-                {
-                    $set: { status: type },
-                    $push: { updatedBy: updatedBy }
-                }
-            )
-            req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} danh mục thành công`);
-            break;
-        case "inactive":
-            await ProductCategory.updateMany(
-                {
-                    _id: { $in: ids }
-                },
-                {
-                    $set: { status: type },
-                    $push: { updatedBy: updatedBy }
-                }
-            )
-            req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} danh mục thành công`);
-            break;
-        case "deleteMany":
-            await ProductCategory.updateMany(
-                {
-                    _id: { $in: ids }
-                },
-                {
-                    deleted: true,
-                    deletedBy: {
-                        accountId: res.locals.user.id,
-                        deletedAt: new Date(),
-                    },
-                    updatedAt: new Date()
-                }
-            )
-            req.flash("success", `Bạn đã xóa thành công ${ids.length} danh mục`);
-            break;
-        case "restore":
-            await ProductCategory.updateMany(
-                {
-                    _id: { $in: ids }
-                },
-                {
-                    deleted: false,
-                    $push: { updatedBy: updatedBy }
-                }
-            )
-            req.flash("success", `Bạn đã khôi phục ${ids.length} danh mục thành công`);
-            break;
-        case "changePosition":
-            // console.log(ids);
-            for (const item of ids) {
-                let [id, position] = item.split("-");
-                // destructuring - biết chắc cấu trúc
-                position = parseInt(position);
-                await Product.updateOne(
-                    { _id: id },
+                await ProductCategory.updateMany(
                     {
-                        $set: { position: position },
+                        _id: { $in: ids }
+                    },
+                    {
+                        $set: { status: type },
                         $push: { updatedBy: updatedBy }
                     }
                 )
-            }
-            req.flash("success", `Bạn đã thay đổi vị trí ${ids.length} danh mục thành công`);
-            break;
-        default:
-            break;
+                req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} danh mục thành công`);
+                break;
+            case "inactive":
+                await ProductCategory.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        $set: { status: type },
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} danh mục thành công`);
+                break;
+            case "deleteMany":
+                await ProductCategory.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        deleted: true,
+                        deletedBy: {
+                            accountId: res.locals.user.id,
+                            deletedAt: new Date(),
+                        },
+                        updatedAt: new Date()
+                    }
+                )
+                req.flash("success", `Bạn đã xóa thành công ${ids.length} danh mục`);
+                break;
+            case "restore":
+                await ProductCategory.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        deleted: false,
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã khôi phục ${ids.length} danh mục thành công`);
+                break;
+            case "changePosition":
+                // console.log(ids);
+                for (const item of ids) {
+                    let [id, position] = item.split("-");
+                    // destructuring - biết chắc cấu trúc
+                    position = parseInt(position);
+                    await Product.updateOne(
+                        { _id: id },
+                        {
+                            $set: { position: position },
+                            $push: { updatedBy: updatedBy }
+                        }
+                    )
+                }
+                req.flash("success", `Bạn đã thay đổi vị trí ${ids.length} danh mục thành công`);
+                break;
+            default:
+                break;
+        }
+        res.redirect(req.get('Referrer'));
     }
-    res.redirect(req.get('Referrer'));
+    else {
+        return;
+    }
 }
 
 module.exports.deleteProductCategory = async (req, res) => {
-    const id = req.params.id;
-    console.log(id);
-    await ProductCategory.updateOne(
-        { _id: id },
-        {
-            deleted: true,
-            deletedBy: {
-                accountId: res.locals.user.id,
-                deletedAt: new Date(),
+    const permission = res.locals.role.permission
+    if (permission.includess("products-category_delete")) {
+        const id = req.params.id;
+        console.log(id);
+        await ProductCategory.updateOne(
+            { _id: id },
+            {
+                deleted: true,
+                deletedBy: {
+                    accountId: res.locals.user.id,
+                    deletedAt: new Date(),
+                }
             }
-        }
-    )
-    // await Product.deleteOne({_id: id});
-    //Xóa hẳn
-    // res.send("HELLO XÓA THÀNH CÔNG");
-    req.flash("success", "Bạn đã xóa danh mục thành công");
-    res.redirect(req.get('Referrer'));
+        )
+        // await Product.deleteOne({_id: id});
+        //Xóa hẳn
+        // res.send("HELLO XÓA THÀNH CÔNG");
+        req.flash("success", "Bạn đã xóa danh mục thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
 }
 module.exports.restore = async (req, res) => {
-    const id = req.params.id
-    const updatedBy = {
-        accountId: res.locals.user.id,
-        updatedAt: new Date()
-    }
-    await ProductCategory.updateOne(
-        { _id: id },
-        {
-            deleted: false,
-            $push: { updatedBy: updatedBy }
+    const permission = res.locals.role.permission
+    if (permission.includess("products-category_edit")) {
+        const id = req.params.id
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
         }
-    )
-    req.flash("success", "Bạn đã khôi phục sản phẩm thành công");
-    res.redirect(req.get('Referrer'));
+        await ProductCategory.updateOne(
+            { _id: id },
+            {
+                deleted: false,
+                $push: { updatedBy: updatedBy }
+            }
+        )
+        req.flash("success", "Bạn đã khôi phục sản phẩm thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
+
 }
 module.exports.restoreOne = async (req, res) => {
-    const id = req.params.id
-    const updatedBy = {
-        accountId: res.locals.user.id,
-        updatedAt: new Date()
-    }
-    await ProductCategory.updateOne(
-        { _id: id },
-        {
-            deleted: false,
-            $push: { updatedBy: updatedBy }
+    const permission = res.locals.role.permission
+    if (permission.includess("products-category_edit")) {
+        const id = req.params.id
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
         }
-    )
-    req.flash("success", "Bạn đã khôi phục sản phẩm thành công");
-    res.redirect(req.get('Referrer'));
+        await ProductCategory.updateOne(
+            { _id: id },
+            {
+                deleted: false,
+                $push: { updatedBy: updatedBy }
+            }
+        )
+        req.flash("success", "Bạn đã khôi phục sản phẩm thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
 }

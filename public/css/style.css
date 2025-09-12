@@ -39,11 +39,14 @@ a{
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
+    height: 100%;
+    width: auto;
 }
 .product-item .inner-image{
     width: 100%;
     aspect-ratio: 4/3;
     border-bottom: 1px solid #ddd;
+    position: relative;
 }
 .product-item .inner-image img{
     height: 400px;
@@ -51,6 +54,17 @@ a{
     /* height: 100%; */
     object-fit: cover;
 }  
+.product-item .inner-featured {
+    position: absolute;
+    top:0;
+    right: 0;
+    background: green;
+    color: white;
+    padding: 3px 6px;
+    font-weight: 600px;
+    font-size: 14px;
+    border-radius: 8px;
+}
 .product-item .inner-content{
     padding: 15px;
 } 
@@ -126,3 +140,64 @@ a{
 .sub-menu ul li:hover >ul{
     display: block;
 }
+
+/* end sub-menu  */
+
+/* product-detail  */
+
+.product-detail .inner-thumb img{
+    margin-left: 40px;
+    width: 80%;
+    height: auto;
+}
+
+.product-detail .inner-title{
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.product-detail .inner-category{
+    margin-bottom: 10px;
+}
+.product-detail .inner-price-new{
+    color: green;
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-price-old{
+    color: red;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-decoration: line-through;
+}
+
+.product-detail .inner-percent{
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-percent span{
+    color: #fff;
+    background: red;
+    font-weight: 600;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 8px;
+}
+
+.product-detail .inner-stock{
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-stock span{
+    color: #fff;
+    background: green;
+    font-weight: 600;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 8px;
+}
+
+/* end product-detail  */

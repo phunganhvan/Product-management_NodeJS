@@ -119,5 +119,5 @@ module.exports.update = async (req, res) => {
         }
     )
     req.flash("success", "Cập nhật số lượng")
-    res.redirect("/cart")
+    res.redirect(req.get("Referer"));
 }

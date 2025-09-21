@@ -25,6 +25,10 @@ module.exports.registerPost = async (req, res) => {
 
 module.exports.login = async (req, res) => {
 
+    if(res.locals.user){
+        res.redirect("/");
+        return;
+    }
     res.render("client/pages/user/login", {
         titlePage: "Đăng nhập",
 
@@ -56,5 +60,10 @@ module.exports.loginPost = async (req, res) => {
 
     res.cookie("tokenUser", user.tokenUser)
     req.flash("success", "Đăng nhập thành công");
+    res.redirect("/")
+}
+
+module.exports.logout = async(req, res) =>{
+    res.clearCookie("tokenUser");
     res.redirect("/")
 }

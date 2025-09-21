@@ -72,7 +72,7 @@ module.exports.orderPost = async(req, res) =>{
     const order= new Order(orderInfo);
     order.save();
 
-    await myCart.updateOne(
+    await Cart.updateOne(
         {
             _id: cartId
         },

@@ -12,8 +12,7 @@ module.exports.cartId = async(req, res, next) =>{
             expires: new Date(Date.now() +expiresCookie)
         });
 
-    }
-    else{
+    }else{
         // lấy ra thôi
         const cart= await Cart.findOne({
             _id: req.cookies.cartId

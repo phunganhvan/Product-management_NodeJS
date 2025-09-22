@@ -6,7 +6,7 @@ module.exports.register = async (req, res) => {
         titlePage: "Đăng kí tài khoản"
     });
 }
-
+// /user/register [POST]
 module.exports.registerPost = async (req, res) => {
     const existEmail = await User.findOne({
         email: req.body.email
@@ -22,10 +22,10 @@ module.exports.registerPost = async (req, res) => {
     res.cookie("tokenUser", user.tokenUser)
     res.redirect("/");
 }
-
+// /user/login [get]
 module.exports.login = async (req, res) => {
 
-    if(res.locals.user){
+    if (res.locals.user) {
         res.redirect("/");
         return;
     }
@@ -35,6 +35,7 @@ module.exports.login = async (req, res) => {
     })
 }
 
+// /user/login [POST]
 module.exports.loginPost = async (req, res) => {
 
     const email = req.body.email;
@@ -62,8 +63,45 @@ module.exports.loginPost = async (req, res) => {
     req.flash("success", "Đăng nhập thành công");
     res.redirect("/")
 }
-
-module.exports.logout = async(req, res) =>{
+// /user/logput [GET]
+module.exports.logout = async (req, res) => {
     res.clearCookie("tokenUser");
     res.redirect("/")
+}
+
+module.exports.forgotPassword = async (req, res) => {
+    res.render("client/pages/user/forgot-password", {
+        titlePage: "Quên mật khẩu"
+    })
+}
+
+module.exports.forgotPasswordPost = async (req, res) => {
+    // console.log(req.body.email)
+    const email = req.body.email;
+    const user = await User.findOne({
+        email: email,
+        deleted: false
+    });
+    if (!user) {
+        req.flash("error", "Người dùng không tồn tại")
+        res.redirect(req.get("Referer"));
+        return
+    }
+    if (user.status === "locked") {
+        req.flash("error", "Tài khoản đã bị khóa");
+        res.redirect(req.get("Referer"));
+        return;
+    }
+
+
+    // lưu thông tin vào db rồi mới gửi
+    const objectForgotPassword = {
+        email: email,
+        otp: String,
+        expiresAt: Date.now() + 300
+    }
+
+
+    // nếu có thì gửi mã OTP
+    res.send("OK");
 }

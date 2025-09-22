@@ -11,5 +11,10 @@ router.get("/login", controller.login);
 
 router.post("/login", validate.loginPost ,controller.loginPost);
 
-router.get("/logout", controller.logout)
+router.get("/logout", controller.logout);
+// quên mật khẩu
+router.get("/password/forgot", controller.forgotPassword);
+
+//gui mail
+router.post("/password/forgot", validate.forgotPasswordPost ,controller.forgotPasswordPost)
 module.exports = router

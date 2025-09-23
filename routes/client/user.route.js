@@ -17,4 +17,15 @@ router.get("/password/forgot", controller.forgotPassword);
 
 //gui mail
 router.post("/password/forgot", validate.forgotPasswordPost ,controller.forgotPasswordPost)
+
+// nhập otp
+router.get("/password/otp", controller.otpPassword);
+
+router.post("/password/otp", controller.otpPasswordPost);
+
+// reset pass
+
+router.get("/password/reset", controller.resetPassword)
+
+router.post("/password/reset", validate.resetPasswordPost ,controller.resetPasswordPost)
 module.exports = router

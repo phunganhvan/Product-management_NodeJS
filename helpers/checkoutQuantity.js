@@ -4,7 +4,7 @@ module.exports.checkQuantity = async(productId, newQuantity) => {
         _id: productId
     }).select("stock");
     newQuantity= parseInt(newQuantity);
-    if (newQuantity > product.stock || newQuantity <1 || Number.isInteger(newQuantity)) {
+    if (newQuantity > product.stock || newQuantity <1 || !Number.isInteger(newQuantity)) {
         return false; 
     } 
     else return true;

@@ -115,11 +115,12 @@ module.exports.forgotPasswordPost = async (req, res) => {
 
     const subject= "Mã OTP xác minh lấy lại mật khẩu";
     const html=`
-        Mã OTP để lấy lại mật khẩu là <b>${otp}</b>. Thời hạn sử dụng là 2 phút.
+        Mã OTP để lấy lại mật khẩu là <b style="color: green; font-size: 24px">${otp}</b>. Thời hạn sử dụng là 2 phút.
     `;
 
     sendMailHelper.sendMail(email, subject, html);
     // chuyển sang trang nhập otp
+    req.flash("success", "Đã gửi mã OTP")
     res.redirect(`/user/password/otp?email=${email}`);
 }
 

@@ -2,6 +2,7 @@ const Cart = require("../../models/carts.model")
 const Product = require("../../models/product.model")
 
 const productHelper = require("../../helpers/product")
+const checkoutQuantityHelper = require("../../helpers/checkoutQuantity")
 // get  /cart
 module.exports.index = async (req, res) => {
 
@@ -53,7 +54,15 @@ module.exports.addPost = async (req, res) => {
     const existProduct = cart.products.find(item => item.product_id == productId);
     if (existProduct) {
         // cập nhật obj số lượng
+
+
         const newQuantity = parseInt(quantity) + parseInt(existProduct.quantity);
+        const checkQuantity = await checkoutQuantityHelper.checkQuantity(productId, newQuantity);
+        if (!checkQuantity) {
+            req.flash("error", "số lượng hàng không hợp lệ");
+            res.redirect("/cart");
+            return;
+        }
         // console.log(newQuantity);
         await Cart.updateOne({
             _id: cartId,
@@ -70,6 +79,12 @@ module.exports.addPost = async (req, res) => {
         const objCart = {
             product_id: productId,
             quantity: quantity
+        }
+        const checkQuantity = await checkoutQuantityHelper.checkQuantity(productId, quantity);
+        if (!checkQuantity) {
+            req.flash("error", "số lượng hàng không hợp lệ");
+            res.redirect("/cart");
+            return;
         }
         await Cart.updateOne({
             _id: cartId
@@ -95,7 +110,7 @@ module.exports.delete = async (req, res) => {
             $pull: { products: { product_id: productId } }
         }
     )
-    console.log(productId);
+    // console.log(productId);
     req.flash("success", "Đã xóa sản phẩm khỏi giỏ hàng")
     res.redirect(req.get("Referer"));
 }
@@ -107,6 +122,14 @@ module.exports.update = async (req, res) => {
     // console.log(productId, newQuantity);
 
     const cartId = req.cookies.cartId;
+    //cập nhật số lượng kiểm tragg
+    const checkQuantity = await checkoutQuantityHelper.checkQuantity(productId, newQuantity);
+    // console.log(checkQuantity);
+    if (!checkQuantity) {
+        req.flash("error", "số lượng hàng không hợp lệ");
+        res.redirect("/cart");
+        return;
+    }
     await Cart.updateOne(
         {
             _id: cartId,
@@ -114,8 +137,8 @@ module.exports.update = async (req, res) => {
         },
         {
             $set: {
-                    'products.$.quantity': newQuantity
-                }
+                'products.$.quantity': newQuantity
+            }
         }
     )
     req.flash("success", "Cập nhật số lượng")

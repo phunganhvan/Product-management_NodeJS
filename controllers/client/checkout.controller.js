@@ -22,7 +22,13 @@ module.exports.index = async (req, res) => {
             let product = await Product.findOne({
                 _id: item.product_id,
                 deleted: false
-            }).select("title thumbnail slug price discountPercentage")
+            }).select("title thumbnail slug price discountPercentage stock")
+            if(item.quantity > product.stock || item.quantity <1){
+                // item.quantity=1;
+                req.flash("error","số lượng hàng không hợp lệ");
+                res.redirect("/cart");
+                return;
+            }
             product.quantity = item.quantity;
             product = productHelper.priceNewProduct(product)
             item.productInfo = product;

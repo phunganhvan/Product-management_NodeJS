@@ -1,5 +1,7 @@
 const md5 = require("md5");
 const User = require("../../models/users.model");
+const generateHelper = require("../../helpers/generate");
+const ForgotPassword = require("../../models/forgotPassword.model")
 // {GET} /user/register
 module.exports.register = async (req, res) => {
     res.render("client/pages/user/register", {
@@ -95,12 +97,14 @@ module.exports.forgotPasswordPost = async (req, res) => {
 
 
     // lưu thông tin vào db rồi mới gửi
+    const otp= generateHelper.generateRandomOtp(6)
     const objectForgotPassword = {
         email: email,
-        otp: String,
-        expiresAt: Date.now() + 300
+        otp: otp,
+        expiresAfter: new Date(Date.now() + 12 * 10000)
     }
-
+    const forgotPassword = new ForgotPassword(objectForgotPassword);
+    await forgotPassword.save();
 
     // nếu có thì gửi mã OTP
     res.send("OK");

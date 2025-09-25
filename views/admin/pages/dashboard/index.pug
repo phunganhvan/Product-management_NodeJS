@@ -6,5 +6,54 @@ block main
     +alert-success(5000)
     +alert-error(5000)
 
-    div #{role}
-    div #{user}
+    .row.mt-4
+        .col-12 
+            .card.mb-4 
+                .card-header Thông tin tài khoản 
+                .card-body
+                    .row
+                        .col-6.text-center
+                            if(user.avatar)
+                                img(
+                                    src=user.avatar
+                                    style="height: 200px; margin-bottom: 15px"
+                                )
+                        .col-6
+                            if(user.fullName)
+                                p Họ tên: <b>#{user.fullName}</b>
+                            if(user.email)
+                                p Email: <b>#{user.email}</b>
+                            if(user.phone)
+                                p Số điện thoại: <b>#{user.phone}</b>
+                            if(role.title)
+                                p Phân quyền: <b>#{role.title}</b>
+        
+        .col-6 
+            .card.mb-4 
+                .card-header Danh mục sản phẩm 
+                .card-body 
+                    p Số lượng: <b>#{statistic.categoryProduct.total}</b>
+                    p Hoạt động: <b>#{statistic.categoryProduct.active}</b>
+                    p Ngừng hoạt động: <b>#{statistic.categoryProduct.inactive}</b>
+
+        .col-6 
+            .card.mb-4 
+                .card-header Sản phẩm 
+                .card-body 
+                    p Số lượng: <b>#{statistic.product.total}</b>
+                    p Hoạt động: <b>#{statistic.product.active}</b>
+                    p Ngừng hoạt động: <b>#{statistic.product.inactive}</b>
+        .col-6 
+            .card.mb-4 
+                .card-header Tài khoản admin
+                .card-body 
+                    p Số lượng: <b>#{statistic.account.total}</b>
+                    p Hoạt động: <b>#{statistic.account.active}</b>
+                    p Ngừng hoạt động: <b>#{statistic.account.inactive}</b> 
+        .col-6 
+            .card.mb-4 
+                .card-header Tài khoản client  
+                .card-body 
+                    p Số lượng: <b>#{statistic.user.total}</b>
+                    p Hoạt động: <b>#{statistic.user.active}</b>
+                    p Ngừng hoạt động: <b>#{statistic.user.inactive}</b>

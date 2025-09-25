@@ -1,0 +1,86 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug 
+block main 
+    h1 Cài đặt chung
+
+    +alert-error(5000)
+    +alert-success(5000)
+
+    form(
+        action= `${PATH_ADMIN}/settings/general?_method=PATCH`
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        div(class="mb-3")
+            label(for="websiteName") Tên website 
+            input(
+                type="text"
+                class="form-control"
+                id="websiteName"
+                name="websiteName"
+                value= settingGeneral.websiteName
+            )
+        div(
+            class="mb-3"
+            upload-image
+        )
+            label(for="logo" style="display: block;") Ảnh 
+            input(
+                type= "file"
+                class="form-control-file"
+                id="logo"
+                name="logo"
+                accept="image/*"
+                upload-image-input
+            )
+            img(
+                upload-image-preview
+                id="preview" 
+                src= settingGeneral.logo 
+                alt="Ảnh của tôi"
+                style="margin-right: 10px"
+            )
+            p(
+                close-preview
+            ) Close
+        div(class="mb-3")
+            label(for="phone") Số điện thoại
+            input(
+                type="text"
+                class="form-control"
+                id="phone"
+                name="phone"
+                value= settingGeneral.phone
+            )
+        div(class="mb-3")
+            label(for="email") Email
+            input(
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value= settingGeneral.email
+            )
+        div(class="mb-3")
+            label(for="address") Địa chỉ
+            input(
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                value= settingGeneral.address
+            )
+        div(class="mb-3")
+            label(for="copyright") Copyright
+            input(
+                type="text"
+                class="form-control"
+                id="copyright"
+                name="copyright"
+                value= settingGeneral.copyright
+            )
+        div(class='mb-3')
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Cập nhật

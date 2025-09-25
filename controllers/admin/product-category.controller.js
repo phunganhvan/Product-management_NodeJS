@@ -90,7 +90,7 @@ module.exports.createPost = async (req, res) => {
     // await console.log(req.body)
 
     const permission = res.locals.role.permission
-    if (permission.includess("products-category_create")) {
+    if (permission.includes("products-category_create")) {
         const count = await ProductCategory.countDocuments();
         req.body.position = parseInt(req.body.position) || (count + 1)
         req.body.createdBy = {

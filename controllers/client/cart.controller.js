@@ -80,7 +80,7 @@ module.exports.addPost = async (req, res) => {
             product_id: productId,
             quantity: quantity
         }
-        console.log(quantity);
+        // console.log(quantity);
         const checkQuantity = await checkoutQuantityHelper.checkQuantity(productId, quantity);
         if (!checkQuantity) {
             req.flash("error", "số lượng hàng không hợp lệ");

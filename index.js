@@ -50,13 +50,20 @@ app.set('view engine', 'pug');
 // có 1 biến _dirname
 app.use(express.static(`${__dirname}/public`))
 // có thể load được những file public
-route(app);
-routeAdmin(app);
 //app local variabble
 app.locals.PATH_ADMIN= systemConfig.prefixAdmin;
 
 
 app.locals.moment= moment
+route(app);
+routeAdmin(app);
+app.use((req, res) =>{
+    res.render("client/pages/errors/404", {
+        titlePage: "404 Not Found"
+    });
+});
+
+
 // router => trả về gì ( phản hồi)
 app.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`);

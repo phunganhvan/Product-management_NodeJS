@@ -14,6 +14,12 @@ const session= require('express-session');
 
 const moment= require("moment")
 
+// socketio
+const { createServer } = require('node:http');
+const { join } = require('node:path');
+const { Server } = require('socket.io');
+
+
 require('dotenv').config();
 const database = require('./config/database');
 //nhúng mongoose
@@ -21,7 +27,13 @@ database.connect();
 
 const app = express();
 //goi hàm express tạo app
-
+//socket io
+const server = createServer(app);
+const io = new Server(server);
+io.on('connection', (socket) => {
+  console.log('a user connected', socket.id);
+});
+// end socket
 
 //tạo express flash
 app.use(cookieParser('keyboard cat'));
@@ -65,7 +77,8 @@ app.use((req, res) =>{
 
 
 // router => trả về gì ( phản hồi)
-app.listen(port, ()=>{
+//thay vì app.listen thi dùng server
+server.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`);
 })
 //app là cấp cao nhất

@@ -36,8 +36,6 @@ module.exports.index = async (req, res) => {
 
 
     const records = await ProductCategory.find(find);
-    const newRecords = createTreeHelper.create(records)
-
     for (const record of records) {
         // Lấy ra thông tin người tạo
         const user = await Account.findOne({
@@ -61,11 +59,15 @@ module.exports.index = async (req, res) => {
             }
         }
     }
+    const newRecords = createTreeHelper.create(records)
+
+    
     res.render("admin/pages/product-category/index", {
         pageTitle: "Danh mục sản phẩm",
         records: newRecords,
         filter: filterStatus,
         keyword: keyword,
+        find: find,
         isDelete: find.deleted
     });
 }
@@ -119,7 +121,7 @@ module.exports.createPost = async (req, res) => {
 
 module.exports.changeStatus = async (req, res) => {
     const permission = res.locals.role.permission
-    if (permission.includess("products-category_edit")) {
+    if (permission.includes("products-category_edit")) {
         const status = req.params.status;
         const id = req.params.id;
         const updatedBy = {
@@ -184,7 +186,7 @@ module.exports.editPatch = async (req, res) => {
 
 module.exports.changeMulti = async (req, res) => {
     const permission = res.locals.role.permission
-    if (permission.includess("products-category_edit")) {
+    if (permission.includes("products-category_edit")) {
         // console.log(req.body);
         const type = req.body.type;
         const ids = req.body.ids.split(", ");
@@ -274,7 +276,7 @@ module.exports.changeMulti = async (req, res) => {
 
 module.exports.deleteProductCategory = async (req, res) => {
     const permission = res.locals.role.permission
-    if (permission.includess("products-category_delete")) {
+    if (permission.includes("products-category_delete")) {
         const id = req.params.id;
         console.log(id);
         await ProductCategory.updateOne(
@@ -299,7 +301,7 @@ module.exports.deleteProductCategory = async (req, res) => {
 }
 module.exports.restore = async (req, res) => {
     const permission = res.locals.role.permission
-    if (permission.includess("products-category_edit")) {
+    if (permission.includes("products-category_edit")) {
         const id = req.params.id
         const updatedBy = {
             accountId: res.locals.user.id,
@@ -322,7 +324,7 @@ module.exports.restore = async (req, res) => {
 }
 module.exports.restoreOne = async (req, res) => {
     const permission = res.locals.role.permission
-    if (permission.includess("products-category_edit")) {
+    if (permission.includes("products-category_edit")) {
         const id = req.params.id
         const updatedBy = {
             accountId: res.locals.user.id,

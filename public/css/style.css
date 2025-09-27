@@ -244,3 +244,83 @@ a{
 }
 
 /* end-show-alert */
+
+
+/* css cho chat  */
+.chat {
+  max-width: 500px;
+  margin: 20px auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  padding: 15px;
+  font-family: sans-serif;
+}
+
+.chat .inner-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* Tin nhắn chung */
+.inner-incoming,
+.inner-outgoing {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 18px;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+
+/* Tin nhắn đến (bên trái) */
+.inner-incoming {
+  align-self: flex-start;
+  background: #f1f1f1;
+  color: #333;
+}
+
+.inner-incoming .inner-name {
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #444;
+}
+
+/* Tin nhắn đi (bên phải) */
+.inner-outgoing {
+  align-self: flex-end;
+  background: #fe5da3;
+  color: #fff;
+}
+.chat .inner-foot{
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+.chat .inner-form {
+    display: flex;
+    align-items: center;
+}
+
+.chat .inner-form input {
+    flex: 1;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 0 10px;
+    outline: none;
+}
+
+.chat .inner-form button {
+    border-radius: 15px;
+    border: 1px solid #FE5DA3;
+    background: #FE5DA3;
+    color: #fff;
+    height: 32px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+/* End chat */

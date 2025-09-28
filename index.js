@@ -30,9 +30,7 @@ const app = express();
 //socket io
 const server = createServer(app);
 const io = new Server(server);
-io.on('connection', (socket) => {
-  console.log('a user connected', socket.id);
-});
+global._io =io;
 // end socket
 
 //tạo express flash

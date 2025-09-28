@@ -42,6 +42,9 @@ header.header
             a.nav-link(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
 
           if user
+            li.nav-item 
+              a.nav-link(href="/chat") 
+                i.fa-solid.fa-comment
             li.nav-item
               a.btn.btn-primary.ms-2(href="/user/info") #{user.fullName}
             li.nav-item

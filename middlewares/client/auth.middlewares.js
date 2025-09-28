@@ -11,15 +11,16 @@ module.exports.requireAuth = async(req, res, next) =>{
     }
     else{
         const user= await User.findOne({
-            token:req.cookies.token
+            token: req.cookies.token
         }).select("-password");
         if(!user){
             req.flash("error", "Bạn không thể truy cập vào trang này")
             return res.redirect(`/user/login`)
         }
         else{
-            res.locals.user= user 
-            next()
+            // res.locals.user= user 
+            next();
+            // console.log(user, req.cookies.tokenUser);
         }
     }
     

@@ -27,7 +27,8 @@ module.exports.registerPost = async (req, res) => {
     }
     req.body.password = md5(req.body.password);
     const user = new User(req.body)
-    await user.save()
+    await user.save();
+    res.locals.user= user
     res.cookie("tokenUser", user.tokenUser)
     res.redirect("/");
 }
@@ -67,7 +68,7 @@ module.exports.loginPost = async (req, res) => {
         res.redirect(req.get("Referer"));
         return;
     }
-    const cart = await Card.findOne({
+    const cart = await Cart.findOne({
         user_id: user.id
     });
     if (cart) {

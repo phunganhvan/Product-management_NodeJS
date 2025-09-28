@@ -11,6 +11,7 @@ module.exports.infoUser = async (req, res, next) => {
         }).select("-password");
         if (user) {
             res.locals.user = user
+            // console.log(user, req.cookies.tokenUser);
         }
     }
 

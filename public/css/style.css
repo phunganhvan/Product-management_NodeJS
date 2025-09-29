@@ -262,6 +262,9 @@ a{
   flex-direction: column;
   gap: 10px;
   margin-bottom: 15px;
+  /*thêm scroll*/
+  max-height: 450px;
+  overflow-y: auto;
 }
 
 /* Tin nhắn chung */

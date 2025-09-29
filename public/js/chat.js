@@ -36,14 +36,44 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
             <div class="inner-content"> ${data.content} </div>
         `
     innerBody.appendChild(div);
-    bodyChat.scrollTop= bodyChat.scrollHeight;
+    bodyChat.scrollTop = bodyChat.scrollHeight;
 })
 // end SERVER_RETURN_MESSAGE
 
 // fix scroll chat auto o bottom
 
 const bodyChat = document.querySelector(".chat .inner-body");
-if(bodyChat){
-    bodyChat.scrollTop= bodyChat.scrollHeight;
+if (bodyChat) {
+    bodyChat.scrollTop = bodyChat.scrollHeight;
     // scroll bằng đúng chiều cao
 }
+
+// emoji-picker0-elemet
+//show pop up
+
+import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
+const buttonIcon = document.querySelector('.button-icons')
+if (buttonIcon) {
+    console.log(buttonIcon)
+    const tooltip = document.querySelector('.tooltip')
+    Popper.createPopper(buttonIcon, tooltip)
+
+    buttonIcon.onclick = () => {
+        tooltip.classList.toggle('shown');
+        console.log("click");
+    }
+}
+//end show pop up
+
+//insert icon to input
+const emojiPicker= document.querySelector('emoji-picker');
+if(emojiPicker){
+    const inputChat= document.querySelector(".chat .inner-form input[name='content']")
+    emojiPicker.addEventListener('emoji-click', (event) => {
+        const icon = event.detail.unicode;
+        inputChat.value+= icon;
+        console.log(event.detail)
+    });
+}
+//end insert
+//end show icon

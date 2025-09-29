@@ -39,6 +39,12 @@ block main
                     .inner-foot
                         form.inner-form(action="")
                             input(type="text" name="content" placeholder="Nhập nội dung…")
+                            span(class="button-icons btn btn-light mx-2")
+                                i.fa-regular.fa-face-smile
+
                             button(type="submit") 
                                 i.fa-solid.fa-paper-plane
-                            
+        .row 
+            .col-12
+                div(class="tooltip" role="tooltip")
+                    emoji-picker(class="light")

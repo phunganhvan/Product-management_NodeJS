@@ -1,8 +1,8 @@
-
-a{
-    text-decoration: none!important;
+a {
+    text-decoration: none !important;
 }
-.header .inner-menu > ul{
+
+.header .inner-menu>ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -12,14 +12,17 @@ a{
     flex-wrap: wrap;
 
 }
-.header .inner-menu > ul > li{
+
+.header .inner-menu>ul>li {
     margin-left: 20px;
 }
-.header{
+
+.header {
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
 }
-.header .inner-logo img{
+
+.header .inner-logo img {
     max-height: 50px;
     max-width: 100%;
     aspect-ratio: 4/3;
@@ -27,7 +30,7 @@ a{
 
 /* End Header */
 
-.footer{
+.footer {
     background: #333;
     color: #fff;
     text-align: center;
@@ -35,28 +38,31 @@ a{
 }
 
 /* End Footer */
-.product-item{
+.product-item {
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
     height: 100%;
     width: auto;
 }
-.product-item .inner-image{
+
+.product-item .inner-image {
     width: 100%;
     aspect-ratio: 4/3;
     border-bottom: 1px solid #ddd;
     position: relative;
 }
-.product-item .inner-image img{
+
+.product-item .inner-image img {
     height: 400px;
     width: auto;
     /* height: 100%; */
     object-fit: cover;
-}  
+}
+
 .product-item .inner-featured {
     position: absolute;
-    top:0;
+    top: 0;
     right: 0;
     background: green;
     color: white;
@@ -65,25 +71,30 @@ a{
     font-size: 14px;
     border-radius: 8px;
 }
-.product-item .inner-content{
+
+.product-item .inner-content {
     padding: 15px;
-} 
-.product-item .inner-content .inner-title{
+}
+
+.product-item .inner-content .inner-title {
     font-size: 20px;
     font-weight: 600;
 }
-.product-item .inner-content .inner-price-new{
+
+.product-item .inner-content .inner-price-new {
     font-size: 18px;
     font-weight: 600;
     color: green;
 }
-.product-item .inner-content .inner-price-old{
+
+.product-item .inner-content .inner-price-old {
     font-size: 18px;
     font-weight: 600;
     color: red;
     text-decoration: line-through;
 }
-.product-item .inner-content .inner-discount{
+
+.product-item .inner-content .inner-discount {
     font-size: 14px;
     font-weight: 600;
     color: white;
@@ -93,11 +104,11 @@ a{
     bottom: 8px;
 }
 
-.badge-success{
+.badge-success {
     background: green;
 }
 
-.badge-danger{
+.badge-danger {
     background: red;
 }
 
@@ -107,6 +118,7 @@ a{
     position: relative;
     z-index: 999;
 }
+
 .sub-menu ul {
     position: absolute;
     right: 0;
@@ -119,58 +131,60 @@ a{
     display: none;
 }
 
-.sub-menu ul li{
+.sub-menu ul li {
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
 
-.sub-menu:hover >ul {
+.sub-menu:hover>ul {
     display: block;
 }
 
-.sub-menu ul li{
+.sub-menu ul li {
     position: relative;
 }
 
-.sub-menu ul li ul{
+.sub-menu ul li ul {
     right: 100%;
     top: 0;
 }
 
-.sub-menu ul li:hover >ul{
+.sub-menu ul li:hover>ul {
     display: block;
 }
 
 /* end sub-menu  */
 
 
-.box-head{
+.box-head {
     color: green
 }
+
 /* product-detail  */
 
-.product-detail .inner-thumb img{
+.product-detail .inner-thumb img {
     margin-left: 40px;
     width: 80%;
     height: auto;
 }
 
-.product-detail .inner-title{
+.product-detail .inner-title {
     font-size: 32px;
     margin-bottom: 15px;
 }
 
-.product-detail .inner-category{
+.product-detail .inner-category {
     margin-bottom: 10px;
 }
-.product-detail .inner-price-new{
+
+.product-detail .inner-price-new {
     color: green;
     font-weight: 600;
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.product-detail .inner-price-old{
+.product-detail .inner-price-old {
     color: red;
     font-weight: 600;
     font-size: 20px;
@@ -178,11 +192,11 @@ a{
     text-decoration: line-through;
 }
 
-.product-detail .inner-percent{
+.product-detail .inner-percent {
     margin-bottom: 10px;
 }
 
-.product-detail .inner-percent span{
+.product-detail .inner-percent span {
     color: #fff;
     background: red;
     font-weight: 600;
@@ -191,11 +205,11 @@ a{
     border-radius: 8px;
 }
 
-.product-detail .inner-stock{
+.product-detail .inner-stock {
     margin-bottom: 10px;
 }
 
-.product-detail .inner-stock span{
+.product-detail .inner-stock span {
     color: #fff;
     background: green;
     font-weight: 600;
@@ -207,7 +221,7 @@ a{
 /* end product-detail  */
 
 /* show-alert */
-.alert-hidden{
+.alert-hidden {
     display: none;
 }
 
@@ -217,20 +231,24 @@ a{
     right: 15px;
     z-index: 9000;
 }
-[show-alert].alert-hidden{
+
+[show-alert].alert-hidden {
     animation-name: alert-hidden;
     animation-duration: 1s;
     animation-fill-mode: both;
 }
-@keyframes alert-hidden{
-    from{
+
+@keyframes alert-hidden {
+    from {
         right: 15px
     }
-    to{
+
+    to {
         right: -100%;
         display: none;
     }
 }
+
 [show-alert] [close-alert] {
     background: #ffffffc4;
     display: inline-block;
@@ -248,60 +266,62 @@ a{
 
 /* css cho chat  */
 .chat {
-  max-width: 500px;
-  margin: 20px auto;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fff;
-  padding: 15px;
-  font-family: sans-serif;
+    max-width: 500px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    padding: 15px;
+    font-family: sans-serif;
 }
 
 .chat .inner-body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 15px;
-  /*thêm scroll*/
-  max-height: 450px;
-  overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+    /*thêm scroll*/
+    max-height: 450px;
+    overflow-y: auto;
 }
 
 /* Tin nhắn chung */
 .inner-incoming,
 .inner-outgoing {
-  display: flex;
-  flex-direction: column;
-  max-width: 70%;
-  padding: 8px 12px;
-  border-radius: 18px;
-  word-wrap: break-word;
-  font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 18px;
+    word-wrap: break-word;
+    font-size: 14px;
 }
 
 /* Tin nhắn đến (bên trái) */
 .inner-incoming {
-  align-self: flex-start;
-  background: #f1f1f1;
-  color: #333;
+    align-self: flex-start;
+    background: #f1f1f1;
+    color: #333;
 }
 
 .inner-incoming .inner-name {
-  font-weight: bold;
-  margin-bottom: 2px;
-  color: #444;
+    font-weight: bold;
+    margin-bottom: 2px;
+    color: #444;
 }
 
 /* Tin nhắn đi (bên phải) */
 .inner-outgoing {
-  align-self: flex-end;
-  background: #fe5da3;
-  color: #fff;
+    align-self: flex-end;
+    background: #fe5da3;
+    color: #fff;
 }
-.chat .inner-foot{
+
+.chat .inner-foot {
     border-top: 1px solid #ddd;
     padding: 10px;
 }
+
 .chat .inner-form {
     display: flex;
     align-items: center;
@@ -327,3 +347,17 @@ a{
 }
 
 /* End chat */
+
+/* css cho button show icons */
+emoji-picker {
+  font-family: system-ui, "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+.tooltip {
+    visibility: hidden;
+}
+
+.tooltip.shown {
+    visibility: visible;
+    opacity: 1!important;
+    transition: opacity 0.2s ease;
+}

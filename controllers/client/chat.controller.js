@@ -22,6 +22,17 @@ module.exports.index = async (req, res) => {
                 content: content
             })
         });
+        //typing
+        socket.on("CLIENT_SEND_TYPING", async(data) =>{
+            console.log(data);
+            socket.broadcast.emit("SERVER_RETURN_TYPING", {
+                fullName: fullName,
+                userId: userId,
+                type: data
+            })
+        })
+
+        //end typing
     });
 
     // Lấy data từ db ra

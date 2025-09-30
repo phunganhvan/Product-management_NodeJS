@@ -74,6 +74,22 @@ if(emojiPicker){
         inputChat.value+= icon;
         console.log(event.detail)
     });
+
+
+
+    // input key up ( khi người dùng click vào ô input)
+    inputChat.addEventListener("keyup", () =>{
+        socket.emit("CLIENT_SEND_TYPING", "show")
+    })
+
+    // end input
 }
 //end insert
 //end show icon
+
+// SERVER RETURN TYPING
+socket.on("SERVER_RETURN_TYPING", (data) =>{
+    
+})
+
+// END SERVER RETURN TYPING

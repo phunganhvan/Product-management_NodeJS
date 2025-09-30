@@ -361,3 +361,71 @@ emoji-picker {
     opacity: 1!important;
     transition: opacity 0.2s ease;
 }
+/*End*/
+
+/* box typing */
+
+.box-typing{
+    position: relative;
+}
+
+.box-typing .inner-dots{
+    position: relative;
+    height: 20px;
+    width: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #efefef;
+    border-radius: 45px;
+    margin-top: 2px;
+}
+
+.box-typing .inner-dots span{
+    animation: blink 1s infinite ease-in-out;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background: #252525;
+}
+
+/* tạo lệch thời gian */
+.box-typing .inner-dots > span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.box-typing .inner-dots > span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 80%, 100% {
+    transform: scale(0.3);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* tạo delay để nhảy lần lượt */
+/* .box-typing .inner-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.box-typing .inner-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+} */
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-6px); /* nhảy lên */
+    opacity: 1;
+  }
+}
+
+
+/* end box typing */

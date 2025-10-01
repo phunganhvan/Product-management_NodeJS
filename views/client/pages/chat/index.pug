@@ -4,6 +4,7 @@ include ../../mixins/box-head.pug
 
 block main 
     .container.my-3 
+        include ../../partials/list-btn-user.pug 
         .row 
             .col-12
                 +box-head(titlePage)
@@ -37,7 +38,14 @@ block main
                         
                     .inner-foot
                         form.inner-form(action="")
-                            input(type="text" name="content" placeholder="Nhập nội dung…")
+                            input(
+                                type="text" 
+                                name="content" 
+                                placeholder="Nhập nội dung…"
+                            )
+                            div(
+                                class="custom-file-container" data-upload-id="my-unique-id"
+                            )
                             span(class="button-icon btn btn-light mx-2")
                                 i.fa-regular.fa-face-smile
                             button(type="submit") 

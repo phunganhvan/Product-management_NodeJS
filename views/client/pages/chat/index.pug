@@ -16,33 +16,31 @@ block main
                             if(chat.infoUser.id != user.id)
                                 .inner-incoming 
                                     .inner-name #{chat.infoUser.fullName}
-                                    .inner-content #{chat.content}
+                                    .inner-content 
+                                        | #{chat.content}
                             else 
                                 .inner-outgoing 
                                     .inner-content #{chat.content}
                         div(class= "inner-list-typing")
-                            div(class="box-typing")
-                                div(class="inner-name") Le Van A 
-                                div(class="inner-dots")
-                                    span 
-                                    span 
-                                    span 
-                            div(class="box-typing")
-                                div(class="inner-name") Le Van B 
-                                div(class="inner-dots")
-                                    span 
-                                    span 
-                                    span
+                            //- div(class="box-typing")
+                            //-     div(class="inner-name") Le Van A 
+                            //-     div(class="inner-dots")
+                            //-         span 
+                            //-         span 
+                            //-         span 
+                            //- div(class="box-typing")
+                            //-     div(class="inner-name") Le Van B 
+                            //-     div(class="inner-dots")
+                            //-         span 
+                            //-         span 
+                            //-         span
                         
                     .inner-foot
                         form.inner-form(action="")
                             input(type="text" name="content" placeholder="Nhập nội dung…")
-                            span(class="button-icons btn btn-light mx-2")
+                            span(class="button-icon btn btn-light mx-2")
                                 i.fa-regular.fa-face-smile
-
                             button(type="submit") 
                                 i.fa-solid.fa-paper-plane
-        .row 
-            .col-12
-                div(class="tooltip" role="tooltip")
-                    emoji-picker(class="light")
+    div(class="tooltip" role="tooltip")
+        emoji-picker(class="light")

@@ -1,18 +1,21 @@
 const Chat = require("../../models/chat.model")
 const User= require("../../models/users.model");
 module.exports.index = async (req, res) => {
+    const userInfo1= await User.findOne({
+        tokenUser: req.cookies.tokenUser,
+    });
     const userId= res.locals.user.id;
-    const fullName= res.locals.user.fullName
+    const fullName= res.locals.user.fullName;
     //gửi 1 lần
     _io.once('connection', (socket) => {
         // console.log('a user connected', socket.id);
-        socket.on("CLIEN_SEND_MESSAGE", async(content) =>{
+        socket.on("CLIENT_SEND_MESSAGE", async(content) =>{
             // lưu vào DB
             const chat = new Chat({
                 user_id: userId,
                 content: content
             });
-            await chat.save()
+            await chat.save();
 
             
             //lưu xong sẽ trả về data client
@@ -23,12 +26,12 @@ module.exports.index = async (req, res) => {
             })
         });
         //typing
-        socket.on("CLIENT_SEND_TYPING", async(data) =>{
-            console.log(data);
+        socket.on("CLIENT_SEND_TYPING", async(type) =>{
+            // console.log(type);
             socket.broadcast.emit("SERVER_RETURN_TYPING", {
                 fullName: fullName,
                 userId: userId,
-                type: data
+                type: type
             })
         })
 

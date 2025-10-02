@@ -1,0 +1,19 @@
+console.log("OK");
+
+// chức năng gửi yêu cầu
+
+const list_btn_add_friend= document.querySelectorAll("[btn-add-friend]");
+if(list_btn_add_friend){
+    // console.log(list_btn_add_friend);
+    list_btn_add_friend.forEach( button =>{
+        button.addEventListener("click", () => {
+            // const myId= 
+            const friendId= button.getAttribute("btn-add-friend");
+            const parentBoxUser= button.closest(".box-user");
+            // console.log(parentBoxUser);
+            parentBoxUser.classList.add("add");
+            // console.log(friendId);
+            socket.emit('CLIENT_ADD_FRIEND',friendId);
+        })
+    })
+}

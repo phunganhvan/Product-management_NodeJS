@@ -4,7 +4,6 @@ console.log("OK");
 
 const list_btn_add_friend= document.querySelectorAll("[btn-add-friend]");
 if(list_btn_add_friend){
-    // console.log(list_btn_add_friend);
     list_btn_add_friend.forEach( button =>{
         button.addEventListener("click", () => {
             // const myId= 
@@ -14,6 +13,23 @@ if(list_btn_add_friend){
             parentBoxUser.classList.add("add");
             // console.log(friendId);
             socket.emit('CLIENT_ADD_FRIEND',friendId);
+        })
+    })
+}
+
+// chức năng hủy yêu cầu
+
+const list_btn_cancel_friend= document.querySelectorAll("[btn-cancel-friend]");
+if(list_btn_cancel_friend){
+    list_btn_cancel_friend.forEach( button =>{
+        button.addEventListener("click", () => {
+            // const myId= 
+            const friendId= button.getAttribute("btn-cancel-friend");
+            const parentBoxUser= button.closest(".box-user");
+            // console.log(parentBoxUser);
+            parentBoxUser.classList.remove("add");
+            // console.log(friendId);
+            socket.emit('CLIENT_CANCEL_ADD',friendId);
         })
     })
 }

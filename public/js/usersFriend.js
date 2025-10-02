@@ -33,3 +33,20 @@ if(list_btn_cancel_friend){
         })
     })
 }
+
+// chức năng xóa lời mời kết bạn
+
+const listBtnDeleteRequest= document.querySelectorAll("[btn-refuse-friend]");
+if(listBtnDeleteRequest){
+    listBtnDeleteRequest.forEach( button =>{
+        button.addEventListener("click", () => {
+            // const myId= 
+            const friendId= button.getAttribute("btn-refuse-friend");
+            const parentBoxUser= button.closest(".box-user");
+            // console.log(parentBoxUser);
+            parentBoxUser.classList.add("refuse");
+            // console.log(friendId);
+            socket.emit('CLIENT_REFUSE_ADD',friendId);
+        })
+    })
+}

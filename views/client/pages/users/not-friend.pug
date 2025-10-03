@@ -9,7 +9,7 @@ block main
             .col-12
                 +box-head(titlePage)
         
-        .row 
+        .row(data-users-not-friend=user.id) 
             each user in users    
                 .col-4(user-id=user.id) 
                     div(

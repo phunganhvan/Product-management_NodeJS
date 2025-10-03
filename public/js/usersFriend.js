@@ -96,10 +96,11 @@ if (badgeUserAccept) {
 // End SERVER_RETURN_LENGTH_ACP
 
 // "SERVER_RETURN_INFO_ACP"  // chấp nhận kết bạn và xóa yêu cầu kết bạn + hiện thị người kết bạn
-const dataUsersAcp = document.querySelector("[data-users-accept]");
-if (dataUsersAcp) {
-    const userId = dataUsersAcp.getAttribute("data-users-accept");
-    socket.on("SERVER_RETURN_INFO_ACP", (data) => {
+socket.on("SERVER_RETURN_INFO_ACP", (data) => {
+    // trang lời mời đã nhận
+    const dataUsersAcp = document.querySelector("[data-users-accept]");
+    if (dataUsersAcp) {
+        const userId = dataUsersAcp.getAttribute("data-users-accept");
         // console.log(data);
         // ktra xem đúng người được gửi yêu cầu không
         if (userId == data.userId) {
@@ -149,18 +150,35 @@ if (dataUsersAcp) {
             acceptFriend(btnAccept)
             //end chấp nhận lời mời kết bạn
         }
-    });
-}
+
+    }
+
+    // trang danh sách người dùng
+    const dataUsersNotFriend = document.querySelector("[data-users-not-friend]");
+    if (dataUsersNotFriend) {
+        const userId = dataUsersNotFriend.getAttribute("data-users-not-friend")
+        if (userId == data.userId) {
+            // tìm xem thấy người gửi kết bạn kia không để xóa
+            const boxRemove = dataUsersNotFriend.querySelector(`[user-id= '${data.infoUserReq._id}']`);
+            if (boxRemove) {
+                dataUsersNotFriend.removeChild(boxRemove);
+
+            }
+
+        }
+    }
+});
+
 // END
 
 //SERVER_RETURN_CANCEL_REQ 
 socket.on("SERVER_RETURN_CANCEL_REQ", (data) => {
     const myId = data.myId // id của người gửi yêu cầu
-    const boxRemove= document.querySelector(`[user-id= '${myId}']`);
-    if(boxRemove){
+    const boxRemove = document.querySelector(`[user-id= '${myId}']`);
+    if (boxRemove) {
         const user_id = badgeUserAccept.getAttribute("badge-users-accept")
         const dataUsersAcp = document.querySelector("[data-users-accept]");
-        if(user_id== data.friendId){
+        if (user_id == data.friendId) {
             dataUsersAcp.removeChild(boxRemove);
         }
     }

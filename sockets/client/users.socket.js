@@ -43,7 +43,7 @@ module.exports = (res) => {
                     }
                 );
             }
-
+            // cập nhận số lượng lời mời bên người nhận
             const infoUserAcp= await User.findOne({
                 _id: friendId
             });
@@ -52,6 +52,15 @@ module.exports = (res) => {
                 userId: friendId,
                 lengthAcpFriends: lengthAcpFriend
             });
+
+            // lấy info người gửi trả về bên giao diện người nhận
+            const infoUserReq= await User.findOne({
+                _id: myId
+            }).select("id avatar fullName");
+            socket.broadcast.emit("SERVER_RETURN_INFO_ACP", {
+                userId: friendId, // người nhận thông tin này là người được gửi yêu cầu
+                infoUserReq: infoUserReq
+            })
         });
 
         // chức năng xóa yêu cầu

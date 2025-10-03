@@ -43,6 +43,15 @@ module.exports = (res) => {
                     }
                 );
             }
+
+            const infoUserAcp= await User.findOne({
+                _id: friendId
+            });
+            const lengthAcpFriend= infoUserAcp.acceptFriends.length
+            socket.broadcast.emit("SERVER_RETURN_LENGTH_ACP", {
+                userId: friendId,
+                lengthAcpFriends: lengthAcpFriend
+            });
         });
 
         // chức năng xóa yêu cầu

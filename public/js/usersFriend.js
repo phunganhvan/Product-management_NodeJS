@@ -36,9 +36,9 @@ if(list_btn_cancel_friend){
 
 // chức năng xóa lời mời kết bạn
 
-const listBtnDeleteRequest= document.querySelectorAll("[btn-refuse-friend]");
-if(listBtnDeleteRequest){
-    listBtnDeleteRequest.forEach( button =>{
+const listBtnDelete= document.querySelectorAll("[btn-refuse-friend]");
+if(listBtnDelete){
+    listBtnDelete.forEach( button =>{
         button.addEventListener("click", () => {
             // const myId= 
             const friendId= button.getAttribute("btn-refuse-friend");
@@ -47,6 +47,22 @@ if(listBtnDeleteRequest){
             parentBoxUser.classList.add("refuse");
             // console.log(friendId);
             socket.emit('CLIENT_REFUSE_ADD',friendId);
+        })
+    })
+}
+
+// chức năng chấp nhận lời mời kết bạn
+const listBtnAccept= document.querySelectorAll("[btn-accept-friend]");
+if(listBtnAccept){
+    listBtnAccept.forEach( button =>{
+        button.addEventListener("click", () => {
+            // const myId= 
+            const friendId= button.getAttribute("btn-accept-friend");
+            const parentBoxUser= button.closest(".box-user");
+            // console.log(parentBoxUser);
+            parentBoxUser.classList.add("accept");
+            // console.log(friendId);
+            socket.emit('CLIENT_ACCEPT_ADD',friendId);
         })
     })
 }

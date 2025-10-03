@@ -13,6 +13,10 @@ module.exports.notFriend = async (req, res) => {
     });
     const requestFriends = myUser.requestFriends
     const acceptFriends = myUser.acceptFriends;
+    const friendList= [];
+    for(const item of myUser.friendList ){
+        friendList.push(item.user_id);
+    }
 
     // trick lord
     const users = await User.find({
@@ -20,6 +24,7 @@ module.exports.notFriend = async (req, res) => {
             { _id: { $ne: userId } },
             { _id: { $nin: requestFriends } },
             { _id: { $nin: acceptFriends } },
+            { _id: { $nin: friendList } },
         ],
         status: "active",
         deleted: false
@@ -73,4 +78,7 @@ module.exports.accept =  async (req, res) =>{
         titlePage: "Yêu cầu kết bạn",
         users: userAccept
     })
+}
+module.exports.friendList =async(req, res) =>{
+    res.render("client/pages/users/friend")
 }

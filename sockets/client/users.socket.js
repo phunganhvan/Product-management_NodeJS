@@ -107,6 +107,12 @@ module.exports = (res) => {
                 userId: friendId,
                 lengthAcpFriends: lengthAcpFriend
             });
+
+            // lấy id xóa người gửi tự xóa yêu cầu
+            socket.broadcast.emit("SERVER_RETURN_CANCEL_REQ", {
+                myId: myId,
+                friendId: friendId
+            })
         });
 
 

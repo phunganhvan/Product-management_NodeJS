@@ -11,7 +11,7 @@ block main
         
         .row 
             each user in users    
-                .col-4 
+                .col-4(user-id=user.id) 
                     div(
                         myId=user.id
                     )

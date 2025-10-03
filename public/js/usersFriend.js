@@ -95,17 +95,18 @@ if (badgeUserAccept) {
 
 // End SERVER_RETURN_LENGTH_ACP
 
-// "SERVER_RETURN_INFO_ACP"
+// "SERVER_RETURN_INFO_ACP"  // chấp nhận kết bạn và xóa yêu cầu kết bạn + hiện thị người kết bạn
 const dataUsersAcp = document.querySelector("[data-users-accept]");
 if (dataUsersAcp) {
     const userId = dataUsersAcp.getAttribute("data-users-accept");
     socket.on("SERVER_RETURN_INFO_ACP", (data) => {
-        console.log(data);
+        // console.log(data);
         // ktra xem đúng người được gửi yêu cầu không
         if (userId == data.userId) {
             //vẽ user ra giao diện
             const div = document.createElement("div");
-            div.classList.add('col-6');
+            div.classList.add('col-4');
+            div.setAttribute("user-id", data.infoUserReq._id)
             div.innerHTML = `
                 <div class="box-user flex">
                     <div class="inner-avatar">
@@ -144,9 +145,25 @@ if (dataUsersAcp) {
             //end hủy lời mời kết bạn
 
             //chấp nhận lời mời kết bạn
-            const btnAccept= div.querySelector("[btn-accept-friend]");
+            const btnAccept = div.querySelector("[btn-accept-friend]");
             acceptFriend(btnAccept)
             //end chấp nhận lời mời kết bạn
         }
     });
 }
+// END
+
+//SERVER_RETURN_CANCEL_REQ 
+socket.on("SERVER_RETURN_CANCEL_REQ", (data) => {
+    const myId = data.myId // id của người gửi yêu cầu
+    const boxRemove= document.querySelector(`[user-id= '${myId}']`);
+    if(boxRemove){
+        const user_id = badgeUserAccept.getAttribute("badge-users-accept")
+        const dataUsersAcp = document.querySelector("[data-users-accept]");
+        if(user_id== data.friendId){
+            dataUsersAcp.removeChild(boxRemove);
+        }
+    }
+
+});
+//END SERVER_RETURN_CANCEL_REQ

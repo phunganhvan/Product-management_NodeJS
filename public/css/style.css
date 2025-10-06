@@ -533,4 +533,13 @@ emoji-picker {
     display: inline-block;
 }
 
+.box-user .inner-status{
+    font-size: 12;
+    color: #00d800;
+    opacity: 0
+}
+
+.box-user .inner-status[status="online"]{
+    opacity: 1;
+}
 /*end trang add friend */

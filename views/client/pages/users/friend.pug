@@ -1,0 +1,42 @@
+extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug 
+
+block main 
+    .container.my-3 
+        include ../../partials/list-btn-user.pug
+
+        .row 
+            .col-12 
+                +box-head(titlePage)
+        
+        .row(data-friend=user.id)
+            each user in users    
+                .col-4(user-id=user.id)  
+                    div(
+                        myId=user.id
+                    )
+                    div(class="box-user")
+                        div(class="inner-avatar")
+                            img(
+                                src=(user.avatar ? user.avatar : "/admin/images/avatar.png")
+                                alt= user.fullName
+                            )
+                        div(
+                            class="inner-info"
+                        )
+                            div(class="inner-name") #{user.fullName}
+                            div(class="inner-buttons")
+                                a(
+                                    href="#"
+                                    class="btn btn-sm btn-primary mr-1"
+                                ) 
+                                    i.fa-solid.fa-comment
+                        div(
+                            class="inner-status"
+                            status=user.statusOnline
+                            
+                        )   
+                            i.fa-solid.fa-circle
+
+block script 
+    script( src="/js/usersFriend.js")

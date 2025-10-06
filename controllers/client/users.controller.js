@@ -79,6 +79,32 @@ module.exports.accept =  async (req, res) =>{
         users: userAccept
     })
 }
-module.exports.friendList =async(req, res) =>{
-    res.render("client/pages/users/friend")
+module.exports.friends =async(req, res) =>{
+    usersSocket(res);
+    // socket
+
+
+    const myId= res.locals.user.id
+    const myUser= await User.findOne({
+        _id: myId,
+    })
+    // cách tự làm
+    const friendList= [];
+    for(const item of myUser.friendList ){
+        friendList.push(item.user_id);
+    }
+
+    //cách khác
+    // const friendList= myUser.friendList
+    // const friendListId= friendList.map(item => item.user_id)
+    const user= await User.find({
+        _id: {$in: friendList},
+        status: "active",
+        deleted: false
+    }).select("avatar id fullName statusOnline");
+    
+    res.render("client/pages/users/friend", {
+        titlePage: "Danh sách bạn bè",
+        users: user
+    })
 }

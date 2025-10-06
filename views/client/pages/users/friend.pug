@@ -10,7 +10,9 @@ block main
                 +box-head(titlePage)
         
         .row(data-friend=user.id)
-            each user in users    
+            //- id của người dùng
+            each user in users   
+                //- id của các user 
                 .col-4(user-id=user.id)  
                     div(
                         myId=user.id
@@ -34,7 +36,6 @@ block main
                         div(
                             class="inner-status"
                             status=user.statusOnline
-                            
                         )   
                             i.fa-solid.fa-circle
 

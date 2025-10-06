@@ -185,3 +185,19 @@ socket.on("SERVER_RETURN_CANCEL_REQ", (data) => {
 
 });
 //END SERVER_RETURN_CANCEL_REQ
+
+// server return onine offline
+
+socket.on("SERVER_RETURN_STATUS", (data) =>{
+    const dataUserFriend= document.querySelector("[data-friend]");
+    if(dataUserFriend){
+        const boxUser= dataUserFriend.querySelector(`[user-id='${data.userId}']`);
+        if(boxUser){
+            const boxStatus= boxUser.querySelector("[status]");
+            boxStatus.setAttribute("status", data.status);
+        }
+
+    }
+});
+
+

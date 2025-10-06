@@ -13,10 +13,12 @@ const settingMiddleware= require("../../middlewares/client/setting.middleware");
 const userMiddleware= require('../../middlewares/client/user.middleware')
 const authMiddleware= require("../../middlewares/client/auth.middlewares")
 module.exports = (app) => {
-    app.use(categoryMiddleware.category)
+    app.use(categoryMiddleware.category);
     app.use(settingMiddleware.settingGeneral);
-    app.use(cartMiddleware.cartId)
-    app.use(userMiddleware.infoUser)
+    app.use(cartMiddleware.cartId);
+    app.use(userMiddleware.infoUser);
+    app.use(userMiddleware.connect);
+    
     app.use('/',HomeRoute);
     app.use('/products' ,productRoute);
     app.use('/search',searchRoute);

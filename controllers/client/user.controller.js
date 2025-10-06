@@ -7,7 +7,7 @@ const ForgotPassword = require("../../models/forgotPassword.model")
 
 const sendMailHelper = require("../../helpers/sendMail")
 // gửi mail
-
+const usersSocket = require("../../sockets/client/users.socket")
 
 // {GET} /user/register
 module.exports.register = async (req, res) => {
@@ -99,7 +99,13 @@ module.exports.loginPost = async (req, res) => {
     }, {
         statusOnline: "online"
     })
-
+    
+    _io.once('connection', (socket)=>{
+        socket.broadcast.emit("SERVER_RETURN_STATUS", {
+            userId: user.id,
+            status: "online"
+        });
+    })
     req.flash("success", "Đăng nhập thành công");
     res.redirect("/")
 }
@@ -109,6 +115,12 @@ module.exports.logout = async (req, res) => {
         tokenUser: req.cookies.tokenUser
     }, {
         statusOnline: "offline"
+    });
+    _io.once('connection', (socket)=>{
+        socket.broadcast.emit("SERVER_RETURN_STATUS", {
+            userId: res.locals.user.id,
+            status: "offline"
+        });
     })
     res.clearCookie("tokenUser");
     res.clearCookie("cartId");

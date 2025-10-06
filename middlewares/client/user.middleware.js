@@ -17,3 +17,14 @@ module.exports.infoUser = async (req, res, next) => {
 
     next();
 }
+
+module.exports.connect = async(req, res, next) =>{
+    _io.once("connection", (socket) => {
+        socket.on("CLIENT_CLOSE_TAB", async (data)=>{
+            console.log(data);
+        })
+    })
+
+
+    next();
+}

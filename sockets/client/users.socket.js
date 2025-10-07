@@ -1,4 +1,5 @@
 const User = require("../../models/users.model");
+const RoomChat = require("../../models/rooms-chat.model")
 module.exports = (res) => {
     //gửi 1 lần
     const userId = res.locals.user.id;
@@ -43,18 +44,18 @@ module.exports = (res) => {
                     }
                 );
             }
-            // cập nhận số lượng lời mời bên người nhận
-            const infoUserAcp= await User.findOne({
+            // cập nhật số lượng lời mời bên người nhận
+            const infoUserAcp = await User.findOne({
                 _id: friendId
             });
-            const lengthAcpFriend= infoUserAcp.acceptFriends.length
+            const lengthAcpFriend = infoUserAcp.acceptFriends.length
             socket.broadcast.emit("SERVER_RETURN_LENGTH_ACP", {
                 userId: friendId,
                 lengthAcpFriends: lengthAcpFriend
             });
 
             // lấy info người gửi trả về bên giao diện người nhận
-            const infoUserReq= await User.findOne({
+            const infoUserReq = await User.findOne({
                 _id: myId
             }).select("id avatar fullName");
             socket.broadcast.emit("SERVER_RETURN_INFO_ACP", {
@@ -99,10 +100,10 @@ module.exports = (res) => {
                     }
                 )
             }
-            const infoUserAcp= await User.findOne({
+            const infoUserAcp = await User.findOne({
                 _id: friendId
             });
-            const lengthAcpFriend= infoUserAcp.acceptFriends.length
+            const lengthAcpFriend = infoUserAcp.acceptFriends.length
             socket.broadcast.emit("SERVER_RETURN_LENGTH_ACP", {
                 userId: friendId,
                 lengthAcpFriends: lengthAcpFriend
@@ -152,28 +153,69 @@ module.exports = (res) => {
                     }
                 )
             }
+            // cập nhật số lượng lời mời bên người nhận
+            const infoUserAcp = await User.findOne({
+                _id: myId
+            });
+            const lengthAcpFriend = infoUserAcp.acceptFriends.length
+            socket.emit("SERVER_RETURN_LENGTH_ACP", {
+                userId: myId,
+                lengthAcpFriends: lengthAcpFriend
+            });
         });
         // Chức năng chấp nhận yêu cầu kết bạn 'CLIENT_ACCEPT_ADD'
         socket.on("CLIENT_ACCEPT_ADD", async (friendId) => {
             const myId = res.locals.user.id;
-
-            // thêm userId của A vào friendList của B 
-            // xóa id của A trong acceptFriend của B
+            let roomChat;
+            // check exist
             const existAcpFriend = await User.findOne({
                 _id: myId,
                 acceptFriends: friendId,
             });
+
+            const existReqFriend = await User.findOne({
+                _id: friendId,
+                requestFriends: myId,
+            });
+            // end check exist
+
+            // tạo phòng chat chung cho 2 nguoi
+            if (existAcpFriend && existReqFriend) {
+                const dataRoom = {
+                    // title: String, 
+                    // avatar: String,
+                    typeRoom: "friend", // group
+                    // status: String,
+                    users: [
+                        {
+                            user_id: myId,
+                            role: "superAdmin"
+                        },
+                        {
+                            user_id: friendId,
+                            role: "superAdmin"
+                        }
+                    ]
+                }
+                roomChat = new RoomChat(dataRoom);
+                await roomChat.save();
+            }
+            // end tạo phòng
+
+
+            // thêm userId của A vào friendList của B 
+            // xóa id của A trong acceptFriend của B
             if (existAcpFriend) {
                 await User.updateOne(
                     {
                         _id: myId
                     },
-                    {   
+                    {
                         //thêm A vào friend list của B
                         $push: {
                             friendList: {
                                 user_id: friendId,
-                                room_chat_id: ""
+                                room_chat_id: roomChat.id
                             }
                         },
                         //Xóa trong danh sách lời mời kết bạn của B
@@ -186,21 +228,17 @@ module.exports = (res) => {
             // thêm id của B vào friendList của A
             //xóa id của B trong requestFriend của A
 
-            const existReqFriend = await User.findOne({
-                _id: friendId,
-                requestFriends: myId,
-            });
             if (existReqFriend) {
                 await User.updateOne(
                     {
                         _id: friendId
                     },
-                    {   
+                    {
                         //thêm B vào friendList của A
                         $push: {
                             friendList: {
                                 user_id: myId,
-                                room_chat_id: ""
+                                room_chat_id: roomChat.id
                             }
                         },
                         //xóa B trong danh sách lời mời đã gửi của A
@@ -208,10 +246,19 @@ module.exports = (res) => {
                     }
                 )
             }
+            // cập nhật số lượng lời mời bên người nhận
+            const infoUserAcp = await User.findOne({
+                _id: myId
+            });
+            const lengthAcpFriend = infoUserAcp.acceptFriends.length
+            socket.emit("SERVER_RETURN_LENGTH_ACP", {
+                userId: myId,
+                lengthAcpFriends: lengthAcpFriend
+            });
         });
 
 
         // chức năng online offline
-        
+
     });
 }

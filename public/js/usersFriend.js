@@ -83,7 +83,7 @@ const badgeUserAccept = document.querySelector("[badge-users-accept]")
 if (badgeUserAccept) {
     const user_id = badgeUserAccept.getAttribute("badge-users-accept")
     socket.on("SERVER_RETURN_LENGTH_ACP", (data) => {
-        console.log(data);
+        // console.log(data, user_id);
         // ktra xem đúng người được gửi yêu cầu không
         if (user_id == data.userId) {
             badgeUserAccept.innerHTML = data.lengthAcpFriends

@@ -89,22 +89,26 @@ module.exports.friends =async(req, res) =>{
         _id: myId,
     })
     // cách tự làm
-    const friendList= [];
-    for(const item of myUser.friendList ){
-        friendList.push(item.user_id);
-    }
+    // const friendList= [];
+    // for(const item of myUser.friendList ){
+    //     friendList.push(item.user_id);
+    // }
 
     //cách khác
-    // const friendList= myUser.friendList
-    // const friendListId= friendList.map(item => item.user_id)
-    const user= await User.find({
-        _id: {$in: friendList},
+    const friendList= myUser.friendList
+    const friendListId= friendList.map(item => item.user_id)
+    const users= await User.find({
+        _id: {$in: friendListId},
         status: "active",
         deleted: false
     }).select("avatar id fullName statusOnline");
     
+    for( const user of users){
+        const infoUser= friendList.find( friend => friend.user_id== user.id);
+        user.infoFriend= infoUser ;
+    }
     res.render("client/pages/users/friend", {
         titlePage: "Danh sách bạn bè",
-        users: user
+        users: users
     })
 }

@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug
+
+block main 
+    .container.my-3
+        .row 
+            .col-12
+                +box-head(titlePage)
+        .row.mb-3 
+            .col-12    
+                a(
+                    href="/rooms-chat/create"
+                    class="btn btn-sm btn-success"
+                ) Tạo cuộc trò chuyện mới 
+        
+        .row 
+            .col-6 
+                div(class="box-room")
+                    div(class="inner-avatar")
+                        img(
+                            src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?semt=ais_hybrid&w=740&q=80"
+                            alt="phòng ABC"
+                        )
+                    div(class="inner-info")
+                        div(class="inner-name") Phòng abc
+                        div(class="inner-buttons")
+                            a(
+                                href="#"
+                                class="btn btn-sm btn-primary mr-1"
+                            ) Nhắn tin

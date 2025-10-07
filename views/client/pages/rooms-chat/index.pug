@@ -15,16 +15,17 @@ block main
         
         .row 
             .col-6 
-                div(class="box-room")
-                    div(class="inner-avatar")
-                        img(
-                            src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?semt=ais_hybrid&w=740&q=80"
-                            alt="phòng ABC"
-                        )
-                    div(class="inner-info")
-                        div(class="inner-name") Phòng abc
-                        div(class="inner-buttons")
-                            a(
-                                href="#"
-                                class="btn btn-sm btn-primary mr-1"
-                            ) Nhắn tin
+                each room in listRoomChat
+                    div(class="box-room")
+                        div(class="inner-avatar")
+                            img(
+                                src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?semt=ais_hybrid&w=740&q=80"
+                                alt=room.title
+                            )
+                        div(class="inner-info")
+                            div(class="inner-name") #{room.title}
+                            div(class="inner-buttons")
+                                a(
+                                    href="#"
+                                    class="btn btn-sm btn-primary mr-1"
+                                ) Nhắn tin

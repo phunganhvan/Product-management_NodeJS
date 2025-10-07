@@ -1,8 +1,16 @@
 const User= require("../../models/users.model");
 const RoomChat= require("../../models/rooms-chat.model")
 module.exports.index= async(req, res) =>{
+
+    const userId= res.locals.user.id;
+    const listRoomChat= await RoomChat.find({
+        typeRoom: "group",
+        deleted: false,
+        "users.user_id": userId // cú pháp của mongoose
+    })
     res.render("client/pages/rooms-chat/index", {
-        titlePage: "Danh sách cuộc trò chuyện"
+        titlePage: "Danh sách cuộc trò chuyện",
+        listRoomChat: listRoomChat
     })
 }
 

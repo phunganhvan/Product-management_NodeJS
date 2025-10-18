@@ -26,6 +26,7 @@ module.exports.registerPost = async (req, res) => {
         res.redirect(req.get("Referer"));
     }
     req.body.password = md5(req.body.password);
+    req.body.tokenUser= generateHelper.generateRandomString(30);
     const user = new User(req.body)
     await user.save();
     res.locals.user= user

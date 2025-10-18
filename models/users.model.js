@@ -5,10 +5,7 @@ const userSchema= new mongoose.Schema(
         fullName: String,
         email: String,
         password: String,
-        tokenUser: {
-            type: String,
-            default: generate.generateRandomString(20)
-        },
+        tokenUser: String,
         phone: String,
         description: String,
         avatar: String,

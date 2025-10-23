@@ -1,0 +1,38 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+block main
+    if(role.permission.includes("products-category_view"))
+        h1(class="mb-4") Chi tiết danh mục sản phẩm 
+        if(record.title)
+            h3(class="mb-4") Danh mục: <b> #{record.title} </b>
+        if(record.parent_id)
+            div(class="mb-4") Danh mục cha :<b> #{parentName} </b>
+        if(record.description)
+            div(class="mb-4") Mô tả: #{record.description}
+        if(record.thumbnail)
+            div(class="mb-4")
+            img(
+                src= record.thumbnail 
+                style ="width: 100px; margin: 20px"
+            )
+        if(record.position)
+            div(class="mb-4") Vị trí: <b>#{record.position}</b>
+        if(record.status)
+            div(class="mb-4")
+                span Trạng thái: 
+                if(record.status=== "active")
+                    span(class="badge badge-success") Hoạt động
+                else if(record.status ==="inactive")
+                    span(class="badge badge-danger") Dừng hoạt động
+                else
+                    span(class="badge badge-danger") Đã xóa
+        row 
+            col-12
+                a(
+                    href=`${PATH_ADMIN}/product-category/edit/${record.id}`
+                    class="btn btn-primary"
+                ) Chỉnh sửa
+    else 
+        h1 Bạn không có quyền truy cập trang này
+    script(src="/admin/js/product.js") 

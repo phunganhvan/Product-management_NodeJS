@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
     };
     const filterStatus = filterStatusHelper(req.query);
 
-
+    // tìm kiếm sản phẩm
     let keyword;
     const objSearch = search(req.query); // object search trả về
     // console.log(objSearch);
@@ -31,6 +31,7 @@ module.exports.index = async (req, res) => {
         find = {
             deleted: true,
         }
+        find.status= "deleted"
     }
     // đệ quy
 
@@ -59,8 +60,14 @@ module.exports.index = async (req, res) => {
             }
         }
     }
-    const newRecords = createTreeHelper.create(records)
-
+    console.log(find.status);
+    let newRecords
+    if(find.status!= undefined){
+        newRecords= records;
+    }else{
+        newRecords = createTreeHelper.create(records);
+    }
+    
     
     res.render("admin/pages/product-category/index", {
         pageTitle: "Danh mục sản phẩm",
@@ -342,5 +349,25 @@ module.exports.restoreOne = async (req, res) => {
     }
     else {
         return;
+    }
+}
+
+
+module.exports.detail = async(req, res) =>{
+    try {
+        const productCategory = await ProductCategory.findOne({
+            _id: req.params.id
+        });
+        const parent = await ProductCategory.findOne({
+            _id: productCategory.parent_id
+        });
+        res.render("admin/pages/product-category/detail", {
+            pageTitle: productCategory.title,
+            record: productCategory,
+            parentName: parent.title
+        })
+    } catch (error) {
+        req.flash("error", "Không thể tìm thấy danh mục sản phẩm");
+        res.redirect(`${systemConfig.prefixAdmin}/product-category`);
     }
 }

@@ -28,4 +28,6 @@ router.delete("/delete/:id", controller.deleteProductCategory)
 router.patch("/restore", controller.restore)
 
 router.patch("/restore/:id", controller.restoreOne)
+
+router.get("/detail/:id", controller.detail);
 module.exports = router;

@@ -1,0 +1,66 @@
+extends ../../layouts/default.pug
+include ../../mixins/moment.pug
+block main 
+    if(role.permission.includes("orders_view"))
+        h1(class="mb-4") Chi tiết đơn hàng
+        if(order.id)
+            h3(class="mb-4") Mã đơn hàng: #{order.id}
+        h3(class="mb-4") Thông tin khách hàng: 
+        if(order.userInfo)
+            div(class="mb-4") Tên khách hàng: <b>#{order.userInfo.fullName}</b>
+            div(class="mb-4") Số điện thoại: <b>#{order.userInfo.phone}</b>
+            div(class="mb-4") Địa chỉ: <b>#{order.userInfo.address}</b>
+        h3(class="mb-4") Thông tin đơn hàng 
+        table(
+            class=" table table-hover table-sm"
+        )
+            thead 
+                tr 
+                    th STT 
+                    th Hình ảnh
+                    th Tên sản phẩm 
+                    th Giá
+                    th Giảm giá
+                    th Số lượng
+                    th Thành tiền
+            tbody
+                each item, index in products
+                    tr 
+                        td #{index+1}
+                        td 
+                            img(src=item.productInfo.thumbnail , alt= item.productInfo.title)
+                        td #{item.productInfo.title}
+                        td #{item.price}
+                        td #{item.discountPercentage} 
+                        td #{item.quantity}
+                        td #{item.price*(1-item.discountPercentage/100)*item.quantity} $
+
+        if(order.createdAt)
+            div(class="mb-4") Ngày tạo: 
+                +formatDateTime(order.createdAt)
+        if(order.statusOrder)
+            div(class="mb-4")
+                span Trạng thái: 
+                if(order.statusOrder==="active")
+                    span( class= "badge text-bg-success") Hoạt động
+                else if(order.statusOrder==="inactive")
+                    span( class= "badge text-bg-danger") Dừng Hoạt động
+                else if(order.statusOrder==="initial")
+                    span( class= "badge text-bg-primary") Chờ duyệt 
+        if(role.permission.includes("orders_delete"))
+            row 
+                col-6 
+                    button(
+                        class="btn btn-danger btn-sm ml-1"
+                        button-delete
+                        data_id= order.id   
+                    ) Xóa
+        form(
+            action=""
+            method="POST"
+            id="form-delete"
+            data-path=`${PATH_ADMIN}/order/delete`
+        )
+    else    
+        h1 Bạn không có quyền truy cập trang này
+    script(src="/admin/js/order.js") 

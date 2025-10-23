@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema(
     {
-        // user_id: String, // chưa cần
+        user_id: String,
         cart_id: String,
         userInfo:{
             fullName: String,
             phone: String,
             address: String
+        },
+        statusOrder: {
+            type: String,
+            default: "initial"
         },
         products:[
             {
@@ -21,6 +25,16 @@ const orderSchema = new mongoose.Schema(
             default: false
         },
         deletedAt: Date,
+        updatedBy: [
+            {
+                accountId: String,
+                updatedAt: Date
+            }
+        ],
+        deletedBy: {
+            accountId: String,
+            deletedAt: Date
+        },
     },
     {
         timestamps: Date,

@@ -58,15 +58,15 @@ module.exports.editPatch=  async(req, res, next) =>{
 
     // console.log(req.body);
     const user= await User.findOne({
-        tokenUser: req.body.tokenUser
-    }).select(password);
+        tokenUser: req.cookies.tokenUser
+    }).select("id password");
     if(req.body.newPassword!== req.body.confirmPassword){
-        res.flash("error", "Mật khẩu xác nhận không trùng khớp, vui lòng thử lại")
+        req.flash("error", "Mật khẩu xác nhận không trùng khớp, vui lòng thử lại")
         res.redirect(req.get("Referer"));
         return;
     }
     if(md5(req.body.currentPassword)!== user.password){
-        res.flash("error", "Mật khẩu hiện tại không chính xác, vui lòng kiểm tra lại")
+        req.flash("error", "Mật khẩu hiện tại không chính xác, vui lòng kiểm tra lại")
         res.redirect(req.get("Referer"));
         return;
     }

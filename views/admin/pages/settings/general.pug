@@ -1,86 +1,122 @@
 extends ../../layouts/default.pug 
 include ../../mixins/alert.pug 
 block main 
+
     h1 Cài đặt chung
+    if(role.permission.includes("generalSetting_edit")&& role.permission.includes("generalSetting_view"))
+        +alert-error(5000)
+        +alert-success(5000)
 
-    +alert-error(5000)
-    +alert-success(5000)
-
-    form(
-        action= `${PATH_ADMIN}/settings/general?_method=PATCH`
-        method="POST"
-        enctype="multipart/form-data"
-    )
-        div(class="mb-3")
-            label(for="websiteName") Tên website 
-            input(
-                type="text"
-                class="form-control"
-                id="websiteName"
-                name="websiteName"
-                value= settingGeneral.websiteName
-            )
-        div(
-            class="mb-3"
-            upload-image
+        form(
+            action= `${PATH_ADMIN}/settings/general?_method=PATCH`
+            method="POST"
+            enctype="multipart/form-data"
         )
-            label(for="logo" style="display: block;") Ảnh 
-            input(
-                type= "file"
-                class="form-control-file"
-                id="logo"
-                name="logo"
-                accept="image/*"
-                upload-image-input
+            div(class="mb-3")
+                label(for="websiteName") Tên website 
+                input(
+                    type="text"
+                    class="form-control"
+                    id="websiteName"
+                    name="websiteName"
+                    value= settingGeneral.websiteName
+                )
+            div(
+                class="mb-3"
+                upload-image
             )
-            img(
-                upload-image-preview
-                id="preview" 
-                src= settingGeneral.logo 
-                alt="Ảnh của tôi"
-                style="margin-right: 10px"
-            )
-            p(
-                close-preview
-            ) Close
-        div(class="mb-3")
-            label(for="phone") Số điện thoại
-            input(
-                type="text"
-                class="form-control"
-                id="phone"
-                name="phone"
-                value= settingGeneral.phone
-            )
-        div(class="mb-3")
-            label(for="email") Email
-            input(
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                value= settingGeneral.email
-            )
-        div(class="mb-3")
-            label(for="address") Địa chỉ
-            input(
-                type="text"
-                class="form-control"
-                id="address"
-                name="address"
-                value= settingGeneral.address
-            )
-        div(class="mb-3")
-            label(for="copyright") Copyright
-            input(
-                type="text"
-                class="form-control"
-                id="copyright"
-                name="copyright"
-                value= settingGeneral.copyright
-            )
-        div(class='mb-3')
-            button(
-                type="submit"
-                class="btn btn-primary"
-            ) Cập nhật
+                label(for="logo" style="display: block;") Ảnh 
+                input(
+                    type= "file"
+                    class="form-control-file"
+                    id="logo"
+                    name="logo"
+                    accept="image/*"
+                    upload-image-input
+                )
+                img(
+                    upload-image-preview
+                    id="preview" 
+                    src= settingGeneral.logo 
+                    alt="Ảnh của tôi"
+                    style="margin-right: 10px"
+                )
+                p(
+                    close-preview
+                ) Close
+            div(class="mb-3")
+                label(for="phone") Số điện thoại
+                input(
+                    type="text"
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    value= settingGeneral.phone
+                )
+            div(class="mb-3")
+                label(for="email") Email
+                input(
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    value= settingGeneral.email
+                )
+            div(class="mb-3")
+                label(for="address") Địa chỉ
+                input(
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    name="address"
+                    value= settingGeneral.address
+                )
+            div(class="mb-3")
+                label(for="copyright") Copyright
+                input(
+                    type="text"
+                    class="form-control"
+                    id="copyright"
+                    name="copyright"
+                    value= settingGeneral.copyright
+                )
+            div(class='mb-3')
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Cập nhật
+    else if(role.permission.includes("generalSetting_view"))
+        .card.shadow-sm.mt-3
+            .card-body
+                div(class="mb-3")
+                    label(class="form-label fw-bold") Tên website:
+                    p(class="form-control-plaintext")= settingGeneral.websiteName
+
+                div(class="mb-3")
+                    label(class="form-label fw-bold") Ảnh logo:
+                    if settingGeneral.logo
+                        img(
+                            src=settingGeneral.logo
+                            alt="Logo website"
+                            style="max-height: 100px; display: block; margin-top: 5px;"
+                        )
+                    else
+                        p.text-muted Không có logo
+
+                div(class="mb-3")
+                    label(class="form-label fw-bold") Số điện thoại:
+                    p(class="form-control-plaintext")= settingGeneral.phone
+
+                div(class="mb-3")
+                    label(class="form-label fw-bold") Email:
+                    p(class="form-control-plaintext")= settingGeneral.email
+
+                div(class="mb-3")
+                    label(class="form-label fw-bold") Địa chỉ:
+                    p(class="form-control-plaintext")= settingGeneral.address
+
+                div(class="mb-3")
+                    label(class="form-label fw-bold") Copyright:
+                    p(class="form-control-plaintext")= settingGeneral.copyright
+
+                a.btn.btn-secondary.mt-3(href=`${PATH_ADMIN}/settings/general`) ← Quay lại trang chỉnh sửa

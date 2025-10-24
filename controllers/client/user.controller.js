@@ -260,5 +260,21 @@ module.exports.editInfo= async(req, res) =>{
 }
 
 module.exports.editPatch= async(req, res) =>{
-    res.send("OK");
+    console.log(req.body);
+    if(!req.body.password && !req.body.newPassword && !req.body.confirmPassword){
+        req.body.password= md5(req.body.password)
+    }
+    else{
+        req.body.password= req.body.newPassword;
+        delete req.body.newPassword;
+        delete req.body.confirmPassword;
+    }
+
+    await User.updateOne(
+        {
+            tokenUser: req.cookies.tokenUser
+        }, req.body
+    );
+    req.flash("success", "Cập nhật thông tin cá nhân thành công")
+    res.redirect(req.get("Referer"));
 }

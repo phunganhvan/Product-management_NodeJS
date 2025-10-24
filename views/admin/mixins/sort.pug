@@ -16,3 +16,21 @@ mixin sort()
             class="btn btn-danger mt-2"
             sort-clear
         ) Clear
+mixin sortOrder()
+    div(sort)
+        select(
+            class="form-control"
+            name="sort"
+            sort-select
+        ) 
+            option(disabled selected) ---Hãy chọn cách sắp xếp---
+            option(value="createdAt-desc") Ngày tạo mới nhất 
+            option(value="createdAt-asc") Ngày tạo cũ nhất
+            option(value="updatedAt-desc") Ngày cập nhật mới nhất 
+            option(value="updatedAt-asc") Ngày cập nhật cũ nhất 
+            option(value="id-asc") Mã đơn hàng A - Z
+            option(value="id-desc") Mã đơn hàng Z - A
+        button(
+            class="btn btn-danger mt-2"
+            sort-clear
+        ) Clear

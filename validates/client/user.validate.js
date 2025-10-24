@@ -1,3 +1,5 @@
+const User = require("../../models/users.model");
+const md5= require("md5");
 module.exports.registerPost=  (req, res, next) =>{
 
     if(!req.body.fullName || !req.body.email ||!req.body.password){
@@ -49,5 +51,25 @@ module.exports.resetPasswordPost=  (req, res, next) =>{
         return;
     }
     // console.log("OK")
+    next();
+}
+
+module.exports.editPatch=  async(req, res, next) =>{
+
+    // console.log(req.body);
+    const user= await User.findOne({
+        tokenUser: req.body.tokenUser
+    }).select(password);
+    if(req.body.newPassword!== req.body.confirmPassword){
+        res.flash("error", "Mật khẩu xác nhận không trùng khớp, vui lòng thử lại")
+        res.redirect(req.get("Referer"));
+        return;
+    }
+    if(md5(req.body.currentPassword)!== user.password){
+        res.flash("error", "Mật khẩu hiện tại không chính xác, vui lòng kiểm tra lại")
+        res.redirect(req.get("Referer"));
+        return;
+    }
+
     next();
 }

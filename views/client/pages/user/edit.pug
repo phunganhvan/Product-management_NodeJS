@@ -1,0 +1,107 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/box-head.pug
+
+block main
+    .container.my-3
+        .row
+            .col-12
+                +box-head('Chỉnh sửa thông tin cá nhân')
+
+                form(
+                    action=`/user/info/edit?_method=PATCH`
+                    method="POST"
+                    enctype="multipart/form-data"
+                )
+                    div(
+                        class="mb-3"
+                        upload-image
+                    )
+                        label(for="avatar" style="display: block;") Avatar
+                        //- Ảnh đại diện
+                        img(
+                            upload-image-preview
+                            id="preview" 
+                            src= (user.avatar ? user.avatar : "/admin/images/avatar.png") 
+                            alt="Ảnh của tôi"
+                            style="margin-right: 10px"
+                            width="150px" class="mb-3 rounded-circle border"
+                        )
+                        input(
+                            type= "file"
+                            class="form-control-file"
+                            id="avatar"
+                            name="avatar"
+                            accept="image/*"
+                            upload-image-input
+                        )
+                        p(
+                            close-preview
+                        ) Close
+
+                    //- Họ tên (cho phép chỉnh)
+                    .mb-3
+                        label(for="fullName") Họ và tên
+                        input#fullName.form-control(
+                            type="text"
+                            name="fullName"
+                            value=user.fullName
+                            placeholder="Nhập họ tên"
+                            required
+                        )
+
+                    //- Email (chỉ xem)
+                    .mb-3
+                        label(for="email") Email
+                        input#email.form-control-plaintext(
+                            type="text"
+                            readonly
+                            value=user.email
+                        )
+
+                    //- Số điện thoại (chỉ xem)
+                    .mb-3
+                        label(for="phone") Số điện thoại
+                        input#phone.form-control(
+                            type="text"
+                            name="phone"
+                            value=user.phone
+                        )
+
+                    //- Mật khẩu hiện tại
+                    .mb-3
+                        label(for="currentPassword") Mật khẩu hiện tại
+                        input#currentPassword.form-control(
+                            type="password"
+                            name="currentPassword"
+                            placeholder="Nhập mật khẩu hiện tại (nếu đổi mật khẩu)"
+                        )
+
+                    //- Mật khẩu mới
+                    .mb-3
+                        label(for="newPassword") Mật khẩu mới
+                        input#newPassword.form-control(
+                            type="password"
+                            name="newPassword"
+                            placeholder="Nhập mật khẩu mới (ít nhất 6 ký tự)"
+                        )
+
+                    //- Xác nhận mật khẩu mới
+                    .mb-3
+                        label(for="confirmPassword") Xác nhận mật khẩu mới
+                        input#confirmPassword.form-control(
+                            type="password"
+                            name="confirmPassword"
+                            placeholder="Nhập lại mật khẩu mới"
+                        )
+
+                    .text-muted.mb-3
+                        small Nếu bạn không muốn đổi mật khẩu, có thể để trống phần mật khẩu.
+
+                    //- Nút hành động
+                    .d-flex.justify-content-between.mt-4
+                        a.btn.btn-secondary(href="/user/info") Quay lại
+                        button.btn.btn-primary(type="submit") Lưu thay đổi
+block script 
+    script(src="/js/infoUser.js") 
+

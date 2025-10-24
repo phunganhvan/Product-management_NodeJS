@@ -248,3 +248,17 @@ module.exports.info = async (req, res) => {
         titlePage: "Thông tin cá nhân",
     })
 }
+
+// [GET] /user/info/edit
+
+module.exports.editInfo= async(req, res) =>{
+
+    res.render("client/pages/user/edit", {
+        titlePage: "Chỉnh sửa thông tin cá nhân",
+
+    })
+}
+
+module.exports.editPatch= async(req, res) =>{
+    res.send("OK");
+}

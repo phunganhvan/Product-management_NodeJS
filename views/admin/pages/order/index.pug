@@ -1,5 +1,5 @@
 extend ../../layouts/default.pug
-include ../../mixins/filterStatus.pug
+include ../../mixins/orderStatus.pug
 include ../../mixins/pagination.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
@@ -15,19 +15,7 @@ block main
             .card-body 
                 .row 
                     .col-6
-                        +filterStatus(filter)
-        .card.mb-3 
-            .card-header Danh sách
-            .card-body
-                .row 
-                    .col-8
-                        
-                    .col-4 
-                        if(role.permission.includes("products_create"))
-                            a(
-                                href=`${PATH_ADMIN}/product/create`
-                                class="btn btn-outline-success"    
-                            ) Thêm mới
+                        +orderStatus(filter)
         .card.mb-3
             .card-header Sắp xếp 
             .card-body

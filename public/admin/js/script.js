@@ -1,6 +1,6 @@
 // const Product = require("../../../models/product.model");
 
-console.log("ok");
+console.log("script");
 
 const buttonStatus = document.querySelectorAll("[button-status]");
 // console.log(buttonStatus);

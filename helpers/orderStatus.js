@@ -7,7 +7,7 @@ module.exports = (query) =>{
         },
         {
             name: "Chờ duyệt",
-            stauts:"initial",
+            status:"initial",
             class:""
         },
         {
@@ -23,6 +23,11 @@ module.exports = (query) =>{
         {
             name: "Đã hoàn thành",
             status: "done",
+            class: ""
+        },
+        {
+            name: "Đã bị xóa",
+            status: "deleted",
             class: ""
         }
     ];

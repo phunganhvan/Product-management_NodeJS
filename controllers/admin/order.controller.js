@@ -21,7 +21,7 @@ module.exports.index = async (req, res) => {
 
     let status = req.query.status;
     if (status) {
-        find.status = status;
+        find.statusOrder = status;
     }
     if (status === "deleted") {
         find = {
@@ -30,12 +30,11 @@ module.exports.index = async (req, res) => {
     }
     const countOrders = await Order.countDocuments(find);
     const objectPagination = pag(req.query, countOrders);
-
     const orders = await Order.find(find)
         .sort({ [sortKey]: sortValue })
         .limit(objectPagination.limitItem)
         .skip(objectPagination.skip);
-
+    // console.log(orders);
     for( const order of orders){
         let total=0;
         order.products.forEach(product => {

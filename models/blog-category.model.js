@@ -1,29 +1,20 @@
 const mongoose = require('mongoose');
 const slug= require("mongoose-slug-updater");
 mongoose.plugin(slug);
-const blogSchema= new mongoose.Schema(
+const blogCategorySchema= new mongoose.Schema(
     {
         title: String,
-        summary: String, // tóm tắt ngắn gọn hiển thị ở danh sách
-        content: String,
-        blog_category_id: {
+        parent_id:{
             type: String,
-            default: ""
+            default: "",
         },
-        author_id: String,
+        description: String,
         thumbnail: String,
         status: String,
         position: Number,
-        featured: String,
         deleted: {
             type: Boolean,
             default: false
-        },
-        // deletedAt: Date,
-        slug: {
-            type: String,
-            slug: "title",
-            unique: true
         },
         createdBy: {
             accountId: String,
@@ -42,12 +33,17 @@ const blogSchema= new mongoose.Schema(
                 updatedAt: Date
             }
         ],
+        slug: {
+            type: String,
+            slug: "title",
+            unique: true
+        },
     },
     {
         timestamps: true
     }
 );
 
-const Blog = mongoose.model('Blog', blogSchema, "blogs");
+const BlogCategory = mongoose.model('BlogCategory', blogCategorySchema, "blog-category");
 // tên - tên schema - tên connection trong db
-module.exports = Blog;
+module.exports = BlogCategory;

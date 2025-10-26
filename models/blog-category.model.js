@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const slug= require("mongoose-slug-updater");
+const slug = require("mongoose-slug-updater");
 mongoose.plugin(slug);
-const blogCategorySchema= new mongoose.Schema(
+const blogCategorySchema = new mongoose.Schema(
     {
         title: String,
-        parent_id:{
+        parent_id: {
             type: String,
             default: "",
         },
@@ -18,8 +18,8 @@ const blogCategorySchema= new mongoose.Schema(
         },
         createdBy: {
             accountId: String,
-            createdAt:{
-                type: Date, 
+            createdAt: {
+                type: Date,
                 default: Date.now
             }
         },

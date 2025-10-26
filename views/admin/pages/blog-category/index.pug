@@ -1,0 +1,75 @@
+extends ../../layouts/default.pug 
+include ../../mixins/filterStatus.pug
+include ../../mixins/formSearch.pug
+include ../../mixins/alert.pug
+include ../../mixins/table-tree.pug
+include ../../mixins/formChangeMutil.pug
+include ../../mixins/moment.pug
+
+
+block main 
+    if(1)
+        h1 Danh mục bài viết 
+        +alert-success(3000)
+        +alert-error(3000)
+        .card.mb-3 
+            .card-header Bộ lọc và Tìm kiếm 
+            .card-body 
+                .row 
+                    .col-6
+                        +filterStatus(filter)
+                    .col-3
+                        +formSearch(keyword)
+        .card.mb-3 
+            .card-header Danh sách
+                .card-body
+                    .row 
+                        .col-8 
+                            +formChangeMutil(`${PATH_ADMIN}/product-category/change-multi?_method=PATCH`, isDelete, "product_Category")
+                        .col-4
+                            if(role.permission.includes("products-category_create")) 
+                                a(
+                                    href=`${PATH_ADMIN}/product-category/create`
+                                    class="btn btn-outline-success"
+                                ) + Thêm mới
+                    table(
+                        class=" table table-hover table-sm"
+                        checkbox-multi
+                    )
+                        thead 
+                            tr 
+                                th 
+                                    input(type="checkbox" name="checkall")
+                                th STT 
+                                th Hình ảnh 
+                                th Tiêu đề
+                                th Vị trí
+                                th Trạng thái 
+                                th Người tạo
+                                th Người chỉnh sửa
+                                th Hành động
+            
+                        tbody   
+                            +table-tree(records)    
+        form(
+            action= ""
+            method="POST"
+            id="form-change-status"
+            data-path =`${PATH_ADMIN}/blog-category/change-status`
+        )
+
+        form(
+            action=""
+            method="POST"
+            id="form-delete"
+            data-path=`${PATH_ADMIN}/blog-category/delete`
+        )
+        form(
+            action=""
+            method="POST"
+            id="form-restore"
+            data-path=`${PATH_ADMIN}/blog-category/restore`
+        )
+    else 
+        h1 Bạn không có quyền truy cập trang này
+    script(src="/admin/js/product.js") 

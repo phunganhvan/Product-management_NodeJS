@@ -126,7 +126,7 @@ module.exports.changeStatus = async (req, res) => {
             updatedAt: new Date()
         }
         await ProductCategory.updateOne({ _id: id }, { status: status, $push: { updatedBy: updatedBy } });
-        req.flash("success", "Bạn đã cập nhật trạng thái sản phẩm thành công");
+        req.flash("success", "Bạn đã cập nhật trạng thái danh mục sản phẩm thành công");
         res.redirect(req.get('Referrer'));
     }
     else{

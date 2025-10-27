@@ -105,3 +105,113 @@ module.exports.createPost = async(req, res) =>{
         return;
     }
 }
+
+// [PATCH]  /admin/blog-category/:status/:id
+module.exports.changeStatus= async(req, res) =>{
+    const permission = res.locals.role.permission
+    if (1) {
+        const status = req.params.status;
+        const id = req.params.id;
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        await BlogCategory.updateOne({ _id: id }, { status: status, $push: { updatedBy: updatedBy } });
+        req.flash("success", "Bạn đã cập nhật trạng thái danh mục bài viết thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else{
+        return;
+    }
+}
+
+// [PATCH] /admin/blog-category/change-multi
+module.exports.changeMulti = async(req, res) =>{
+    const permission = res.locals.role.permission
+    if (1) {
+        // console.log(req.body);
+        const type = req.body.type;
+        const ids = req.body.ids.split(", ");
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        switch (type) {
+            case "active":
+
+                await BlogCategory.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        $set: { status: type },
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} danh mục thành công`);
+                break;
+            case "inactive":
+                await BlogCategory.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        $set: { status: type },
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} danh mục thành công`);
+                break;
+            case "deleteMany":
+                await BlogCategory.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        deleted: true,
+                        deletedBy: {
+                            accountId: res.locals.user.id,
+                            deletedAt: new Date(),
+                        },
+                        updatedAt: new Date()
+                    }
+                )
+                req.flash("success", `Bạn đã xóa thành công ${ids.length} danh mục`);
+                break;
+            case "restore":
+                await BlogCategory.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        deleted: false,
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã khôi phục ${ids.length} danh mục thành công`);
+                break;
+            case "changePosition":
+                // console.log(ids);
+                for (const item of ids) {
+                    let [id, position] = item.split("-");
+                    // destructuring - biết chắc cấu trúc
+                    position = parseInt(position);
+                    await Product.updateOne(
+                        { _id: id },
+                        {
+                            $set: { position: position },
+                            $push: { updatedBy: updatedBy }
+                        }
+                    )
+                }
+                req.flash("success", `Bạn đã thay đổi vị trí ${ids.length} danh mục thành công`);
+                break;
+            default:
+                break;
+        }
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
+}

@@ -53,7 +53,7 @@ if(btnRestore.length>0){
     // console.log(btnRestore);
     btnRestore.forEach(button =>{
         button.addEventListener("click", ()=>{
-            const isConfirm= confirm("Bạn có muốn khôi phục sản phẩm này không");
+            const isConfirm= confirm("Bạn có muốn khôi phục bản ghi này không");
             if(isConfirm){
                 const id= button.getAttribute("data_id");
                 const action= `${path}/${id}?_method=PATCH`

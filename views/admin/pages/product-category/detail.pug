@@ -9,7 +9,7 @@ block main
         if(record.parent_id)
             div(class="mb-4") Danh mục cha :<b> #{parentName} </b>
         if(record.description)
-            div(class="mb-4") Mô tả: #{record.description}
+            div(class="mb-4") Mô tả: !{record.description}
         if(record.thumbnail)
             div(class="mb-4")
             img(

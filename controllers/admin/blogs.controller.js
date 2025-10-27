@@ -5,9 +5,11 @@ const filterStatusHelper = require("../../helpers/filterStatus");
 const search = require("../../helpers/search");
 const pag = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
-const Account = require("../../models/account.model")
-// /admin/blogs
+const Account = require("../../models/account.model");
+const BlogCategory = require("../../models/blog-category.model");
 
+
+// /admin/blogs [GET]
 module.exports.index = async (req, res) => {
     // sắp xếp
     let sortKey, sortValue;
@@ -87,5 +89,181 @@ module.exports.index = async (req, res) => {
         pagination: objectPagination,
         find: find,
         isDelete: find.deleted
+    })
+}
+
+// /admin/blogs/change-status/:status/:id  [PATCH]
+module.exports.changeStatus = async (req, res) => {
+    const permission = res.locals.role.permission;
+    if (1) {
+        const status = req.params.status;
+        const id = req.params.id;
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        await Blog.updateOne({ _id: id }, { status: status, $push: { updatedBy: updatedBy } });
+        // sản phẩm cần update và update cái gì
+
+        // res.send(`${status} - ${id}`);
+        // res.redirect("/admin/product");
+        req.flash("success", "Bạn đã cập nhật trạng thái bài viết thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
+
+}
+
+// /admin/blogs/change-multi [PATCH]
+module.exports.changeMulti = async(req, res) =>{
+    const permission = res.locals.role.permission
+    if (1) {
+        const type = req.body.type;
+        const ids = req.body.ids.split(", ");
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        // console.log(ids);
+        switch (type) {
+            case "active":
+
+                await Blog.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        $set: { status: type },
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} bài viết thành công`);
+                break;
+            case "inactive":
+                await Blog.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        $set: { status: type },
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã cập nhật trạng thái ${ids.length} bài viết thành công`);
+                break;
+            case "deleteMany":
+                await Blog.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        deleted: true,
+                        deletedBy: {
+                            accountId: res.locals.user.id,
+                            deletedAt: new Date(),
+                        },
+                        updatedAt: new Date()
+                    }
+                )
+                req.flash("success", `Bạn đã xóa thành công ${ids.length} bài viết`);
+                break;
+            case "restore":
+                await Blog.updateMany(
+                    {
+                        _id: { $in: ids }
+                    },
+                    {
+                        deleted: false,
+                        $push: { updatedBy: updatedBy }
+                    }
+                )
+                req.flash("success", `Bạn đã khôi phục ${ids.length} bài viết thành công`);
+                break;
+            case "changePosition":
+                // console.log(ids);
+                for (const item of ids) {
+                    let [id, position] = item.split("-");
+                    // destructuring - biết chắc cấu trúc
+                    position = parseInt(position);
+                    await Blog.updateOne(
+                        { _id: id },
+                        {
+                            $set: { position: position },
+                            $push: { updatedBy: updatedBy }
+                        }
+                    )
+                }
+                req.flash("success", `Bạn đã thay đổi vị trí ${ids.length} sản phẩm thành công`);
+                break;
+            default:
+                break;
+        }
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
+}
+
+// /admin/blogs/delete/:id  [DELETE]
+module.exports.deleteBlog = async(req, res) =>{
+    const permission = res.locals.role.permission;
+    if (1) {
+        const id = req.params.id;
+        // console.log(id);
+        await Blog.updateOne(
+            { _id: id },
+            {
+                deleted: true,
+                deletedBy: {
+                    accountId: res.locals.user.id,
+                    deletedAt: new Date(),
+                }
+            }
+        )
+        // await Product.deleteOne({_id: id});
+        //Xóa hẳn
+        // res.send("HELLO XÓA THÀNH CÔNG");
+        req.flash("success", "Bạn đã xóa bài viết thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
+}
+
+// /admin/blogs/restore/:id
+module.exports.restoreBlog = async(req, res) =>{
+    const id = req.params.id
+    const updatedBy = {
+        accountId: res.locals.user.id,
+        updatedAt: new Date()
+    }
+    await Blog.updateOne(
+        { _id: id },
+        {
+            deleted: false,
+            $push: { updatedBy: updatedBy }
+        }
+    )
+    req.flash("success", "Bạn đã khôi phục bài viết thành công");
+    res.redirect(req.get('Referrer'));
+}
+
+module.exports.create = async(req, res) =>{
+    let find = {
+        status: "active",
+        deleted: false,
+    }
+
+    // đệ quy
+
+    const records = await BlogCategory.find(find);
+    const newRecords = createTreeHelper.create(records)
+    res.render("admin/pages/blog/create", {
+        pageTitle: "Tạo mới bài viết",
+        category: newRecords
     })
 }

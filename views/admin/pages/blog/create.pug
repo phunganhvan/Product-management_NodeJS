@@ -1,14 +1,13 @@
-extends ../../layouts/default.pug
+extend ../../layouts/default.pug
 include ../../mixins/alert.pug
 include ../../mixins/select-tree.pug
 block main
-    if(role.permission.includes("blog-category_edit"))
-        h1(class="mb-4") Chỉnh sửa danh mục bài viết
+    if(1)
+        h1(class="mb-4") Tạo mới bài viết
         +alert-error(3000)
-        +alert-success(3000)
         form(
-            action=`${PATH_ADMIN}/blog-category/edit/${record.id}?_method=PATCH` 
-            id="form-edit-blog-category"
+            action=`${PATH_ADMIN}/blogs/create` 
+            id="form-create-blog"
             method="POST"
             enctype="multipart/form-data"
         ) 
@@ -19,28 +18,61 @@ block main
                     class="form-control"
                     id="title"
                     name="title"
-                    value= record.title
                 )
             div(class="mb-3")
-                label(for="parent_id") Danh mục cha
+                label(for="blog_category_id") Danh mục
                 select(
                     class="form-control"
-                    id="parent_id"
-                    name="parent_id"
-                    value= record.parent_id
+                    id="blog_category_id"
+                    name="blog_category_id"
                 )
-                    option(value="") -- Chọn danh mục cha --
-                    if(records)
-                        +select-tree(records,1 , record.parent_id) 
+                    option(value="") -- Chọn loại danh mục --
+                    if(category)
+                        +select-tree(category,1 , "")
+            div(class="mb-3") Bài viết nổi bật
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured1"
+                    name="featured"
+                    value="1"
+                )
+                label(for="featured1" class="form-check-label") Có
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured0"
+                    name="featured"
+                    value="0"
+                    checked
+                )
+                label(for="featured0" class="form-check-label") Không 
             div(class="mb-3")
-                label(for="desc") Mô tả
+                label(for="summary") Mô tả ngắn
+                textarea(
+                    class="form-control"
+                    id="summary"
+                    name="summary"
+                    rows="1"
+                )
+            div(class="mb-3")
+                label(for="content") Nội dung
                 textarea(
                     class="form-control textarea-mce"
-                    id="desc"
-                    name="description"
-                    rows="5"
-                    value=record.description
-                ) #{record.description}
+                    id="content"
+                    name="content"
+                    rows="3"
+                )
+            //- div(class="mb-3")
+            //-     label(for="content") Nội dung
+            //-     textarea(
+            //-         class="form-control textarea-mce"
+            //-         id="content"
+            //-         name="content"
+            //-         rows="5"
+            //-     )                
             div(class="mb-3" upload-image)
                 label(for="thumbnail" style="display: block;") Ảnh 
                 input(
@@ -54,10 +86,9 @@ block main
                 img(
                     upload-image-preview
                     id="preview" 
-                    src= record.thumbnail 
+                    src="" 
                     alt="Ảnh của tôi"
                     style="margin-right: 10px"
-                    defaultValue= record.thumbnail
                 )
                 p(
                     close-preview
@@ -71,7 +102,6 @@ block main
                     name="position"
                     placeholder="Tự động tăng"
                     min="1"
-                    value=record.position
                 )
             div(class="mb-3 form-check form-check-inline")
                 input(
@@ -80,7 +110,7 @@ block main
                     id="statusActive"
                     name="status"
                     value="active"
-                    checked=(record.status== "active"? true: false)
+                    checked
                 )
                 label(for="statusActive" class="form-check-label") Hoạt động 
             div(class="mb-3 form-check form-check-inline")
@@ -90,14 +120,22 @@ block main
                     id="statusInActive"
                     name="status"
                     value="inactive"
-                    checked=(record.status== "inactive"? true: false)
                 )
                 label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            //- div(class="mb-3")
+            //-     label(for="deleted") Deleted
+            //-     input(
+            //-         type="text"
+            //-         class="form-control"
+            //-         id="deleted"
+            //-         name="deleted"
+            //-         value="false"
+            //-     )
             div(class="mb-3")
                 button(
                     type="submit"
                     class="btn btn-primary"
-                ) Cập nhật
+                ) Tạo mới
     else 
         h1 Bạn không có quyền truy cập trang này
     script(src="/admin/js/product.js") 

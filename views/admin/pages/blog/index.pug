@@ -27,7 +27,7 @@ block main
             .card-body
                 .row 
                     .col-8
-                        +formChangeMulti(`${PATH_ADMIN}/blogs/change-multi?_method=PATCH`, isDelete, "blogs", "sản phẩm")
+                        +formChangeMulti(`${PATH_ADMIN}/blogs/change-multi?_method=PATCH`, isDelete, "blogs", "bài viết")
                     .col-4 
                         if(1)
                             a(
@@ -163,4 +163,4 @@ block main
         )
     else 
         h1 Bạn không có quyền truy cập trang này
-    script(src="/admin/js/blogs.js") 
+    script(src="/admin/js/product.js") 

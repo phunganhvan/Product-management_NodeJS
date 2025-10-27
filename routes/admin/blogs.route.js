@@ -15,5 +15,14 @@ const upload = multer();
 
 router.get("/", controller.index);
 
+router.patch("/change-status/:status/:id", controller.changeStatus);
+
+router.patch("/change-multi", controller.changeMulti);
+
+router.delete("/delete/:id", controller.deleteBlog);
+
+router.patch("/restore/:id", controller.restoreBlog);
+
+router.get("/create", controller.create);
 
 module.exports = router;

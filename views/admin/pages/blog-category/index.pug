@@ -8,7 +8,7 @@ include ../../mixins/moment.pug
 
 
 block main 
-    if(1)
+    if(role.permission.includes("blog-category_view"))
         h1 Danh mục bài viết 
         +alert-success(3000)
         +alert-error(3000)

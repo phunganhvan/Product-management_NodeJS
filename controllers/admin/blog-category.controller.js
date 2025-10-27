@@ -91,7 +91,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.createPost = async(req, res) =>{
     const permission = res.locals.role.permission
-    if (1) {
+    if (permission.includes("blog-category_create")) {
         const count = await BlogCategory.countDocuments();
         req.body.position = parseInt(req.body.position) || (count + 1)
         req.body.createdBy = {
@@ -109,7 +109,7 @@ module.exports.createPost = async(req, res) =>{
 // [PATCH]  /admin/blog-category/:status/:id
 module.exports.changeStatus= async(req, res) =>{
     const permission = res.locals.role.permission
-    if (1) {
+    if (permission.includes("blog-category_edit")) {
         const status = req.params.status;
         const id = req.params.id;
         const updatedBy = {
@@ -128,7 +128,7 @@ module.exports.changeStatus= async(req, res) =>{
 // [PATCH] /admin/blog-category/change-multi
 module.exports.changeMulti = async(req, res) =>{
     const permission = res.locals.role.permission
-    if (1) {
+    if (permission.includes("blog-category_edit")) {
         // console.log(req.body);
         const type = req.body.type;
         const ids = req.body.ids.split(", ");
@@ -219,7 +219,7 @@ module.exports.changeMulti = async(req, res) =>{
 // [DELETE] /admin/blog-category/delete/:id
 module.exports.delete = async(req, res) =>{
     const permission = res.locals.role.permission
-    if (1) {
+    if (permission.includes("blog-category_delete")) {
         const id = req.params.id;
         console.log(id);
         await BlogCategory.updateOne(
@@ -243,7 +243,7 @@ module.exports.delete = async(req, res) =>{
 // [PATCH] /admin/blog-category/restore/:id
 module.exports.restore= async(req, res) =>{
     const permission = res.locals.role.permission
-    if (1) {
+    if (permission.includes("blog-category_edit")) {
         const id = req.params.id
         const updatedBy = {
             accountId: res.locals.user.id,
@@ -289,7 +289,7 @@ module.exports.edit = async(req, res) =>{
 module.exports.editPatch = async(req, res) =>{
     const permission = res.locals.role.permission
     // console.log(req.body);
-    if (1) {
+    if (permission.includes("blog-category_edit")) {
         if(req.body.position){
             req.body.position = parseInt(req.body.position);
         }

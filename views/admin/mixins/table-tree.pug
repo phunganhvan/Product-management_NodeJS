@@ -150,7 +150,7 @@ mixin blog-tree(records, level=1)
                     p 
                         +formatDateTime(updatedBy.updatedAt)
             td 
-                if(1)
+                if(role.permission.includes("blog-category_edit"))
                     a(
                         href=`${PATH_ADMIN}/blog-category/edit/${item.id}`
                         class="btn btn-warning btn-sm"
@@ -162,7 +162,7 @@ mixin blog-tree(records, level=1)
                             class="btn btn-primary btn-sm"
                         ) Khôi phục
                     else 
-                        if(1)
+                        if(role.permission.includes("blog-category_delete"))
                             button(
                                 class="btn btn-danger btn-sm ml-1"
                                 button-delete

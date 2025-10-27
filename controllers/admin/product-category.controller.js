@@ -31,7 +31,6 @@ module.exports.index = async (req, res) => {
         find = {
             deleted: true,
         }
-        find.status= "deleted"
     }
     // đệ quy
 
@@ -334,7 +333,7 @@ module.exports.restoreOne = async (req, res) => {
                 $push: { updatedBy: updatedBy }
             }
         )
-        req.flash("success", "Bạn đã khôi phục sản phẩm thành công");
+        req.flash("success", "Bạn đã khôi phục danh mục sản phẩm thành công");
         res.redirect(req.get('Referrer'));
     }
     else {

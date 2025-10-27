@@ -30,4 +30,8 @@ router.patch("/change-multi", controller.changeMulti);
 
 router.delete("/delete/:id", controller.delete);
 
+router.patch("/restore/:id", controller.restore)
+
+router.get("/edit/:id", controller.edit);
+
 module.exports = router;

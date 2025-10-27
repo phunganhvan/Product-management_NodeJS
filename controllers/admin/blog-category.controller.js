@@ -7,7 +7,7 @@ const systemConfig = require("../../config/system");
 // /admin/blogs
 
 module.exports.index = async (req, res) => {
-    const find = {
+    let find = {
         deleted: false,
     };
     const filterStatus = filterStatusHelper(req.query);
@@ -29,8 +29,8 @@ module.exports.index = async (req, res) => {
         find = {
             deleted: true,
         }
-        find.status = "deleted"
     }
+
 
     const records = await BlogCategory.find(find);
     for (const record of records) {
@@ -238,4 +238,33 @@ module.exports.delete = async(req, res) =>{
     else {
         return;
     }
+}
+
+// [PATCH] /admin/blog-category/restore/:id
+module.exports.restore= async(req, res) =>{
+    const permission = res.locals.role.permission
+    if (1) {
+        const id = req.params.id
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        await BlogCategory.updateOne(
+            { _id: id },
+            {
+                deleted: false,
+                $push: { updatedBy: updatedBy }
+            }
+        )
+        req.flash("success", "Bạn đã khôi phục danh mục bài viết thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
+}
+
+// [GET] /admin/blog-category/edit/:id
+module.exports.edit = async(req, res) =>{
+    
 }

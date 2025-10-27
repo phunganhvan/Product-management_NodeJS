@@ -215,3 +215,27 @@ module.exports.changeMulti = async(req, res) =>{
         return;
     }
 }
+
+// [DELETE] /admin/blog-category/delete/:id
+module.exports.delete = async(req, res) =>{
+    const permission = res.locals.role.permission
+    if (1) {
+        const id = req.params.id;
+        console.log(id);
+        await BlogCategory.updateOne(
+            { _id: id },
+            {
+                deleted: true,
+                deletedBy: {
+                    accountId: res.locals.user.id,
+                    deletedAt: new Date(),
+                }
+            }
+        )
+        req.flash("success", "Bạn đã xóa danh mục thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
+}

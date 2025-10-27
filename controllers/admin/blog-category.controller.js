@@ -285,6 +285,41 @@ module.exports.edit = async(req, res) =>{
     }
 }
 
+// [PATCH] /admin/blog-category/edit/:id
+module.exports.editPatch = async(req, res) =>{
+    const permission = res.locals.role.permission
+    // console.log(req.body);
+    if (1) {
+        if(req.body.position){
+            req.body.position = parseInt(req.body.position);
+        }
+        else{
+            // delete req.body.position
+        }
+        // console.log(req.body);
+        try {
+            const updatedBy = {
+                accountId: res.locals.user.id,
+                updatedAt: new Date()
+            }
+            await BlogCategory.updateOne({ _id: req.params.id }, {
+                ...req.body,
+                $push: { updatedBy: updatedBy }
+            });
+            req.flash("success", "Bạn đã cập nhật danh mục thành công");
+            res.redirect(req.get(`Referrer`));
+        } catch (error) {
+            req.flash("error", "Đã có lỗi xảy ra, vui lòng thử lại");
+            res.redirect(req.get(`Referrer`));
+        }
+    }
+    else {
+        return;
+    }
+}
+
+
+
 //  [GET] /admin/blog-category/detail/:id
 
 module.exports.detail = async(req, res) =>{

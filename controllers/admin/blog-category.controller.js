@@ -3,6 +3,7 @@ const Account = require("../../models/account.model");
 const filterStatusHelper = require("../../helpers/filterStatus")
 const search = require("../../helpers/search");
 const createTreeHelper = require("../../helpers/create-tree");
+const systemConfig = require("../../config/system");
 // /admin/blogs
 
 module.exports.index = async (req, res) => {
@@ -69,4 +70,38 @@ module.exports.index = async (req, res) => {
         find: find,
         isDelete: find.deleted
     })
+}
+
+// [GET] /admin/blog-category/create
+
+module.exports.create = async (req, res) => {
+    let find = {
+        status: "active",
+        deleted: false,
+    }
+    const records = await BlogCategory.find(find);
+    const newRecords = createTreeHelper.create(records);
+    res.render("admin/pages/blog-category/create", {
+        pageTitle: "Tạo mới danh mục",
+        records: newRecords
+    });
+}
+
+// [POST] /admin/blog-category/createPost
+
+module.exports.createPost = async(req, res) =>{
+    const permission = res.locals.role.permission
+    if (1) {
+        const count = await BlogCategory.countDocuments();
+        req.body.position = parseInt(req.body.position) || (count + 1)
+        req.body.createdBy = {
+            accountId: res.locals.user.id
+        };
+        const record = new BlogCategory(req.body);
+        await record.save()
+        req.flash("success", "Bạn đã tạo mới danh mục thành công");
+        res.redirect(`${systemConfig.prefixAdmin}/blog-category`)
+    } else {
+        return;
+    }
 }

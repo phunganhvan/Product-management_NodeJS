@@ -4,6 +4,8 @@ const multer = require('multer')
 //thư viện để upload file ảnh
 const controller = require('../../controllers/admin/blog-category.controller')
 
+const validate = require("../../validates/admin/products-category.validate");
+// yêu cầu nhập tiêu đề
 
 const uploadCloud = require('../../middlewares/admin/uploadToCloud.middlewares');
 const upload = multer();
@@ -12,5 +14,13 @@ const upload = multer();
 
 router.get("/", controller.index)
 
+router.get("/create", controller.create);
+
+router.post("/create", 
+    upload.single("thumbnail"),
+    uploadCloud.uploads,
+    validate.createPost,
+    controller.createPost
+);
 
 module.exports = router;

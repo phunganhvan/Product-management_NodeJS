@@ -78,6 +78,7 @@ module.exports.index = async (req, res) => {
         isDelete: find.deleted
     });
 }
+
 module.exports.create = async (req, res) => {
     let find = {
         status: "active",
@@ -112,17 +113,6 @@ module.exports.createPost = async (req, res) => {
     } else {
         return;
     }
-
-
-    const count = await ProductCategory.countDocuments();
-    req.body.position = parseInt(req.body.position) || (count + 1)
-    req.body.createdBy = {
-        accountId: res.locals.user.id
-    };
-    const record = new ProductCategory(req.body);
-    await record.save()
-    req.flash("success", "Bạn đã tạo mới danh mục thành công");
-    res.redirect(`${systemConfig.prefixAdmin}/product-category`)
     // res.send("Tạo mới danh mục thành công");
 }
 

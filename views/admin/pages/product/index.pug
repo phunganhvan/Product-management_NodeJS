@@ -2,7 +2,7 @@ extend ../../layouts/default.pug
 include ../../mixins/filterStatus.pug
 include ../../mixins/formSearch.pug
 include ../../mixins/pagination.pug
-include ../../mixins/formChangeMutil.pug
+include ../../mixins/formChangeMulti.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
 include ../../mixins/moment.pug
@@ -25,7 +25,7 @@ block main
             .card-body
                 .row 
                     .col-8
-                        +formChangeMutil(`${PATH_ADMIN}/product/change-multi?_method=PATCH`, isDelete, "product")
+                        +formChangeMulti(`${PATH_ADMIN}/product/change-multi?_method=PATCH`, isDelete, "product", "sản phẩm")
                     .col-4 
                         if(role.permission.includes("products_create"))
                             a(

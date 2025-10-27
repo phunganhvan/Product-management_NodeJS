@@ -3,7 +3,7 @@ include ../../mixins/filterStatus.pug
 include ../../mixins/formSearch.pug
 include ../../mixins/alert.pug
 include ../../mixins/table-tree.pug
-include ../../mixins/formChangeMutil.pug
+include ../../mixins/formChangeMulti.pug
 include ../../mixins/moment.pug
 
 
@@ -25,11 +25,11 @@ block main
                 .card-body
                     .row 
                         .col-8 
-                            +formChangeMutil(`${PATH_ADMIN}/product-category/change-multi?_method=PATCH`, isDelete, "product_Category")
+                            +formChangeMulti(`${PATH_ADMIN}/blog-category/change-multi?_method=PATCH`, isDelete, "blog_Category", "danh mục bài viết")
                         .col-4
-                            if(role.permission.includes("products-category_create")) 
+                            if(1) 
                                 a(
-                                    href=`${PATH_ADMIN}/product-category/create`
+                                    href=`${PATH_ADMIN}/blog-category/create`
                                     class="btn btn-outline-success"
                                 ) + Thêm mới
                     table(

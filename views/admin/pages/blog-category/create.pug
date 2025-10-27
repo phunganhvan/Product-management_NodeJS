@@ -1,0 +1,104 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+block main
+    if(1)
+        h1(class="mb-4") Thêm mới danh mục bài viết
+        +alert-error(5000)
+
+        form(
+            action=`${PATH_ADMIN}/blog-category/create`
+            method="POST"
+            enctype="multipart/form-data"
+        )
+            div(class="mb-3")
+                label(for="title") Tiêu đề
+                input(
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    required 
+                )
+            div(class="mb-3")
+                label(for="parent_id") Danh mục cha
+                select(
+                    class="form-control"
+                    id="parent_id"
+                    name="parent_id"
+                )
+                    option(value="") -- Chọn danh mục cha --
+                    if(records)
+                        +select-tree(records) 
+                //- input(
+                //-     type="dropdown"
+                //-     class="form-control"
+                //-     id="parent_id"
+                //-     name="parent_id"
+                //- )
+            div(class="mb-3")
+                label(for="desc") Mô tả
+                textarea(
+                    type="text"
+                    class="form-control textarea-mce "
+                    id="desc"
+                    name="description"
+                    rows="5"
+                )
+            div(class="mb-3" upload-image)
+                label(for="thumbnail" style="display: block;") Ảnh 
+                input(
+                    type= "file"
+                    class="form-control-file"
+                    id="thumbnail"
+                    name="thumbnail"
+                    accept="image/*"
+                    upload-image-input
+                )
+                img(
+                    upload-image-preview
+                    id="preview" 
+                    src="" 
+                    alt="Ảnh của tôi"
+                    style="margin-right: 10px"
+                )
+                p(
+                    close-preview
+                ) Close
+            div(class="mb-3")
+                label(for="position") Vị trí
+                input(
+                    type="number"
+                    class="form-control"
+                    id="position"
+                    name="position"
+                    placeholder="Tự động tăng"
+                    min="1"
+                )
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="statusActive"
+                    name="status"
+                    value="active"
+                    checked
+                )
+                label(for="statusActive" class="form-check-label") Hoạt động 
+            div(class="mb-3 form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="statusInActive"
+                    name="status"
+                    value="inactive"
+                )
+                label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            div(class="mb-3")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Tạo mới 
+    else 
+        h1 Bạn không có quyền truy cập trang này
+    script(src="/admin/js/product.js") 

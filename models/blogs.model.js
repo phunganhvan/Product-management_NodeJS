@@ -10,7 +10,6 @@ const blogSchema= new mongoose.Schema(
             type: String,
             default: ""
         },
-        author_id: String,
         thumbnail: String,
         status: String,
         position: Number,

@@ -266,5 +266,42 @@ module.exports.restore= async(req, res) =>{
 
 // [GET] /admin/blog-category/edit/:id
 module.exports.edit = async(req, res) =>{
-    
+    try {
+        const record = await BlogCategory.findOne({ _id: req.params.id });
+        const records = await BlogCategory.find({
+            status: "active",
+            deleted: false,
+        });
+        // res.send("OK")
+        const newRecords = createTreeHelper.create(records)
+        res.render("admin/pages/blog-category/edit", {
+            pageTitle: "Chỉnh sửa danh mục",
+            record: record,
+            records: newRecords
+        })
+    } catch (error) {
+        req.flash("error", "Không thể tìm thấy Danh mục bài viết");
+        res.redirect(`${systemConfig.prefixAdmin}/blog-category`);
+    }
+}
+
+//  [GET] /admin/blog-category/detail/:id
+
+module.exports.detail = async(req, res) =>{
+try {
+        const blogCategory = await BlogCategory.findOne({
+            _id: req.params.id
+        });
+        const parent = await BlogCategory.findOne({
+            _id: blogCategory.parent_id
+        });
+        res.render("admin/pages/blog-category/detail", {
+            pageTitle: blogCategory.title,
+            record: blogCategory,
+            parentName: parent.title
+        })
+    } catch (error) {
+        req.flash("error", "Không thể tìm thấy danh mục sản phẩm");
+        res.redirect(`${systemConfig.prefixAdmin}/blog-category`);
+    }
 }

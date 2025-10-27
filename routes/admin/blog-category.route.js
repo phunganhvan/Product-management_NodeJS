@@ -34,4 +34,7 @@ router.patch("/restore/:id", controller.restore)
 
 router.get("/edit/:id", controller.edit);
 
+
+
+router.get("/detail/:id", controller.detail);
 module.exports = router;

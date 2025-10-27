@@ -59,7 +59,6 @@ module.exports.index = async (req, res) => {
             }
         }
     }
-    console.log(find.status);
     let newRecords
     if(find.status!= undefined){
         newRecords= records;
@@ -148,7 +147,7 @@ module.exports.edit = async (req, res) => {
             records: newRecords
         })
     } catch (error) {
-        req.flash("error", "Không thể tìm thấy sản phẩm");
+        req.flash("error", "Không thể tìm thấy danh mục sản phẩm này");
         res.redirect(`${systemConfig.prefixAdmin}/product-category`);
     }
 }

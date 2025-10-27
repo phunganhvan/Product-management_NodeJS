@@ -86,3 +86,92 @@ mixin table-tree(records, level=1)
                 ) Chi tiết 
             if item.children && item.children.length>0
                 +table-tree(item.children, level + 1) 
+
+
+mixin blog-tree(records, level=1)
+    each item in records
+        - const prefix = Array(level+1).join("--")
+        tr 
+            td 
+                input(
+                    type="checkbox"
+                    name="id"
+                    value=item.id
+                )
+            td #{item.index}
+            td 
+                img(src=item.thumbnail , alt= item.title) 
+            td  #{prefix}#{item.title}
+            td 
+                input(
+                    type="number"
+                    value= item.position 
+                    style="witdh: 60px"
+                    min="1"
+                    name="position"
+                )
+            td  
+                if(1)
+                    if(item.status==="active")
+                        a(
+                            href="javascript:;" 
+                            data-status= item.status
+                            data-id= item.id
+                            button-change-status
+                            class="badge badge-success"
+                        ) Hoạt động
+                    else
+                        a(
+                            href="javascript:;"
+                            data-status=item.status
+                            data-id= item.id
+                            button-change-status 
+                            class="badge badge-danger"
+                        ) Không hoạt động 
+                else    
+                    if(item.status==="active")
+                        div(
+                            class="badge badge-success"
+                        ) Hoạt động
+                    else
+                        div(
+                            class="badge badge-danger"
+                        ) Không hoạt động
+
+                //- a(href="#" class="badge badge-danger") Không hoạt động 
+            td 
+                p #{item.accountFullname}
+                p 
+                    +formatDateTime(item.createdBy.createdAt)
+            td 
+                - const updatedBy= item.updatedBy.slice(-1)[0];
+                - if(updatedBy)
+                    p #{updatedBy.accountFullname}
+                    p 
+                        +formatDateTime(updatedBy.updatedAt)
+            td 
+                if(1)
+                    a(
+                        href=`${PATH_ADMIN}/blog-category/edit/${item.id}`
+                        class="btn btn-warning btn-sm"
+                    ) Sửa
+                    if(isDelete)
+                        button(
+                            button-restore
+                            data_id= item.id 
+                            class="btn btn-primary btn-sm"
+                        ) Khôi phục
+                    else 
+                        if(1)
+                            button(
+                                class="btn btn-danger btn-sm ml-1"
+                                button-delete
+                                data_id= item.id    
+                            ) Xóa 
+
+                a(
+                    href=`${PATH_ADMIN}/blog-category/detail/${item.id}`
+                    class="btn btn-secondary btn-sm"
+                ) Chi tiết 
+            if item.children && item.children.length>0
+                +blog-tree(item.children, level + 1) 

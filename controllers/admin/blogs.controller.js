@@ -117,7 +117,7 @@ module.exports.changeStatus = async (req, res) => {
 }
 
 // /admin/blogs/change-multi [PATCH]
-module.exports.changeMulti = async(req, res) =>{
+module.exports.changeMulti = async (req, res) => {
     const permission = res.locals.role.permission
     if (1) {
         const type = req.body.type;
@@ -208,7 +208,7 @@ module.exports.changeMulti = async(req, res) =>{
 }
 
 // /admin/blogs/delete/:id  [DELETE]
-module.exports.deleteBlog = async(req, res) =>{
+module.exports.deleteBlog = async (req, res) => {
     const permission = res.locals.role.permission;
     if (1) {
         const id = req.params.id;
@@ -235,7 +235,7 @@ module.exports.deleteBlog = async(req, res) =>{
 }
 
 // /admin/blogs/restore/:id
-module.exports.restoreBlog = async(req, res) =>{
+module.exports.restoreBlog = async (req, res) => {
     const id = req.params.id
     const updatedBy = {
         accountId: res.locals.user.id,
@@ -252,7 +252,8 @@ module.exports.restoreBlog = async(req, res) =>{
     res.redirect(req.get('Referrer'));
 }
 
-module.exports.create = async(req, res) =>{
+// /admin/blogs/create [GET]
+module.exports.create = async (req, res) => {
     let find = {
         status: "active",
         deleted: false,
@@ -266,4 +267,67 @@ module.exports.create = async(req, res) =>{
         pageTitle: "Tạo mới bài viết",
         category: newRecords
     })
+}
+
+// /admin/blogs/create [POST]
+module.exports.createPost = async (req, res) => {
+    const count = await Product.countDocuments();
+    req.body.position = parseInt(req.body.position) || (count + 1);
+    req.body.createdBy = {
+        accountId: res.locals.user.id
+    };
+
+    const blog = new Blog(req.body);
+    // // // console.log(product);
+    await blog.save();
+    res.redirect(`${systemConfig.prefixAdmin}/blogs`);
+}
+
+// /admin/blogs/edit/:id [GET]
+module.exports.edit = async(req, res) =>{
+    try {
+        const blog = await Blog.findOne({ _id: req.params.id });
+        // const products= {...product};
+        // console.log(product.id);
+        const find = {
+            status: "active",
+            deleted: false,
+        }
+        const category = await BlogCategory.find(find);
+        const records = createTreeHelper.create(category);
+        res.render("admin/pages/blog/edit", {
+            pageTitle: "Chỉnh sửa bài viết",
+            blog: blog,
+            category: records
+        })
+    } catch (error) {
+        req.flash("error", "Không thể tìm thấy bài viết");
+        res.redirect(`${systemConfig.prefixAdmin}/blogs`);
+    }
+}
+
+// /admin/blogs/edit/:id [PATCH]
+module.exports.editPatch = async(req, res) =>{
+    const count = await Blog.countDocuments();
+    req.body.position = parseInt(req.body.position)
+    // console.log(req.body);
+    if (req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`;
+    }
+
+    try {
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        await Blog.updateOne({ _id: req.params.id }, {
+            ...req.body,
+            $push: { updatedBy: updatedBy }
+        });
+        req.flash("success", "Bạn đã cập nhật bài viết thành công");
+        res.redirect(req.get(`Referrer`));
+    } catch (error) {
+        req.flash("error", "Đã có lỗi xảy ra, vui lòng thử lại");
+        res.redirect(req.get(`Referrer`));
+    }
 }

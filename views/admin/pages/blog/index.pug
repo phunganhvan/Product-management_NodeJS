@@ -80,7 +80,7 @@ block main
                                         name="position"
                                     )
                                 td  
-                                    if(1)
+                                    if(role.permission.includes("blogs_edit"))
                                         if(item.status==="active")
                                             a(
                                                 href="javascript:;" 
@@ -117,7 +117,7 @@ block main
                                         p 
                                             +formatDateTime(updatedBy.updatedAt)
                                 td 
-                                    if(1)
+                                    if(role.permission.includes("blogs_edit"))
                                         a(
                                             href=`${PATH_ADMIN}/blogs/edit/${item.id}`
                                             class="btn btn-warning btn-sm"
@@ -130,7 +130,7 @@ block main
                                         ) Khôi phục 
                                 
                                     else
-                                        if(1)
+                                        if(role.permission.includes("blogs_delete"))
                                             button(
                                                 class="btn btn-danger btn-sm ml-1"
                                                 button-delete

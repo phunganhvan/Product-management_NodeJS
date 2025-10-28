@@ -95,7 +95,7 @@ module.exports.index = async (req, res) => {
 // /admin/blogs/change-status/:status/:id  [PATCH]
 module.exports.changeStatus = async (req, res) => {
     const permission = res.locals.role.permission;
-    if (1) {
+    if (permission.includes("blogs_edit")) {
         const status = req.params.status;
         const id = req.params.id;
         const updatedBy = {
@@ -119,7 +119,7 @@ module.exports.changeStatus = async (req, res) => {
 // /admin/blogs/change-multi [PATCH]
 module.exports.changeMulti = async (req, res) => {
     const permission = res.locals.role.permission
-    if (1) {
+    if (permission.includes("blogs_edit")) {
         const type = req.body.type;
         const ids = req.body.ids.split(", ");
         const updatedBy = {
@@ -210,7 +210,7 @@ module.exports.changeMulti = async (req, res) => {
 // /admin/blogs/delete/:id  [DELETE]
 module.exports.deleteBlog = async (req, res) => {
     const permission = res.locals.role.permission;
-    if (1) {
+    if (permission.includes("blogs_delete")) {
         const id = req.params.id;
         // console.log(id);
         await Blog.updateOne(
@@ -236,20 +236,26 @@ module.exports.deleteBlog = async (req, res) => {
 
 // /admin/blogs/restore/:id
 module.exports.restoreBlog = async (req, res) => {
-    const id = req.params.id
-    const updatedBy = {
-        accountId: res.locals.user.id,
-        updatedAt: new Date()
-    }
-    await Blog.updateOne(
-        { _id: id },
-        {
-            deleted: false,
-            $push: { updatedBy: updatedBy }
+    const permission = res.locals.role.permission;
+    if (permission.includes("blogs_edit")) {
+        const id = req.params.id
+        const updatedBy = {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
         }
-    )
-    req.flash("success", "Bạn đã khôi phục bài viết thành công");
-    res.redirect(req.get('Referrer'));
+        await Blog.updateOne(
+            { _id: id },
+            {
+                deleted: false,
+                $push: { updatedBy: updatedBy }
+            }
+        )
+        req.flash("success", "Bạn đã khôi phục bài viết thành công");
+        res.redirect(req.get('Referrer'));
+    }
+    else {
+        return;
+    }
 }
 
 // /admin/blogs/create [GET]

@@ -1,46 +1,49 @@
 extends ../../layouts/default.pug
 block main 
-    h1(class="mb-4") Chi tiết bài viết
-    if(blog.title)
-        h2(class="mb-4") #{blog.title}
-    if(blog.blog_category_id)
-        div(class="mb-4")
-            label(for="blog_category_id") Danh mục: <b>#{category.title}</b>
-    if(blog.thumbnail)
-        div(class="mb-4")
-            img(
-                src=blog.thumbnail 
-                style ="width: 100px"
-            )
-    if(blog.status)
-        div(class="mb-4")
-            span Trạng thái: 
-            if(blog.status=== "active")
-                span(class="badge badge-success") Hoạt động
-            else 
-                span(class="badge badge-danger") Dừng hoạt động
-    if(blog.position)
-        div(class="mb-4") Vị trí: <b>#{blog.position}</b>
-    if(blog.summary)
-        div(class="mb-4") #{blog.summary}
-    if(blog.content)
-        div(class="mb-4") !{blog.content}
-    row 
-        col-6 
-            a(
-                href=`${PATH_ADMIN}/blogs/edit/${blog.id}`
-                class="btn btn-warning btn-sm"
-            ) Sửa
-        col-6 
-            button(
-                class="btn btn-danger btn-sm ml-1"
-                button-delete
-                data_id= blog.id    
-            ) Xóa
-    form(
-        action=""
-        method="POST"
-        id="form-delete"
-        data-path=`${PATH_ADMIN}/blogs/delete`
-    )
+    if(role.permission.includes("blogs_view"))
+        h1(class="mb-4") Chi tiết bài viết
+        if(blog.title)
+            h2(class="mb-4") #{blog.title}
+        if(blog.blog_category_id)
+            div(class="mb-4")
+                label(for="blog_category_id") Danh mục: <b>#{category.title}</b>
+        if(blog.thumbnail)
+            div(class="mb-4")
+                img(
+                    src=blog.thumbnail 
+                    style ="width: 100px"
+                )
+        if(blog.status)
+            div(class="mb-4")
+                span Trạng thái: 
+                if(blog.status=== "active")
+                    span(class="badge badge-success") Hoạt động
+                else 
+                    span(class="badge badge-danger") Dừng hoạt động
+        if(blog.position)
+            div(class="mb-4") Vị trí: <b>#{blog.position}</b>
+        if(blog.summary)
+            div(class="mb-4") #{blog.summary}
+        if(blog.content)
+            div(class="mb-4") !{blog.content}
+        row 
+            col-6 
+                a(
+                    href=`${PATH_ADMIN}/blogs/edit/${blog.id}`
+                    class="btn btn-warning btn-sm"
+                ) Sửa
+            col-6 
+                button(
+                    class="btn btn-danger btn-sm ml-1"
+                    button-delete
+                    data_id= blog.id    
+                ) Xóa
+        form(
+            action=""
+            method="POST"
+            id="form-delete"
+            data-path=`${PATH_ADMIN}/blogs/delete`
+        )
+    else 
+        h1 Bạn không có quyền truy cập trang này
     script(src="/admin/js/product.js") 

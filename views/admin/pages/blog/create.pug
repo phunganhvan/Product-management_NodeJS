@@ -2,7 +2,7 @@ extend ../../layouts/default.pug
 include ../../mixins/alert.pug
 include ../../mixins/select-tree.pug
 block main
-    if(1)
+    if(role.permission.includes("blogs_create"))
         h1(class="mb-4") Tạo mới bài viết
         +alert-error(3000)
         form(

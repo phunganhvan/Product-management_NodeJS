@@ -34,10 +34,19 @@ header.header
 
           li.nav-item.dropdown
             - const pathProduct = "/products"
-            a.nav-link.dropdown-toggle(href=pathProduct data-bs-toggle="dropdown") Sản phẩm
-            ul.dropdown-menu
-              +sub-menu(layoutProductCategory, pathProduct)
+            .d-flex.align-items-center
+              a.nav-link(href=pathProduct) Sản phẩm
+              a.nav-link.dropdown-toggle(data-bs-toggle="dropdown")
+              ul.dropdown-menu
+                +sub-menu(layoutProductCategory, pathProduct)
 
+          li.nav-item.dropdown
+            - const pathBlog = "/blogs"
+            .d-flex.align-items-center
+              a.nav-link(href=pathBlog) Blog
+              a.nav-link.dropdown-toggle(data-bs-toggle="dropdown")
+              ul.dropdown-menu
+                +sub-menu(layoutBlogCategory, pathBlog)
           li.nav-item
             a.nav-link(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
 

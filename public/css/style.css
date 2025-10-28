@@ -723,3 +723,93 @@ form {
     cursor: pointer;
     border-radius: 12px;
 }
+
+/* blog css*/
+
+.blog-item {
+  transition: box-shadow 0.3s, transform 0.3s;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+.blog-item:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+}
+.blog-item img {
+  transition: transform 0.3s;
+}
+.blog-item:hover img {
+  transform: scale(1.05);
+}
+
+.blog-detail .inner-thumb img {
+  transition: transform 0.4s ease;
+  border-radius: 12px;
+}
+.blog-detail .inner-thumb img:hover {
+  transform: scale(1.03);
+}
+
+.blog-detail .inner-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.blog-detail .inner-summary {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.blog-detail .inner-meta {
+  font-size: 0.95rem;
+  color: #777;
+}
+.blog-detail .inner-meta i {
+  color: #0d6efd;
+}
+
+.blog-detail .inner-content {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.8;
+}
+
+.blog-detail .inner-content img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.blog-detail .inner-content h2, 
+.blog-detail .inner-content h3 {
+  font-weight: 600;
+  color: #1c1c1c;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.blog-detail .inner-content p {
+  margin-bottom: 1rem;
+}
+
+.related-item img {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+.related-item:hover {
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.related-item h5 a {
+  color: #222;
+  text-decoration: none;
+}
+.related-item h5 a:hover {
+  color: #0d6efd;
+}

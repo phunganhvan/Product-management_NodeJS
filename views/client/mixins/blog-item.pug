@@ -1,0 +1,25 @@
+mixin blog-item(item)
+  .col-md-4.mb-4
+    .blog-item.shadow-sm.rounded.overflow-hidden.transition(style="background:#fff; cursor:pointer;")
+      // Ảnh bài viết
+      .inner-image(position="relative")
+        a(href=`/blogs/detail/${item.slug}`)
+          img.img-fluid.w-100(src=item.thumbnail, alt=item.title, style="height:220px; object-fit:cover; transition:transform .3s;")
+        // Hiệu ứng nổi bật khi hover
+        style.
+          .blog-item:hover img {
+            transform: scale(1.05);
+          }
+
+      // Nội dung bài viết
+      .inner-content.p-3
+        small.text-muted
+          i.fa-solid.fa-folder-open.me-1
+          | Danh mục: #{item.blog_category_id ? item.category : 'Chưa phân loại'}
+        h5.mt-2.mb-2.text-dark
+          a(href=`/blogs/detail/${item.slug}` style="text-decoration:none; color:inherit;") #{item.title}
+        p.text-muted(style="font-size:0.95rem; line-height:1.4;") #{item.summary}
+
+        a.btn.btn-outline-primary.btn-sm.mt-2(href=`/blogs/detail/${item.slug}`) 
+          | Đọc thêm 
+          i.fa-solid.fa-arrow-right.ms-1

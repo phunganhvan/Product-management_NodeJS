@@ -1,0 +1,58 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../../admin/mixins/moment.pug
+block main
+  .blog-detail
+    .container.my-5
+      .row
+        // Cột ảnh bài viết
+        .col-lg-6.mb-4
+          .inner-thumb
+            img(src=blog.thumbnail, alt=blog.title, class="img-fluid rounded shadow-sm w-100")
+
+        // Cột thông tin bài viết
+        .col-lg-6
+          h1.inner-title.mb-3 #{blog.title}
+
+          if(blog.summary)
+            p.inner-summary.lead.text-muted #{blog.summary}
+
+          // Các thông tin phụ (tác giả, ngày đăng, danh mục,...)
+          .inner-meta.mt-3
+            if blog.author
+              span.me-3
+                i.bi.bi-person-fill.me-1
+                | #{blog.author}
+            if blog.createdBy.createdAt
+              span.me-3
+                i.bi.bi-calendar-event.me-1
+                    +formatDateTime(blog.createdBy.createdAt)
+            if blog.category
+              span.me-3
+                i.bi.bi-folder-fill.me-1
+                | #{blog.category.title}
+
+          hr.my-4
+
+          a.btn.btn-primary.btn-lg.mt-2(href="/blogs") ← Quay lại danh sách bài viết
+
+    // Phần nội dung chi tiết
+    .container.my-5
+      .row
+        .col-12
+          +box-head("Nội dung bài viết")
+          .inner-content !{blog.content}
+
+    // (Tùy chọn) Bài viết liên quan
+    if related && related.length
+      .container.my-5
+        +box-head("Bài viết liên quan")
+        .row
+          each item in related
+            .col-lg-4.col-md-6.mb-4
+              .related-item.border.rounded.shadow-sm.p-3.h-100
+                img(src=item.thumbnail, alt=item.title, class="img-fluid rounded mb-3")
+                h5.fw-bold.mb-2 
+                  a(href=`/blogs/detail/${item._id}`) #{item.title}
+                p.text-muted.small #{item.summary}
+                a.btn.btn-outline-primary.btn-sm(href=`/blogs/detail/${item._id}`) Đọc tiếp

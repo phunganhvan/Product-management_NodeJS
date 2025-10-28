@@ -284,7 +284,7 @@ module.exports.createPost = async (req, res) => {
 }
 
 // /admin/blogs/edit/:id [GET]
-module.exports.edit = async(req, res) =>{
+module.exports.edit = async (req, res) => {
     try {
         const blog = await Blog.findOne({ _id: req.params.id });
         // const products= {...product};
@@ -307,7 +307,7 @@ module.exports.edit = async(req, res) =>{
 }
 
 // /admin/blogs/edit/:id [PATCH]
-module.exports.editPatch = async(req, res) =>{
+module.exports.editPatch = async (req, res) => {
     const count = await Blog.countDocuments();
     req.body.position = parseInt(req.body.position)
     // console.log(req.body);
@@ -329,5 +329,23 @@ module.exports.editPatch = async(req, res) =>{
     } catch (error) {
         req.flash("error", "Đã có lỗi xảy ra, vui lòng thử lại");
         res.redirect(req.get(`Referrer`));
+    }
+}
+
+// /admin/blogs/detail/:id
+module.exports.detail = async (req, res) => {
+    try {
+        const blog = await Blog.findOne({ _id: req.params.id });
+        // const products= {...product};
+        const thisCategory = await BlogCategory.findOne({ _id: blog.blog_category_id });
+
+        res.render("admin/pages/blog/detail", {
+            pageTitle: "Chi tiết bài viết",
+            blog: blog,
+            category: thisCategory
+        })
+    } catch (error) {
+        req.flash("error", "Không thể tìm thấy bài viết");
+        res.redirect(`${systemConfig.prefixAdmin}/blogs`);
     }
 }

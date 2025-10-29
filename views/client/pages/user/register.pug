@@ -4,43 +4,42 @@ include ../../mixins/alert.pug
 block main 
     +alert-error(5000)
 
-    .container.my-5 
-        .row.justify-content-center
-            .col-8
-                h1(class="text-center") Đăng kí tài khoản 
-                form(
-                    action="/user/register"
-                    method="POST"
-                )
-                    div(class="mb-3")
-                        label(for="fullName") Họ và tên 
-                        input(
-                            type="text"
-                            class="form-control"
-                            id="fullName"
-                            name="fullName"
-                            required
+    .register-page
+        .container
+            .row.justify-content-center
+                .col-8.col-md-6.col-lg-5
+                    .register-box
+                        h1.text-center.mb-4 Đăng kí tài khoản
+                        form(
+                            action="/user/register"
+                            method="POST"
                         )
-                    div(class="mb-3")
-                        label(for="email") Email 
-                        input(
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            required
-                        )
-                    div(class="mb-3")
-                        label(for="password") Mật khẩu 
-                        input(
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            name="password"
-                            required
-                        )
-                    div(class="mb-3")
-                        button(
-                            type="submit"
-                            class="btn btn-primary w-100"
-                        ) Đăng kí
+                            .mb-3
+                                label(for="fullName") Họ và tên
+                                input#fullName.form-control(
+                                    type="text"
+                                    name="fullName"
+                                    required
+                                )
+
+                            .mb-3
+                                label(for="email") Email
+                                input#email.form-control(
+                                    type="email"
+                                    name="email"
+                                    required
+                                )
+
+                            .mb-3
+                                label(for="password") Mật khẩu
+                                input#password.form-control(
+                                    type="password"
+                                    name="password"
+                                    required
+                                )
+
+                            button.btn.btn-gradient.w-100(type="submit") Đăng kí
+
+                        p.text-center.mt-3
+                            | Đã có tài khoản?
+                            a(href="/user/login" class="text-primary ms-1 fw-semibold") Đăng nhập

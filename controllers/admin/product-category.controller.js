@@ -88,7 +88,7 @@ module.exports.create = async (req, res) => {
     const records = await ProductCategory.find(find);
     const newRecords = createTreeHelper.create(records)
 
-    console.log(newRecords);
+    // console.log(newRecords);
     res.render("admin/pages/product-category/create", {
         pageTitle: "Tạo mới danh mục",
         records: newRecords

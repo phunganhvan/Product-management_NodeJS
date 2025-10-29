@@ -362,6 +362,7 @@ module.exports.editPatch = async (req, res) => {
             accountId: res.locals.user.id,
             updatedAt: new Date()
         }
+       
         await Product.updateOne({ _id: req.params.id }, {
             ...req.body,
             $push: { updatedBy: updatedBy }
@@ -381,7 +382,7 @@ module.exports.detail = async (req, res) => {
         // const products= {...product};
         const thisCategory = await ProductCategory.findOne({ _id: product.product_category_id });
 
-        console.log(product.id);
+        // console.log(product.id);
         res.render("admin/pages/product/detail", {
             pageTitle: product.title,
             product: product,

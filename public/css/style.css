@@ -1,7 +1,90 @@
 a {
     text-decoration: none !important;
 }
+/* HEADER TỔNG THỂ */
+.header {
+  background: linear-gradient(90deg, #a8edea 0%, #fed6e3 100%);
+  border-bottom: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 15px 40px;
+  border-radius: 0 0 14px 14px;
+  transition: all 0.3s ease;
+}
 
+/* LOGO */
+.header .inner-logo img {
+  max-height: 55px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.header .inner-logo img:hover {
+  transform: scale(1.05);
+}
+
+header {
+  position: relative;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.9); /* hoặc màu nền cụ thể */
+  backdrop-filter: none; /* loại bỏ làm mờ */
+}
+
+/* MENU CHÍNH */
+.header .inner-menu > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 25px;
+}
+
+.header * {
+  background: transparent !important;
+}
+
+/* ITEM MENU */
+.header .inner-menu > ul > li {
+  position: relative;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.header .inner-menu > ul > li > a {
+  color: #222;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+/* Hiệu ứng hover dịu và sang */
+.header .inner-menu > ul > li > a:hover {
+  background: rgba(255, 255, 255, 0.35);
+  color: #00796b;
+  box-shadow: 0 8px 8px rgba(0, 121, 107, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+/* NÚT ĐĂNG KÝ / ĐĂNG NHẬP */
+.header .inner-menu > ul > li:last-child a {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: #000;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.header .inner-menu > ul > li:last-child a:hover {
+  background: linear-gradient(90deg, #0072ff, #00c6ff);
+  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+
+/* 
 .header .inner-menu>ul {
     list-style: none;
     padding: 0;
@@ -26,16 +109,249 @@ a {
     max-height: 50px;
     max-width: 100%;
     aspect-ratio: 4/3;
-}
+} */
 
 /* End Header */
 
-.footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
+/* FOOTER CHUNG */
+/* Toàn bộ trang chiếm tối thiểu 100% chiều cao viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
+
+/* Khu vực nội dung chính co giãn chiếm phần còn lại */
+.content-wrapper {
+  flex: 1; /* Đẩy footer xuống đáy nếu nội dung ngắn */
+}
+.btn-primary {
+  background: linear-gradient(135deg, #74ebd5, #9face6);
+  border: none;
+  color: #000;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+
+/* FOOTER */
+.footer {
+  background: linear-gradient(90deg, #74ebd5, #acb6e5); /* xanh ngọc -> xanh tím nhạt */
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Hiệu ứng sáng phía trên footer */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #b2fefa, #6fffe9);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Hover nhẹ */
+.footer:hover {
+  background: linear-gradient(90deg, #6dd5ed, #2193b0);
+  transition: background 0.3s ease;
+}
+
+
+/* ================================
+   LOGIN PAGE STYLE
+   ================================ */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Thẻ card chứa form */
+.login-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 480px;
+  transition: all 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.regis:hover{
+  color: black!important;
+}
+/* Tiêu đề */
+.login-card h1 {
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 35px;
+}
+
+/* Label */
+.login-card label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Input */
+.login-card .form-control {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.login-card .form-control:focus {
+  border-color: #4facfe;
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+  outline: none;
+}
+
+/* Nút đăng nhập */
+.btn-login {
+  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+}
+
+/* Nền gradient toàn trang */
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a8edea, #fed6e3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Khối form đăng ký */
+.register-box {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 40px 50px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+/* Tiêu đề */
+.register-box h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Input */
+.register-box .form-control {
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.register-box .form-control:focus {
+  border-color: #4dd0e1;
+  box-shadow: 0 0 0 0.2rem rgba(77, 208, 225, 0.25);
+}
+
+/* Nút đăng ký gradient */
+.btn-gradient {
+  background: linear-gradient(to right, #36d1dc, #5b86e5);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  height: 50px;
+  transition: 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to right, #5b86e5, #36d1dc);
+  transform: translateY(-1px);
+}
+
+/* Liên kết đăng nhập */
+.register-box a {
+  text-decoration: none;
+}
+
+.register-box a:hover {
+  text-decoration: underline;
+}
+
+
+/* Link "Quên mật khẩu?" */
+.forgot-link {
+  display: block;
+  margin-top: 20px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+  text-align: center;
+}
+
+.forgot-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .login-card {
+    padding: 35px 25px;
+  }
+
+  .login-card h1 {
+    font-size: 22px;
+  }
+
+  .btn-login {
+    font-size: 15px;
+  }
+}
+
 
 /* End Footer */
 /* .product-item {
@@ -942,4 +1258,25 @@ form {
 }
 .related-item h5 a:hover {
   color: #0d6efd;
+}
+
+body {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+
+/* btn header  */
+.btn.bxn {
+  background: linear-gradient(135deg, #b3e5fc, #f8bbd0); /* xanh baby → hồng nhạt */
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #333;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn.bxn:hover {
+  background: linear-gradient(135deg, #a2d4f3, #f5a8c3);
+  color: #000;
 }

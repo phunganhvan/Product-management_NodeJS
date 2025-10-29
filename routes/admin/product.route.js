@@ -29,7 +29,12 @@ router.patch("/restore/:id", controller.restore);
 
 router.get("/create", controller.create);
 //giao diện tạo mới 1 sản phẩm
-
+router.post(
+    "/create",
+    upload.single("thumbnail"),
+    uploadCloud.uploads,
+    validate.createPost,
+    controller.createPost);
 //logic tọa mới
 //product/edit/:id [GET]
 router.get("/edit/:id", controller.edit);

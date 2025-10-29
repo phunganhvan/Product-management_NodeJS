@@ -1,39 +1,20 @@
 extends ../../layouts/default.pug
-include ../../mixins/alert.pug 
+include ../../mixins/alert.pug
+
 block main 
     +alert-error(5000)
 
+    .login-page
+        .login-card
+            h1.text-center Đăng nhập tài khoản
+            form(action="/user/login" method="POST")
+                .mb-3
+                    label(for="email") Email 
+                    input#email.form-control(type="email" name="email" required)
+                .mb-3
+                    label(for="password") Mật khẩu 
+                    input#password.form-control(type="password" name="password" required)
+                .mb-3
+                    button.btn.btn-login.w-100(type="submit") Đăng nhập
 
-    .container.my-5 
-        .row.justify-content-center 
-            .col-8 
-                h1(class="text-center") Đăng nhập tài khoản
-                form(
-                    action=`/user/login`
-                    method="POST"
-                )
-                    div(class="mb-3")
-                        label(for="email") Email 
-                        input(
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            required
-                        )   
-                    div(class= "mb-3")
-                        label(for="password") Mật khẩu 
-                        input(
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            name="password"
-                            required
-                        )
-                    div(class="mb-3 d-flex justify-content-center")
-                        button(
-                            type="submit"
-                            class="btn btn-primary d-block w-100"
-                        ) Đăng nhập
-            
-            a(href="/user/password/forgot" class="text-center") Quên mật khẩu?
+            a.text-center.forgot-link(href="/user/password/forgot") Quên mật khẩu?

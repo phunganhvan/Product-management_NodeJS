@@ -27,17 +27,11 @@ block main
         if(blog.content)
             div(class="mb-4") !{blog.content}
         row 
-            col-6 
+            col-12
                 a(
                     href=`${PATH_ADMIN}/blogs/edit/${blog.id}`
                     class="btn btn-warning btn-sm"
-                ) Sửa
-            col-6 
-                button(
-                    class="btn btn-danger btn-sm ml-1"
-                    button-delete
-                    data_id= blog.id    
-                ) Xóa
+                ) Chỉnh sửa
         form(
             action=""
             method="POST"

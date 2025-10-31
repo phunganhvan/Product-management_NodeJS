@@ -1070,3 +1070,106 @@ h1.mb-4 {
         width: 100%;
     }
 }
+
+
+/* css trang detail  */
+/* Tiêu đề chính */
+h1.mb-4 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2d2f48;
+    border-bottom: 2px solid rgba(90, 91, 255, 0.15);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+/* Tiêu đề bài viết */
+h2.mb-4 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #5A5BFF;
+    background: linear-gradient(90deg, #5A5BFF, #8E7CFF);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+/* Label và nội dung */
+label {
+    font-weight: 600;
+    color: #4e4f8c;
+    margin-right: 6px;
+}
+
+div.mb-4 {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Hình ảnh thumbnail */
+div.mb-4 img {
+    border-radius: 10px;
+    border: 2px solid rgba(90, 91, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(90, 91, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+div.mb-4 img:hover {
+    transform: scale(1.05);
+}
+
+/* Badge trạng thái */
+.badge-success {
+    background: linear-gradient(90deg, #6EDC82, #4DBF69);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.badge-danger {
+    background: linear-gradient(90deg, #FF6F6F, #E53939);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Nội dung bài viết */
+div.mb-4 p,
+div.mb-4 ul,
+div.mb-4 ol {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Hàng nút hành động */
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    main {
+        padding: 20px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-warning,
+    .btn-danger {
+        width: 100%;
+    }
+}

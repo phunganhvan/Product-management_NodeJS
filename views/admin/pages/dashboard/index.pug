@@ -35,6 +35,7 @@ block main
                     p Số lượng: <b>#{statistic.categoryProduct.total}</b>
                     p Hoạt động: <b>#{statistic.categoryProduct.active}</b>
                     p Ngừng hoạt động: <b>#{statistic.categoryProduct.inactive}</b>
+                    p Đã bị xóa: <b>#{statistic.categoryProduct.deleted} </b>
 
         .col-6 
             .card.mb-4 
@@ -43,6 +44,25 @@ block main
                     p Số lượng: <b>#{statistic.product.total}</b>
                     p Hoạt động: <b>#{statistic.product.active}</b>
                     p Ngừng hoạt động: <b>#{statistic.product.inactive}</b>
+                    p Đã bị xóa: <b>#{statistic.product.deleted} </b>
+        .col-6 
+            .card.mb-4 
+                .card-header Danh mục bài viết 
+                .card-body 
+                    p Số lượng: <b>#{statistic.product.total}</b>
+                    p Hoạt động: <b>#{statistic.product.active}</b>
+                    p Ngừng hoạt động: <b>#{statistic.product.inactive}</b>
+                    p Đã bị xóa: <b>#{statistic.categoryBlog.deleted} </b>
+
+        .col-6 
+            .card.mb-4 
+                .card-header Bài viết 
+                .card-body 
+                    p Số lượng: <b>#{statistic.product.total}</b>
+                    p Hoạt động: <b>#{statistic.product.active}</b>
+                    p Ngừng hoạt động: <b>#{statistic.product.inactive}</b>
+                    p Đã bị xóa: <b>#{statistic.blog.deleted} </b>
+
         .col-6 
             .card.mb-4 
                 .card-header Tài khoản admin
@@ -50,6 +70,7 @@ block main
                     p Số lượng: <b>#{statistic.account.total}</b>
                     p Hoạt động: <b>#{statistic.account.active}</b>
                     p Ngừng hoạt động: <b>#{statistic.account.inactive}</b> 
+                    p Đã bị xóa: <b>#{statistic.account.deleted} </b>
         .col-6 
             .card.mb-4 
                 .card-header Tài khoản client  
@@ -57,3 +78,4 @@ block main
                     p Số lượng: <b>#{statistic.user.total}</b>
                     p Hoạt động: <b>#{statistic.user.active}</b>
                     p Ngừng hoạt động: <b>#{statistic.user.inactive}</b>
+                    p Đã bị xóa: <b>#{statistic.account.deleted} </b>

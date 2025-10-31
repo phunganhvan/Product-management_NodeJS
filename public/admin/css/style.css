@@ -239,3 +239,834 @@
     cursor: pointer;
     border-radius: 12px;
 }
+
+/* ==========================
+   GIAO DIỆN TỔNG QUAN
+========================== */
+body {
+  background-color: #eef1f8;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #333;
+}
+
+/* Header & Sidebar giữ nguyên màu xanh navy hiện tại */
+
+/* ==========================
+   CARD CHÍNH
+========================== */
+.card {
+  background: #ffffff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(47, 60, 100, 0.08);
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 18px rgba(47, 60, 100, 0.12);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #5865f2, #7b8dfd);
+  color: #fff;
+  font-weight: 600;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.25s ease-in-out;
+}
+
+.btn-outline-success {
+  color: #5865f2;
+  border-color: #5865f2;
+}
+.btn-outline-success:hover {
+  background-color: #5865f2;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #5865f2;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #4c56e0;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border: none;
+}
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+/* ==========================
+   BẢNG DANH SÁCH
+========================== */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+.table thead {
+  background-color: #e2e6f3;
+  color: #3f4a72;
+  font-weight: 600;
+}
+.table-hover tbody tr:hover {
+  background-color: #f2f4fc;
+}
+
+/* ==========================
+   STATUS BADGES
+========================== */
+.badge.text-bg-success {
+  background: linear-gradient(135deg, #4cd964, #28a745);
+  color: #fff;
+}
+.badge.text-bg-danger {
+  background: linear-gradient(135deg, #ff6b6b, #e63946);
+  color: #fff;
+}
+
+/* ==========================
+   INPUT & FILTER
+========================== */
+input[type="text"],
+input[type="number"],
+select {
+  border-radius: 6px;
+  border: 1px solid #ccd3e2;
+  transition: border-color 0.2s;
+}
+input:focus,
+select:focus {
+  border-color: #5865f2;
+  box-shadow: 0 0 4px rgba(88, 101, 242, 0.3);
+  outline: none;
+}
+
+/* ==========================
+   PAGINATION
+========================== */
+.pagination .page-item .page-link {
+  border-radius: 6px;
+  color: #5865f2;
+  transition: all 0.2s ease;
+}
+.pagination .page-item.active .page-link {
+  background-color: #5865f2;
+  border-color: #5865f2;
+  color: #fff;
+}
+
+/* ==========================
+   FILTER STATUS BUTTONS
+========================== */
+.btn-filter {
+  background-color: #fff;
+  color: #5865f2;
+  border: 1px solid #5865f2;
+  border-radius: 20px;
+  padding: 4px 12px;
+  transition: all 0.2s ease;
+}
+.btn-filter.active,
+.btn-filter:hover {
+  background-color: #5865f2;
+  color: #fff;
+}
+
+/* ==========================
+   FILTER STATUS BUTTONS
+========================== */
+button[button-status],
+.btn-filter {
+  background: #ffffff;
+  color: #5865f2;
+  border: 1.8px solid #5865f2;
+  border-radius: 50px;
+  padding: 6px 16px;
+  margin: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(88, 101, 242, 0.1);
+}
+
+button[button-status]:hover,
+.btn-filter:hover {
+  background: linear-gradient(135deg, #5865f2, #7b8dfd);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(88, 101, 242, 0.25);
+}
+
+/* Khi nút đang được chọn (active) */
+button[button-status].active,
+.btn-filter.active {
+  background: linear-gradient(135deg, #5865f2, #7b8dfd);
+  color: #fff;
+  border: 1.8px solid transparent;
+  box-shadow: 0 4px 14px rgba(88, 101, 242, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Trạng thái "Tất cả" nếu bạn muốn nó nổi khác nhẹ */
+button[button-status][data-status="all"] {
+  border-color: #4cc9f0;
+  color: #4cc9f0;
+}
+button[button-status][data-status="all"].active {
+  background: linear-gradient(135deg, #4cc9f0, #4895ef);
+  color: #fff;
+}
+
+/* form-search css */
+/* FORM SEARCH - tím lạnh đồng bộ theme */
+#form-search {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    width: 100%;
+}
+
+#form-search .input-group {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(90, 91, 255, 0.15);
+    background: white;
+    border: 1px solid rgba(150, 150, 255, 0.2);
+}
+
+/* Ô nhập */
+#form-search .form-control {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    font-size: 15px;
+    background: transparent;
+    flex: 1;
+    color: #333;
+}
+
+#form-search .form-control::placeholder {
+    color: #aaa;
+}
+
+/* Nút tìm kiếm - gradient tông xanh tím */
+#form-search .btn-success {
+    background: linear-gradient(90deg, #5A5BFF, #8E7CFF);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 10px 24px;
+    transition: all 0.3s ease;
+    border-radius: 0 30px 30px 0;
+}
+
+/* Hover hiệu ứng nổi */
+#form-search .btn-success:hover {
+    background: linear-gradient(90deg, #4E50F5, #7A68FF);
+    box-shadow: 0 0 10px rgba(90, 91, 255, 0.4);
+}
+
+/* Khi focus vào input */
+#form-search .form-control:focus {
+    background-color: rgba(240, 240, 255, 0.6);
+}
+
+
+
+/* ============================= */
+/* FORM CREATE PRODUCT - THEME TÍM XANH */
+/* ============================= */
+
+/* Container tổng thể */
+#form-create-product {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.1);
+    border: 1px solid rgba(150, 150, 255, 0.1);
+}
+
+/* Tiêu đề chính */
+h1.mb-4 {
+    font-weight: 700;
+    color: #2d2f48;
+    margin-bottom: 30px;
+}
+
+/* Label */
+#form-create-product label {
+    font-weight: 600;
+    color: #4e4f8c;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+/* Input, select, textarea */
+#form-create-product .form-control,
+#form-create-product select,
+#form-create-product textarea {
+    border-radius: 10px;
+    border: 1px solid rgba(150, 150, 255, 0.2);
+    background-color: #fdfdff;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(90, 91, 255, 0.05);
+}
+
+/* Hover và Focus */
+#form-create-product .form-control:hover,
+#form-create-product select:hover,
+#form-create-product textarea:hover {
+    border-color: #8E7CFF;
+}
+
+#form-create-product .form-control:focus,
+#form-create-product select:focus,
+#form-create-product textarea:focus {
+    border-color: #5A5BFF;
+    box-shadow: 0 0 6px rgba(90, 91, 255, 0.3);
+    background-color: #f7f8ff;
+}
+
+/* Radio buttons */
+#form-create-product .form-check-input {
+    accent-color: #5A5BFF;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#form-create-product .form-check-label {
+    margin-left: 6px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Upload ảnh */
+[upload-image] {
+    background: #fafaff;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px dashed rgba(90, 91, 255, 0.3);
+    transition: all 0.25s ease;
+}
+
+[upload-image]:hover {
+    background: rgba(240, 240, 255, 0.6);
+    border-color: #8E7CFF;
+}
+
+[upload-image-preview] {
+    max-height: 120px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid rgba(90, 91, 255, 0.2);
+}
+
+[close-preview] {
+    display: inline-block;
+    margin-top: 8px;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+[close-preview]:hover {
+    color: #5A5BFF;
+}
+
+/* Button submit */
+#form-create-product .btn-primary {
+    background: linear-gradient(90deg, #5A5BFF, #8E7CFF);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.25);
+    transition: all 0.25s ease;
+}
+
+#form-create-product .btn-primary:hover {
+    background: linear-gradient(90deg, #4E50F5, #7A68FF);
+    box-shadow: 0 6px 14px rgba(90, 91, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Nhóm các form-control */
+#form-create-product .mb-3 {
+    margin-bottom: 20px !important;
+}
+
+/* Placeholder */
+#form-create-product ::placeholder {
+    color: #aaa;
+}
+
+/* Radio inline spacing */
+.form-check-inline {
+    margin-right: 20px;
+}
+
+/* Ảnh hiển thị preview */
+#preview {
+    display: block;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #form-create-product {
+        padding: 20px;
+    }
+    #form-create-product .btn-primary {
+        width: 100%;
+    }
+}
+
+
+/* form tao moi blog */
+/* ======================================= */
+/* FORM CREATE BLOG - THEME TÍM XANH ĐỒNG NHẤT */
+/* ======================================= */
+
+/* Container tổng thể */
+#form-create-blog {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.1);
+    border: 1px solid rgba(150, 150, 255, 0.1);
+}
+
+/* Tiêu đề */
+h1.mb-4 {
+    font-weight: 700;
+    color: #2d2f48;
+    margin-bottom: 30px;
+}
+
+/* Label */
+#form-create-blog label {
+    font-weight: 600;
+    color: #4e4f8c;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+/* Input, Select, Textarea */
+#form-create-blog .form-control,
+#form-create-blog select,
+#form-create-blog textarea {
+    border-radius: 10px;
+    border: 1px solid rgba(150, 150, 255, 0.2);
+    background-color: #fdfdff;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(90, 91, 255, 0.05);
+}
+
+/* Hover và Focus */
+#form-create-blog .form-control:hover,
+#form-create-blog select:hover,
+#form-create-blog textarea:hover {
+    border-color: #8E7CFF;
+}
+
+#form-create-blog .form-control:focus,
+#form-create-blog select:focus,
+#form-create-blog textarea:focus {
+    border-color: #5A5BFF;
+    box-shadow: 0 0 6px rgba(90, 91, 255, 0.3);
+    background-color: #f7f8ff;
+}
+
+/* Radio buttons */
+#form-create-blog .form-check-input {
+    accent-color: #5A5BFF;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#form-create-blog .form-check-label {
+    margin-left: 6px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Upload ảnh */
+[upload-image] {
+    background: #fafaff;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px dashed rgba(90, 91, 255, 0.3);
+    transition: all 0.25s ease;
+}
+
+[upload-image]:hover {
+    background: rgba(240, 240, 255, 0.6);
+    border-color: #8E7CFF;
+}
+
+[upload-image-preview] {
+    max-height: 120px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid rgba(90, 91, 255, 0.2);
+}
+
+[close-preview] {
+    display: inline-block;
+    margin-top: 8px;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+[close-preview]:hover {
+    color: #5A5BFF;
+}
+
+/* Button */
+#form-create-blog .btn-primary {
+    background: linear-gradient(90deg, #5A5BFF, #8E7CFF);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.25);
+    transition: all 0.25s ease;
+}
+
+#form-create-blog .btn-primary:hover {
+    background: linear-gradient(90deg, #4E50F5, #7A68FF);
+    box-shadow: 0 6px 14px rgba(90, 91, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Các khoảng cách form */
+#form-create-blog .mb-3 {
+    margin-bottom: 20px !important;
+}
+
+/* Placeholder */
+#form-create-blog ::placeholder {
+    color: #aaa;
+}
+
+/* Radio inline spacing */
+.form-check-inline {
+    margin-right: 20px;
+}
+
+/* Ảnh preview */
+#preview {
+    display: block;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #form-create-blog {
+        padding: 20px;
+    }
+    #form-create-blog .btn-primary {
+        width: 100%;
+    }
+}
+
+
+/* form create productCate */
+/* ======================================= */
+/* FORM CREATE PRODUCT CATEGORY - THEME TÍM */
+/* ======================================= */
+
+#form-create-productCate {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.1);
+    border: 1px solid rgba(150, 150, 255, 0.1);
+}
+
+/* Tiêu đề */
+h1.mb-4 {
+    font-weight: 700;
+    color: #2d2f48;
+    margin-bottom: 30px;
+}
+
+/* Label */
+#form-create-productCate label {
+    font-weight: 600;
+    color: #4e4f8c;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+/* Input, Select, Textarea */
+#form-create-productCate .form-control,
+#form-create-productCate select,
+#form-create-productCate textarea {
+    border-radius: 10px;
+    border: 1px solid rgba(150, 150, 255, 0.2);
+    background-color: #fdfdff;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(90, 91, 255, 0.05);
+}
+
+/* Hover và Focus */
+#form-create-productCate .form-control:hover,
+#form-create-productCate select:hover,
+#form-create-productCate textarea:hover {
+    border-color: #8E7CFF;
+}
+
+#form-create-productCate .form-control:focus,
+#form-create-productCate select:focus,
+#form-create-productCate textarea:focus {
+    border-color: #5A5BFF;
+    box-shadow: 0 0 6px rgba(90, 91, 255, 0.3);
+    background-color: #f7f8ff;
+}
+
+/* Upload ảnh */
+[upload-image] {
+    background: #fafaff;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px dashed rgba(90, 91, 255, 0.3);
+    transition: all 0.25s ease;
+}
+
+[upload-image]:hover {
+    background: rgba(240, 240, 255, 0.6);
+    border-color: #8E7CFF;
+}
+
+[upload-image-preview] {
+    max-height: 120px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid rgba(90, 91, 255, 0.2);
+}
+
+[close-preview] {
+    display: inline-block;
+    margin-top: 8px;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+[close-preview]:hover {
+    color: #5A5BFF;
+}
+
+/* Radio buttons */
+#form-create-productCate .form-check-input {
+    accent-color: #5A5BFF;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#form-create-productCate .form-check-label {
+    margin-left: 6px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Button */
+#form-create-productCate .btn-primary {
+    background: linear-gradient(90deg, #5A5BFF, #8E7CFF);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.25);
+    transition: all 0.25s ease;
+}
+
+#form-create-productCate .btn-primary:hover {
+    background: linear-gradient(90deg, #4E50F5, #7A68FF);
+    box-shadow: 0 6px 14px rgba(90, 91, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Placeholder */
+#form-create-productCate ::placeholder {
+    color: #aaa;
+}
+
+/* Radio inline spacing */
+.form-check-inline {
+    margin-right: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #form-create-productCate {
+        padding: 20px;
+    }
+    #form-create-productCate .btn-primary {
+        width: 100%;
+    }
+}
+
+
+/* form create blogCate */
+/* ======================================= */
+/* FORM CREATE BLOG CATEGORY - THEME TÍM */
+/* ======================================= */
+
+#form-create-blogCate {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.1);
+    border: 1px solid rgba(150, 150, 255, 0.1);
+}
+
+/* Tiêu đề trang */
+h1.mb-4 {
+    font-weight: 700;
+    color: #2d2f48;
+    margin-bottom: 30px;
+}
+
+/* Label */
+#form-create-blogCate label {
+    font-weight: 600;
+    color: #4e4f8c;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+/* Input, Select, Textarea */
+#form-create-blogCate .form-control,
+#form-create-blogCate select,
+#form-create-blogCate textarea {
+    border-radius: 10px;
+    border: 1px solid rgba(150, 150, 255, 0.2);
+    background-color: #fdfdff;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(90, 91, 255, 0.05);
+}
+
+/* Hover và Focus */
+#form-create-blogCate .form-control:hover,
+#form-create-blogCate select:hover,
+#form-create-blogCate textarea:hover {
+    border-color: #8E7CFF;
+}
+
+#form-create-blogCate .form-control:focus,
+#form-create-blogCate select:focus,
+#form-create-blogCate textarea:focus {
+    border-color: #5A5BFF;
+    box-shadow: 0 0 6px rgba(90, 91, 255, 0.3);
+    background-color: #f7f8ff;
+}
+
+/* Upload ảnh */
+[upload-image] {
+    background: #fafaff;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px dashed rgba(90, 91, 255, 0.3);
+    transition: all 0.25s ease;
+}
+
+[upload-image]:hover {
+    background: rgba(240, 240, 255, 0.6);
+    border-color: #8E7CFF;
+}
+
+[upload-image-preview] {
+    max-height: 120px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid rgba(90, 91, 255, 0.2);
+}
+
+[close-preview] {
+    display: inline-block;
+    margin-top: 8px;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+[close-preview]:hover {
+    color: #5A5BFF;
+}
+
+/* Radio buttons */
+#form-create-blogCate .form-check-input {
+    accent-color: #5A5BFF;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#form-create-blogCate .form-check-label {
+    margin-left: 6px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Nút “Tạo mới” */
+#form-create-blogCate .btn-primary {
+    background: linear-gradient(90deg, #5A5BFF, #8E7CFF);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 10px rgba(90, 91, 255, 0.25);
+    transition: all 0.25s ease;
+}
+
+#form-create-blogCate .btn-primary:hover {
+    background: linear-gradient(90deg, #4E50F5, #7A68FF);
+    box-shadow: 0 6px 14px rgba(90, 91, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Placeholder */
+#form-create-blogCate ::placeholder {
+    color: #aaa;
+}
+
+/* Radio inline spacing */
+.form-check-inline {
+    margin-right: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #form-create-blogCate {
+        padding: 20px;
+    }
+    #form-create-blogCate .btn-primary {
+        width: 100%;
+    }
+}

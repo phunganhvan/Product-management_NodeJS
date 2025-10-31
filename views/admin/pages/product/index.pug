@@ -25,11 +25,11 @@ block main
             .card-body
                 .row 
                     .col-8
-                        +formChangeMulti(`${PATH_ADMIN}/product/change-multi?_method=PATCH`, isDelete, "product", "sản phẩm")
+                        +formChangeMulti(`${PATH_ADMIN}/products/change-multi?_method=PATCH`, isDelete, "product", "sản phẩm")
                     .col-4 
                         if(role.permission.includes("products_create"))
                             a(
-                                href=`${PATH_ADMIN}/product/create`
+                                href=`${PATH_ADMIN}/products/create`
                                 class="btn btn-outline-success"    
                             ) Thêm mới
         .card.mb-3
@@ -117,7 +117,7 @@ block main
                                 td 
                                     if(role.permission.includes("products_edit"))
                                         a(
-                                            href=`${PATH_ADMIN}/product/edit/${item.id}`
+                                            href=`${PATH_ADMIN}/products/edit/${item.id}`
                                             class="btn btn-warning btn-sm"
                                         ) Sửa
                                     if(find.deleted)
@@ -135,7 +135,7 @@ block main
                                                 data_id= item.id    
                                             ) Xóa    
                                     a(
-                                        href=`${PATH_ADMIN}/product/detail/${item.id}`
+                                        href=`${PATH_ADMIN}/products/detail/${item.id}`
                                         class="btn btn-secondary btn-sm"
                                     ) Chi tiết
                                     
@@ -144,20 +144,20 @@ block main
             action= ""
             method="POST"
             id="form-change-status"
-            data-path =`${PATH_ADMIN}/product/change-status`
+            data-path =`${PATH_ADMIN}/products/change-status`
         )
 
         form(
             action=""
             method="POST"
             id="form-delete"
-            data-path=`${PATH_ADMIN}/product/delete`
+            data-path=`${PATH_ADMIN}/products/delete`
         )
         form(
             action=""
             method="POST"
             id="form-restore"
-            data-path=`${PATH_ADMIN}/product/restore`
+            data-path=`${PATH_ADMIN}/products/restore`
         )
     else 
         h1 Bạn không có quyền truy cập trang này

@@ -34,7 +34,7 @@ block main
         row 
             col-6 
                 a(
-                    href=`${PATH_ADMIN}/product/edit/${product.id}`
+                    href=`${PATH_ADMIN}/products/edit/${product.id}`
                     class="btn btn-warning btn-sm"
                 ) Sửa
             col-6 
@@ -47,7 +47,7 @@ block main
             action=""
             method="POST"
             id="form-delete"
-            data-path=`${PATH_ADMIN}/product/delete`
+            data-path=`${PATH_ADMIN}/products/delete`
         )
     else 
         h1 Bạn không có quyền truy cập trang này

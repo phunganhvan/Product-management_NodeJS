@@ -34,3 +34,21 @@ mixin sortOrder()
             class="btn btn-danger mt-2"
             sort-clear
         ) Clear
+mixin sortBlog()
+    div(sort)
+        select(
+            class="form-control"
+            name="sort"
+            sort-select
+        ) 
+            option(disabled selected) ---Hãy chọn cách sắp xếp---
+            option(value="createdAt-desc") Ngày tạo mới nhất 
+            option(value="createdAt-asc") Ngày tạo cũ nhất
+            option(value="updatedAt-desc") Ngày cập nhật mới nhất 
+            option(value="updatedAt-asc") Ngày cập nhật cũ nhất 
+            option(value="position-asc") Vị trí tăng dần
+            option(value="position-desc") Vị trí giảm dần
+        button(
+            class="btn btn-danger mt-2"
+            sort-clear
+        ) Clear

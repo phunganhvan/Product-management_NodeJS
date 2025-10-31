@@ -4,9 +4,19 @@ const filterStatusHelper = require("../../helpers/filterStatus")
 const search = require("../../helpers/search");
 const createTreeHelper = require("../../helpers/create-tree");
 const systemConfig = require("../../config/system");
+const pag = require("../../helpers/pagination");
 // /admin/blogs
 
 module.exports.index = async (req, res) => {
+    let sortKey, sortValue;
+    if (req.query.sortKey && req.query.sortValue) {
+        sortKey = req.query.sortKey;
+        sortValue = req.query.sortValue;
+    }
+    else {
+        sortKey = "position";
+        sortValue = "desc";
+    }
     let find = {
         deleted: false,
     };
@@ -30,9 +40,16 @@ module.exports.index = async (req, res) => {
             deleted: true,
         }
     }
+    //Pagination
+    const countRecords = await BlogCategory.countDocuments(find);
+    // số sản phẩm trả ra giao diện
 
+    const objectPagination = pag(req.query, countRecords);
 
-    const records = await BlogCategory.find(find);
+    const records = await BlogCategory.find(find)
+        .sort({ [sortKey]: sortValue })
+        .limit(objectPagination.limitItem)
+        .skip(objectPagination.skip);
     for (const record of records) {
         // Lấy ra thông tin người tạo
         const user = await Account.findOne({
@@ -67,6 +84,7 @@ module.exports.index = async (req, res) => {
         records: newRecords,
         filter: filterStatus,
         keyword: keyword,
+        pagination: objectPagination,
         find: find,
         isDelete: find.deleted
     })

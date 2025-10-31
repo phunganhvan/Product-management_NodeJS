@@ -399,6 +399,10 @@ html, body {
 /* End Footer */
 
 /* --- KHỐI SẢN PHẨM --- */
+.p-i{
+  margin-bottom: 30px!important;
+  margin-top: 30px;
+}
 .product-item {
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 12px;
@@ -410,6 +414,7 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  
 }
 
 .product-item:hover {
@@ -496,7 +501,7 @@ html, body {
 .product-item .inner-price-new {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #00b894;
+  color: #e74c3c;
 }
 
 .product-item .inner-price-old {
@@ -703,6 +708,7 @@ html, body {
   font-size: 2rem;
   text-align: center;
   background: linear-gradient(90deg, #7e57c2, #9575cd);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; /* hiệu ứng gradient chữ */
   margin-bottom: 20px;

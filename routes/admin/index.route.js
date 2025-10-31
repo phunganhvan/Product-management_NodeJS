@@ -1,29 +1,33 @@
 const dashboardRoutes = require("./dashboard.route");
-const productRoutes= require("./product.route");
+const productRoutes = require("./product.route");
 const productCategoryRoutes = require("./product-category.route");
-const rolesRoutes= require("./roles.route")
-const accountsRoutes= require("./accounts.route");
+const rolesRoutes = require("./roles.route")
+const accountsRoutes = require("./accounts.route");
 const settingRoutes = require("./setting.route");
-const authRoutes= require("./auth.route");
-const myAccountRoutes= require("./my-account.route"); 
+const authRoutes = require("./auth.route");
+const myAccountRoutes = require("./my-account.route");
 const orderRoutes = require("./order.route");
-const blogCategoryRoutes= require("./blog-category.route");
+const blogCategoryRoutes = require("./blog-category.route");
 const blogsRoutes = require("./blogs.route");
 const PATH = require("../../config/system");
-const authMiddleware= require("../../middlewares/admin/auth.middlewares")
+const authMiddleware = require("../../middlewares/admin/auth.middlewares")
 
 // console.log(PATH);
 module.exports = (app) => {
-    const PATH_ADMIN= "/admin";
-    app.use(PATH.prefixAdmin+ '/dashboard',authMiddleware.requireAuth, dashboardRoutes);
-    app.use(PATH.prefixAdmin + "/product", authMiddleware.requireAuth , productRoutes);
-    app.use(PATH.prefixAdmin + "/product-category", authMiddleware.requireAuth , productCategoryRoutes);
-    app.use(PATH.prefixAdmin + "/roles", authMiddleware.requireAuth , rolesRoutes);
-    app.use(PATH.prefixAdmin + "/accounts", authMiddleware.requireAuth , accountsRoutes)
+    const PATH_ADMIN = "/admin";
+    app.use((req, res, next) => {
+        res.locals.currentPath = req.path; // path hiện tại, vd: /admin/product
+        next();
+    });
+    app.use(PATH.prefixAdmin + '/dashboard', authMiddleware.requireAuth, dashboardRoutes);
+    app.use(PATH.prefixAdmin + "/products", authMiddleware.requireAuth, productRoutes);
+    app.use(PATH.prefixAdmin + "/product-category", authMiddleware.requireAuth, productCategoryRoutes);
+    app.use(PATH.prefixAdmin + "/roles", authMiddleware.requireAuth, rolesRoutes);
+    app.use(PATH.prefixAdmin + "/accounts", authMiddleware.requireAuth, accountsRoutes)
     app.use(PATH.prefixAdmin + "/auth", authRoutes)
-    app.use(PATH.prefixAdmin +"/my-account", authMiddleware.requireAuth, myAccountRoutes)
+    app.use(PATH.prefixAdmin + "/my-account", authMiddleware.requireAuth, myAccountRoutes)
     app.use(PATH.prefixAdmin + "/settings", authMiddleware.requireAuth, settingRoutes)
-    app.use(PATH.prefixAdmin + "/orders",authMiddleware.requireAuth, orderRoutes)
+    app.use(PATH.prefixAdmin + "/orders", authMiddleware.requireAuth, orderRoutes)
     app.use(PATH.prefixAdmin + "/blog-category", authMiddleware.requireAuth, blogCategoryRoutes)
     app.use(PATH.prefixAdmin + '/blogs', authMiddleware.requireAuth, blogsRoutes)
 }

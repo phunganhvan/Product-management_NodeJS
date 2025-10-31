@@ -1,61 +1,175 @@
-.header{
-    background: #202020;
-    padding: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 999;
+/* ========== HEADER ========== */
+.header {
+  background: linear-gradient(90deg, #2c3e50, #4b6584);
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.header .inner-logo a:hover{
-    text-decoration: solid!important;
-    color: red!important;
-    cursor: pointer!important;
+.header .inner-logo a {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
-.header .inner-logo a{
-    font-size: 24px;
-    font-weight: 700;
-    color: #fff;
-}
-/* End header*/
 
+.header .inner-logo a:hover {
+  color: #ffd166;
+}
+
+/* Buttons (user + logout) */
+.header .btn {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.header .btn-user {
+  background: #1e90ff;
+  color: #fff;
+}
+
+.header .btn-user:hover {
+  background: #007bff;
+}
+
+.header .btn-logout {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.header .btn-logout:hover {
+  background: #c0392b;
+}
+
+/* ========== SIDEBAR ========== */
 .body .sider {
-    width: 150px;
-    background: #323232;
-    color: #fff;
-    height: calc(100vh - 56px);
-    position: fixed;
-    top: 56px;
-    left: 0;
+  width: 210px;
+  background: #2f3640;
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 60px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
 }
 
-.body .main {
-    margin: 15px;
-    position: relative;
-    left: 150px;
-    width: calc(100% - 200px);
+.sider .inner-menu {
+  padding: 0;
+  margin: 0;
 }
-
-/* End sider*/
 
 .sider .inner-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-.sider .inner-menu ul li a{
-    color: #fff;
-    display: block;
-    padding: 6px 10px;
-    border-bottom: 1px solid #515151;
+
+.sider .inner-menu ul li a {
+  color: #dcdde1;
+  display: block;
+  padding: 12px 18px;
+  font-weight: 500;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
 }
-.sider .inner-menu ul li a{
-    text-decoration: none;
-    color: #fff;
-    font-weight: 600;
+
+.sider .inner-menu ul li a:hover {
+  background: #353b48;
+  border-left: 4px solid #00a8ff;
+  color: #fff;
 }
-.sider .inner-menu ul li a:hover{
-    background: #515151;
+
+.sider .inner-menu ul li.active a {
+  background: #273c75;
+  border-left: 4px solid #00a8ff;
+  color: #fff;
 }
+
+
+/* Nếu muốn có hiệu ứng mượt */
+.sider .inner-menu ul li.active:hover {
+  background-color: #a97cff;
+  box-shadow: 0 0 15px rgba(169, 124, 255, 0.8);
+}
+
+/* ========== MAIN CONTENT ========== */
+.body .main {
+  margin-left: 230px;
+  padding: 25px;
+  background: #f5f6fa;
+  min-height: 100vh;
+  color: #2d3436;
+}
+
+/* Dashboard title */
+.body .main h1,
+.body .main h2 {
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #2f3640;
+}
+
+/* Info boxes */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Card header */
+.card h3 {
+  font-size: 18px;
+  color: #2f3640;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+/* Texts inside cards */
+.card p {
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+.card strong {
+  color: #273c75;
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #b2bec3;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #636e72;
+}
+
 
 .badge-success{
     background: green;

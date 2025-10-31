@@ -30,10 +30,10 @@ block main
                         td 
                             img(src=item.productInfo.thumbnail , alt= item.productInfo.title)
                         td #{item.productInfo.title}
-                        td #{item.price}
+                        td #{formatVND(item.price)}
                         td #{item.discountPercentage} 
                         td #{item.quantity}
-                        td #{item.price*(1-item.discountPercentage/100)*item.quantity} $
+                        td #{formatVND(item.price*(1-item.discountPercentage/100)*item.quantity)}
 
         if(order.createdAt)
             div(class="mb-4") Ngày tạo: 

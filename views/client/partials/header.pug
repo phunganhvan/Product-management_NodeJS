@@ -39,7 +39,7 @@ header.header
             .d-flex.align-items-center
               a.nav-link(href=pathProduct) Sản phẩm
               a.nav-link.dropdown-toggle(data-bs-toggle="dropdown")
-              ul.dropdown-menu
+              ul.dropdown-menu.sub-menu
                 +sub-menu(layoutProductCategory, pathProduct)
 
           li.nav-item.dropdown
@@ -47,7 +47,7 @@ header.header
             .d-flex.align-items-center
               a.nav-link(href=pathBlog) Blog
               a.nav-link.dropdown-toggle(data-bs-toggle="dropdown")
-              ul.dropdown-menu
+              ul.dropdown-menu.sub-menu
                 +sub-menu(layoutBlogCategory, pathBlog)
           li.nav-item
             a.nav-link(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})

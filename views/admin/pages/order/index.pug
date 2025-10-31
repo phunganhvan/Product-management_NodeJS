@@ -85,7 +85,7 @@ block main
                                                 class="badge text-bg-primary"
                                             ) Chờ duyệt 
                                 td  #{item.products.length}
-                                td  #{item.total} $
+                                td  #{formatVND(item.total)} 
                                 td
                                     p 
                                         +formatDateTime(item.createdAt)

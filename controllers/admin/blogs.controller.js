@@ -277,7 +277,7 @@ module.exports.create = async (req, res) => {
 
 // /admin/blogs/create [POST]
 module.exports.createPost = async (req, res) => {
-    const count = await Product.countDocuments();
+    const count = await Blog.countDocuments();
     req.body.position = parseInt(req.body.position) || (count + 1);
     req.body.createdBy = {
         accountId: res.locals.user.id
@@ -315,11 +315,8 @@ module.exports.edit = async (req, res) => {
 // /admin/blogs/edit/:id [PATCH]
 module.exports.editPatch = async (req, res) => {
     const count = await Blog.countDocuments();
-    req.body.position = parseInt(req.body.position)
-    // console.log(req.body);
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
+    req.body.position = parseInt(req.body.position) || count +1;
+    
 
     try {
         const updatedBy = {

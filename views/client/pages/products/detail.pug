@@ -15,8 +15,8 @@ block main
                             span Danh mục: 
                             a(href=`/products/${product.category.slug}`) #{product.category.title} 
                     if(product.price) 
-                        div(class="inner-price-old") Giá cũ: <del> #{product.price}$</del>
-                        div(class="inner-price-new") Giá mới: <b> #{product.priceNew}$</b>
+                        div(class="inner-price-old") Giá cũ: <del> #{formatVND(product.price)} </del>
+                        div(class="inner-price-new") Giá mới: <b> #{formatVND(product.priceNew)} </b>
                     if(product.discountPercentage) 
                         div(class="inner-percent") Giảm tới <span>#{product.discountPercentage}%</span>
                     if(product.stock) 

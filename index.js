@@ -14,6 +14,10 @@ const session= require('express-session');
 
 const moment= require("moment")
 
+// format VNĐ
+const formatVND = require('./helpers/formatVND');
+
+
 // socketio
 const { createServer } = require('node:http');
 const { join } = require('node:path');
@@ -32,6 +36,9 @@ const server = createServer(app);
 const io = new Server(server);
 global._io =io;
 // end socket
+
+//format VNĐ
+app.locals.formatVND = formatVND.formatVND;
 
 //tạo express flash
 app.use(cookieParser('keyboard cat'));

@@ -47,7 +47,7 @@ module.exports.index = async (req, res) => {
 // POST /cart/add/:productId
 module.exports.addPost = async (req, res) => {
     const productId = req.params.productId;
-    const quantity = req.body.quantity
+    const quantity = req.body.quantity || 1;
     const cartId = req.cookies.cartId;
     // console.log(productId, cartId, quantity);
     const cart = await Cart.findOne({ _id: cartId });

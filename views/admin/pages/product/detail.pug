@@ -9,7 +9,7 @@ block main
             div(class="mb-4")
                 label(for="product_category_id") Danh mục: <b>#{category.title}</b>
         if(product.price)
-            div(class="mb-4") Giá: <b>#{product.price} </b>
+            div(class="mb-4") Giá: <b>#{formatVND(product.price)} </b>
         if(product.discountPercentage)
             div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
         if(product.stock)

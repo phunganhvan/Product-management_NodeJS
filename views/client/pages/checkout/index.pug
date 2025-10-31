@@ -28,10 +28,10 @@ block main
                                     td 
                                         img(src=item.productInfo.thumbnail , alt=item.productInfo.title width="80px")
                                     td #{item.productInfo.title}
-                                    td #{item.productInfo.priceNew} $
+                                    td #{formatVND(item.productInfo.priceNew)} 
                                     td #{item.productInfo.quantity}
-                                    td #{item.productInfo.quantity * item.productInfo.priceNew} $
-                    h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice}$
+                                    td #{formatVND(item.productInfo.quantity * item.productInfo.priceNew)} 
+                    h3(class="text-end") Tổng đơn hàng: #{formatVND(cartDetail.totalPrice)} 
         if(cartDetail.products.length>0)
             .row 
                 .col-12 

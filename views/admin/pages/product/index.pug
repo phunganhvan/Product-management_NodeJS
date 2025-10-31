@@ -68,7 +68,7 @@ block main
                                 td 
                                     img(src=item.thumbnail , alt= item.title) 
                                 td  #{item.title}
-                                td #{item.price}$
+                                td #{formatVND(item.price)}
                                 td 
                                     input(
                                         type="number"

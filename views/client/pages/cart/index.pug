@@ -34,7 +34,7 @@ block main
                                         a(
                                             href=`/products/detail/${item.productInfo.slug}`
                                         ) #{item.productInfo.title}
-                                    td #{item.productInfo.priceNew} $
+                                    td #{formatVND(item.productInfo.priceNew)}
                                     td
                                         input(
                                             type="number"
@@ -44,13 +44,13 @@ block main
                                             product-id=item.productInfo.id
                                             style="width: 60px"
                                         )
-                                        td #{item.productInfo.quantity * item.productInfo.priceNew} $
+                                        td #{formatVND(item.productInfo.quantity * item.productInfo.priceNew)}
                                         td 
                                             a(
                                                 href=`/cart/delete/${item.productInfo.id}`
                                                 class="btn btn-danger"
                                             ) Xóa
-                    h3(class="text-end") Tổng đơn hàng: #{cartDetail.totalPrice}$
+                    h3(class="text-end") Tổng đơn hàng: #{formatVND(cartDetail.totalPrice)}
                     div(class="text-end mt-3")
                         a(
                             href="/checkout"

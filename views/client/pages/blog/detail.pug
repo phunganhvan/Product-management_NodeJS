@@ -1,58 +1,91 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../../admin/mixins/moment.pug
+
 block main
-  .blog-detail
-    .container.my-5
-      .row
-        // Cột ảnh bài viết
+  section.blog-detail-section.py-5(style="background:linear-gradient(120deg,#f5f9ff 0%,#fef7ff 100%); min-height:100vh;")
+    .container
+      // === Phần tiêu đề và ảnh ===
+      .row.align-items-center
+        // Ảnh bài viết
         .col-lg-6.mb-4
-          .inner-thumb
-            img(src=blog.thumbnail, alt=blog.title, class="img-fluid rounded shadow-sm w-100")
+          .inner-thumb.rounded-4.overflow-hidden.shadow-lg(style="aspect-ratio:16/10; background:#fff;")
+            img(
+              src=blog.thumbnail, 
+              alt=blog.title, 
+              class="w-100 h-100", 
+              style="object-fit:cover; transition:transform .6s ease;"
+            )
 
-        // Cột thông tin bài viết
+        // Nội dung chính bên phải
         .col-lg-6
-          h1.inner-title.mb-3 #{blog.title}
+          h1.fw-bold.mb-3(style="font-size:2rem; color:#2d2d2d;") #{blog.title}
 
-          if(blog.summary)
-            p.inner-summary.lead.text-muted #{blog.summary}
+          if blog.summary
+            p.inner-summary.text-muted(style="font-size:1.05rem; line-height:1.6;") #{blog.summary}
 
-          // Các thông tin phụ (tác giả, ngày đăng, danh mục,...)
-          .inner-meta.mt-3
+          // Meta thông tin phụ
+          .inner-meta.mt-4.text-muted(style="font-size:0.95rem;")
             if blog.author
               span.me-3
-                i.bi.bi-person-fill.me-1
+                i.bi.bi-person-fill.me-1(style="color:#6c63ff;")
                 | #{blog.author}
-            if blog.createdBy.createdAt
+            if blog.createdBy && blog.createdBy.createdAt
               span.me-3
-                i.bi.bi-calendar-event.me-1
-                    +formatDateTime(blog.createdBy.createdAt)
+                i.bi.bi-calendar-event.me-1(style="color:#6c63ff;")
+                +formatDateTime(blog.createdBy.createdAt)
             if blog.category
               span.me-3
-                i.bi.bi-folder-fill.me-1
+                i.bi.bi-folder-fill.me-1(style="color:#6c63ff;")
                 | #{blog.category.title}
 
           hr.my-4
 
-          a.btn.btn-primary.btn-lg.mt-2(href="/blogs") ← Quay lại danh sách bài viết
+          a.btn.mt-2.text-white(
+            href="/blogs", 
+            style="background:linear-gradient(135deg,#6c63ff,#a64bf4); border:none; border-radius:12px; padding:10px 22px; font-weight:500;"
+          )
+            | ← Quay lại danh sách bài viết
 
-    // Phần nội dung chi tiết
+    // === Nội dung chi tiết ===
     .container.my-5
       .row
         .col-12
           +box-head("Nội dung bài viết")
-          .inner-content !{blog.content}
+          .inner-content.p-4.rounded-4.shadow-sm(style="background:#fff; line-height:1.8; font-size:1.05rem;")
+            != blog.content
 
-    // (Tùy chọn) Bài viết liên quan
+
+    // === Bài viết liên quan ===
     if related && related.length
       .container.my-5
         +box-head("Bài viết liên quan")
         .row
           each item in related
             .col-lg-4.col-md-6.mb-4
-              .related-item.border.rounded.shadow-sm.p-3.h-100
-                img(src=item.thumbnail, alt=item.title, class="img-fluid rounded mb-3")
-                h5.fw-bold.mb-2 
-                  a(href=`/blogs/detail/${item._id}`) #{item.title}
-                p.text-muted.small #{item.summary}
-                a.btn.btn-outline-primary.btn-sm(href=`/blogs/detail/${item._id}`) Đọc tiếp
+              .related-item.rounded-4.shadow-lg.overflow-hidden.transition(
+                style="background:#fff; cursor:pointer; border:none; transition:all .3s ease;"
+              )
+                .inner-image(style="overflow:hidden; aspect-ratio:16/9;")
+                  a(href=`/blogs/detail/${item._id}`)
+                    img(
+                      src=item.thumbnail, 
+                      alt=item.title, 
+                      class="w-100 h-100", 
+                      style="object-fit:cover; transition:transform .6s ease;"
+                    )
+
+                .p-3.text-center
+                  h5.fw-bold.mb-2(style="color:#2d2d2d; min-height:52px;")
+                    a(
+                      href=`/blogs/detail/${item._id}`, 
+                      style="text-decoration:none; color:inherit;"
+                    ) #{item.title}
+
+                  p.text-muted.small(style="min-height:60px; line-height:1.4;") #{item.summary}
+
+                  a.btn.btn-sm.text-white.mt-2(
+                    href=`/blogs/detail/${item._id}`, 
+                    style="background:linear-gradient(135deg,#6c63ff,#a64bf4); border:none; border-radius:10px; padding:6px 14px; font-weight:500;"
+                  ) 
+                    | Đọc tiếp →

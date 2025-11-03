@@ -1,25 +1,36 @@
 extends ../../layouts/default.pug 
 block main 
-    h1(class="mb-4")
-    if(user.avatar)
-        img(src= user.avatar width="150px", class="mb-3")
-    else 
-        img(src="/admin/images/avatar.png" width="150px", class="mb-3")
+    .user-detail-page
+        h1(class="mb-4 text-center text-primary fw-bold") Thông tin tài khoản
 
-    if(user.fullName)
-        p Họ tên: <b>#{user.fullName}</b>
-    
-    if(user.email)
-        p Email: <b>#{user.email}</b>
-    if(user.phone)
-        p Số điện thoại: <b>#{user.phone}</b>
-    p 
-        span Trạng thái: 
-        span 
-            <b>#{user.status==="active" ? "Hoạt động" : "Dừng hoạt động"}</b>
-    if(role.title)
-        p Phân quyền: <b>#{role.title}</b>
-    a(
-        href=`${PATH_ADMIN}/my-account/edit`
-        class="btn btn-primary"
-    ) Chỉnh sửa thông tin
+        .user-card
+            if(user.avatar)
+                img(src=user.avatar, alt="Avatar", class="user-avatar mb-3")
+            else 
+                img(src="/admin/images/avatar.png", alt="Avatar", class="user-avatar mb-3")
+
+            .user-info
+                if(user.fullName)
+                    p Họ tên: 
+                        b #{user.fullName}
+                
+                if(user.email)
+                    p Email: 
+                        b #{user.email}
+
+                if(user.phone)
+                    p Số điện thoại: 
+                        b #{user.phone}
+
+                p 
+                    span Trạng thái: 
+                    span <b>#{user.status==="active" ? "Hoạt động" : "Dừng hoạt động"}</b>
+
+                if(role.title)
+                    p Phân quyền: 
+                        b #{role.title}
+
+            a(
+                href=`${PATH_ADMIN}/my-account/edit`
+                class="btn btn-primary mt-3 w-100"
+            ) Chỉnh sửa thông tin

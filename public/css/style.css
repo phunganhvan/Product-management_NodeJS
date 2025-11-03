@@ -1386,3 +1386,51 @@ form {
   background: linear-gradient(135deg, #a2d4f3, #f5a8c3);
   color: #000;
 }
+
+
+
+
+/* blog  */
+
+.blog-item {
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.blog-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
+}
+
+.blog-detail-section img:hover {
+  transform: scale(1.06);
+}
+
+.related-item:hover img {
+  transform: scale(1.08);
+}
+
+.related-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.box-head {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.box-head h3 {
+  font-weight: 700;
+  color: #6c63ff;
+  font-size: 1.5rem;
+}

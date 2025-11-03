@@ -9,13 +9,13 @@ module.exports.index = async (req, res) => {
         deleted: false,
     }).sort({ position: "desc" });
 
-    for (let blog of blogs) {
-        const category = await BlogCategory.findOne({
-            _id: blog.blog_category_id
-        }).select('title id');
-        blog.category = category.title;
-        // console.log(category);
-    }
+    // for (let blog of blogs) {
+    //     const category = await BlogCategory.findOne({
+    //         _id: blog.blog_category_id
+    //     }).select('title id');
+    //     blog.category = category.title;
+    //     // console.log(category);
+    // }
     res.render('client/pages/blog/index', {
         titlePage: "Danh sách bài viết",
         blogs: blogs,

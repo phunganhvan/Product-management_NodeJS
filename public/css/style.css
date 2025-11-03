@@ -1434,3 +1434,6 @@ form {
   color: #6c63ff;
   font-size: 1.5rem;
 }
+.inner-thumb img:hover {
+  transform: scale(1.03);
+}

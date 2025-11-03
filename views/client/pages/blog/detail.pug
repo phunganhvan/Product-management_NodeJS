@@ -9,17 +9,19 @@ block main
       .row.align-items-center
         // Ảnh bài viết
         .col-lg-6.mb-4
-          .inner-thumb.rounded-4.overflow-hidden.shadow-lg(style="aspect-ratio:16/10; background:#fff;")
+          .inner-thumb.rounded-4.overflow-hidden.shadow-lg(
+            style="aspect-ratio:16/10; background:#f8f9fa; display:flex; align-items:center; justify-content:center; border-radius:16px; overflow:hidden;"
+          )
             img(
               src=blog.thumbnail, 
               alt=blog.title, 
-              class="w-100 h-100", 
-              style="object-fit:cover; transition:transform .6s ease;"
+              class="img-fluid",
+              style="width:100%; height:100%; object-fit:cover; object-position:center; border-radius:inherit; transition:transform .6s ease;"
             )
 
         // Nội dung chính bên phải
         .col-lg-6
-          h1.fw-bold.mb-3(style="font-size:2rem; color:#2d2d2d;") #{blog.title}
+          h1.fw-bold.mb-3(style="font-size:2rem; color:#2d2d2d; line-height:1.3;") #{blog.title}
 
           if blog.summary
             p.inner-summary.text-muted(style="font-size:1.05rem; line-height:1.6;") #{blog.summary}

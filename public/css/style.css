@@ -722,61 +722,141 @@ html, body {
 
 /* product-detail  */
 
-.product-detail .inner-thumb img {
-    margin-left: 40px;
-    width: 80%;
-    height: auto;
+/* PRODUCT DETAIL - Pastel Theme */
+.product-detail {
+    /* background: linear-gradient(to bottom right, #e7f9f9, #f7ecff); */
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 6px 20px rgba(160, 160, 200, 0.15);
 }
 
+/* Ảnh sản phẩm */
+.product-detail .inner-thumb {
+    text-align: center;
+    background: #f2edff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(150, 140, 200, 0.1);
+}
+.product-detail .inner-thumb img {
+    width: 90%;
+    height: auto;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    padding-top: 40px;
+    padding-bottom: 40px ;
+}
+.product-detail .inner-thumb img:hover {
+    transform: scale(1.03);
+}
+
+/* Tiêu đề sản phẩm */
 .product-detail .inner-title {
-    font-size: 32px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #2e2b55;
     margin-bottom: 15px;
 }
 
+/* Danh mục */
 .product-detail .inner-category {
-    margin-bottom: 10px;
+    font-size: 16px;
+    color: #6a5acd;
+    margin-bottom: 15px;
+}
+.product-detail .inner-category a {
+    color: #7e63f6;
+    text-decoration: none;
+    font-weight: 500;
+}
+.product-detail .inner-category a:hover {
+    color: #b187ff;
 }
 
-.product-detail .inner-price-new {
-    color: green;
-    font-weight: 600;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
+/* Giá cũ */
 .product-detail .inner-price-old {
-    color: red;
-    font-weight: 600;
-    font-size: 20px;
-    margin-bottom: 10px;
+    color: #b1a8c7;
+    font-size: 18px;
     text-decoration: line-through;
-}
-
-.product-detail .inner-percent {
     margin-bottom: 10px;
 }
 
+/* Giá mới */
+.product-detail .inner-price-new {
+    font-size: 26px;
+    font-weight: 700;
+    color: #e6399b;
+    margin-bottom: 10px;
+}
+
+/* Giảm giá */
 .product-detail .inner-percent span {
+    background: linear-gradient(45deg, #ff72b6, #a67bf3);
     color: #fff;
-    background: red;
     font-weight: 600;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 10px;
     display: inline-block;
-    padding: 3px 6px;
-    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(166, 123, 243, 0.3);
 }
 
-.product-detail .inner-stock {
-    margin-bottom: 10px;
-}
-
+/* Tồn kho */
 .product-detail .inner-stock span {
+    background: linear-gradient(45deg, #6ee7b7, #8b5cf6);
     color: #fff;
-    background: green;
     font-weight: 600;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 10px;
     display: inline-block;
-    padding: 3px 6px;
-    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(139, 92, 246, 0.3);
 }
+
+/* Input số lượng */
+.product-detail input[type="number"] {
+    border: 2px solid #e1d6ff;
+    border-radius: 12px;
+    padding: 8px 12px;
+    width: 120px;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.product-detail input[type="number"]:focus {
+    border-color: #b187ff;
+    box-shadow: 0 0 8px rgba(177, 135, 255, 0.3);
+}
+
+/* Nút Thêm vào giỏ hàng */
+.product-detail .btn-success {
+    background: linear-gradient(45deg, #a18cd1, #fbc2eb);
+    border: none;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(161, 140, 209, 0.3);
+}
+.product-detail .btn-success:hover {
+    background: linear-gradient(45deg, #fbc2eb, #a6c1ee);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(161, 140, 209, 0.4);
+}
+
+/* Mô tả sản phẩm */
+.product-detail .inner-desc {
+    background: #ffffffd9;
+    border-radius: 16px;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #3a355a;
+    box-shadow: 0 4px 10px rgba(150, 140, 200, 0.1);
+    margin-top: 20px;
+}
+
 
 /* end product-detail  */
 

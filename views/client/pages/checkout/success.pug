@@ -1,64 +1,63 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug 
 include ../../mixins/alert.pug 
-
 block main 
-    .container.my-3
-        .row
-            .col-12 
-                +box-head("Đặt hàng thành công")
-        .row 
-            .col-12 
-                div(class="alert alert-success text-center")
-                    | Chúc mừng bạn đã đặt hàng thành công! Chúng tôi 
-                    | sẽ xử lý đơn hàng trong thời gian sớm nhất 
-
-        if(order)
+    .order-success-page
+        .container.my-3
+            .row
+                .col-12 
+                    +box-head("Đặt hàng thành công")
             .row 
                 .col-12 
-                    h4(class="mb-2") Thông tin cá nhân 
-                    table(class="table table-bordered")
-                        tbody 
-                            tr 
-                                td Họ tên
-                                td 
-                                    b #{order.userInfo.fullName}
-                            tr 
-                                td Số điện thoại 
-                                td 
-                                    b #{order.userInfo.phone}
-                            tr 
-                                td Địa chỉ
-                                td 
-                                    b #{order.userInfo.address}
-            .row 
-                .col-12 
-                    h4(class="mb-2") Thông tin đơn hàng 
-                    table(class="table table-bordered")
-                        thead 
-                            tr 
-                                th STT 
-                                th Ảnh 
-                                th Tên 
-                                th Giá
-                                th Số lượng
-                                th Tổng tiền 
-                        tbody 
-                            if(order.products.length >0)
-                                each item, index in order.products 
-                                    tr 
-                                        td #{index+1}
-                                        td 
-                                            img(
-                                                src=item.productInfo.thumbnail
-                                                alt=item.title 
-                                                width= "80px"
-                                            )
-                                        td #{item.productInfo.title}
-                                        td #{item.priceNew}
-                                        td #{item.quantity}
-                                        td #{item.totalPrice} VNĐ
-                    if(order.products.length >0)
-                        h3(class="text-end") Tổng đơn hàng: #{order.totalPrice} VNĐ
+                    div(class="alert alert-success text-center success-message")
+                        | 🎉 Chúc mừng bạn đã đặt hàng thành công! Chúng tôi 
+                        | sẽ xử lý đơn hàng trong thời gian sớm nhất. 
 
-                            
+            if(order)
+                .row 
+                    .col-12 
+                        h4(class="mb-2 section-title") Thông tin cá nhân 
+                        table(class="table table-bordered info-table")
+                            tbody 
+                                tr 
+                                    td Họ tên
+                                    td 
+                                        b #{order.userInfo.fullName}
+                                tr 
+                                    td Số điện thoại 
+                                    td 
+                                        b #{order.userInfo.phone}
+                                tr 
+                                    td Địa chỉ
+                                    td 
+                                        b #{order.userInfo.address}
+
+                .row 
+                    .col-12 
+                        h4(class="mb-2 section-title") Thông tin đơn hàng 
+                        table(class="table table-bordered product-table")
+                            thead 
+                                tr 
+                                    th STT 
+                                    th Ảnh 
+                                    th Tên 
+                                    th Giá
+                                    th Số lượng
+                                    th Tổng tiền 
+                            tbody 
+                                if(order.products.length > 0)
+                                    each item, index in order.products 
+                                        tr 
+                                            td #{index + 1}
+                                            td 
+                                                img(
+                                                    src=item.productInfo.thumbnail
+                                                    alt=item.title 
+                                                    width="80px"
+                                                )
+                                            td #{item.productInfo.title}
+                                            td #{item.priceNew}
+                                            td #{item.quantity}
+                                            td #{formatVND(item.totalPrice)}
+                        if(order.products.length > 0)
+                            h3(class="text-end total-price") Tổng đơn hàng: #{formatVND(order.totalPrice)}

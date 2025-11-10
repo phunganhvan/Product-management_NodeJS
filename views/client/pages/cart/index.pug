@@ -6,56 +6,54 @@ block main
     +alert-success(3000)
     +alert-error(3000)
 
-
-    .container.my-3 
-        .row 
-            .col-12 
-                +box-head("Giỏ hàng")
-        .row 
-            .col-12 
-                if(cartDetail && cartDetail.products && cartDetail.products.length >0 )
-                    table(class="table table-bordered")
-                        thead
-                            tr 
-                                th STT 
-                                th Ảnh 
-                                th Tên 
-                                th Giá
-                                th Số lượng 
-                                th Tổng tiền 
-                                th Hành động
-                        tbody
-                            each item, index in cartDetail.products
+    .cart-page
+        .container.my-3 
+            .row 
+                .col-12 
+                    +box-head("Giỏ hàng")
+            .row 
+                .col-12 
+                    if(cartDetail && cartDetail.products && cartDetail.products.length > 0)
+                        table(class="table table-bordered")
+                            thead
                                 tr 
-                                    td #{index+1}
-                                    td 
-                                        img(src=item.productInfo.thumbnail , alt=item.productInfo.title width="80px")
-                                    td 
-                                        a(
-                                            href=`/products/detail/${item.productInfo.slug}`
-                                        ) #{item.productInfo.title}
-                                    td #{formatVND(item.productInfo.priceNew)}
-                                    td
-                                        input(
-                                            type="number"
-                                            name="quantity"
-                                            value=item.productInfo.quantity
-                                            min="1"
-                                            product-id=item.productInfo.id
-                                            style="width: 60px"
-                                        )
+                                    th STT 
+                                    th Ảnh 
+                                    th Tên 
+                                    th Giá
+                                    th Số lượng 
+                                    th Tổng tiền 
+                                    th Hành động
+                            tbody
+                                each item, index in cartDetail.products
+                                    tr 
+                                        td #{index + 1}
+                                        td 
+                                            img(src=item.productInfo.thumbnail, alt=item.productInfo.title, width="80px")
+                                        td 
+                                            a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
+                                        td #{formatVND(item.productInfo.priceNew)}
+                                        td
+                                            input(
+                                                type="number"
+                                                name="quantity"
+                                                value=item.productInfo.quantity
+                                                min="1"
+                                                product-id=item.productInfo.id
+                                                style="width: 60px"
+                                            )
                                         td #{formatVND(item.productInfo.quantity * item.productInfo.priceNew)}
                                         td 
                                             a(
                                                 href=`/cart/delete/${item.productInfo.id}`
                                                 class="btn btn-danger"
                                             ) Xóa
-                    h3(class="text-end") Tổng đơn hàng: #{formatVND(cartDetail.totalPrice)}
-                    div(class="text-end mt-3")
-                        a(
-                            href="/checkout"
-                            class="btn btn-success"
-                        ) THANH TOÁN
-                else 
-                    h3(class="text-center") Giỏ hàng trống
+                        h3(class="text-end") Tổng đơn hàng: #{formatVND(cartDetail.totalPrice)}
+                        div(class="text-end mt-3")
+                            a(
+                                href="/checkout"
+                                class="btn btn-success"
+                            ) THANH TOÁN
+                    else 
+                        h3(class="text-center") Giỏ hàng trống
         script(src="/js/cart.js")

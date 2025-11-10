@@ -21,7 +21,7 @@
 }
 
 .header .inner-logo a:hover {
-  color: #ffd166;
+  color: #e0e867;
 }
 
 /* Buttons (user + logout) */
@@ -51,20 +51,23 @@
 
 .header .btn-logout:hover {
   background: #c0392b;
+  color: #00d7c8;
 }
 
 /* ========== SIDEBAR ========== */
 .body .sider {
   width: 210px;
-  background: #2f3640;
-  color: #fff;
+  background: linear-gradient(180deg, #2c3e50, #34495e);
+  color: #ecf0f1;
   height: 100vh;
   position: fixed;
   top: 24px;
   left: 0;
   padding-top: 60px;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 
 .sider .inner-menu {
   padding: 0;
@@ -231,14 +234,7 @@
 #preview[src=""]{
     display: none;
 }
-[close-preview]{
-    display: inline-block;
-    border: 1px solid #000;
-    padding: 4px;
-    background: #ddd;
-    cursor: pointer;
-    border-radius: 12px;
-}
+
 
 /* ==========================
    GIAO DIỆN TỔNG QUAN
@@ -577,18 +573,7 @@ h1.mb-4 {
     border: 2px solid rgba(90, 91, 255, 0.2);
 }
 
-[close-preview] {
-    display: inline-block;
-    margin-top: 8px;
-    color: #888;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-}
 
-[close-preview]:hover {
-    color: #5A5BFF;
-}
 
 /* Button submit */
 #form-create-product .btn-primary {
@@ -708,39 +693,9 @@ h1.mb-4 {
     cursor: pointer;
 }
 
-/* Upload ảnh */
-[upload-image] {
-    background: #fafaff;
-    border-radius: 12px;
-    padding: 15px;
-    border: 1px dashed rgba(90, 91, 255, 0.3);
-    transition: all 0.25s ease;
-}
 
-[upload-image]:hover {
-    background: rgba(240, 240, 255, 0.6);
-    border-color: #8E7CFF;
-}
 
-[upload-image-preview] {
-    max-height: 120px;
-    border-radius: 10px;
-    margin-top: 10px;
-    border: 2px solid rgba(90, 91, 255, 0.2);
-}
 
-[close-preview] {
-    display: inline-block;
-    margin-top: 8px;
-    color: #888;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-[close-preview]:hover {
-    color: #5A5BFF;
-}
 
 /* Button */
 #form-create-blog .btn-primary {
@@ -846,39 +801,7 @@ h1.mb-4 {
     background-color: #f7f8ff;
 }
 
-/* Upload ảnh */
-[upload-image] {
-    background: #fafaff;
-    border-radius: 12px;
-    padding: 15px;
-    border: 1px dashed rgba(90, 91, 255, 0.3);
-    transition: all 0.25s ease;
-}
 
-[upload-image]:hover {
-    background: rgba(240, 240, 255, 0.6);
-    border-color: #8E7CFF;
-}
-
-[upload-image-preview] {
-    max-height: 120px;
-    border-radius: 10px;
-    margin-top: 10px;
-    border: 2px solid rgba(90, 91, 255, 0.2);
-}
-
-[close-preview] {
-    display: inline-block;
-    margin-top: 8px;
-    color: #888;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-[close-preview]:hover {
-    color: #5A5BFF;
-}
 
 /* Radio buttons */
 #form-create-productCate .form-check-input {
@@ -986,26 +909,7 @@ h1.mb-4 {
     background-color: #f7f8ff;
 }
 
-/* Upload ảnh */
-[upload-image] {
-    background: #fafaff;
-    border-radius: 12px;
-    padding: 15px;
-    border: 1px dashed rgba(90, 91, 255, 0.3);
-    transition: all 0.25s ease;
-}
 
-[upload-image]:hover {
-    background: rgba(240, 240, 255, 0.6);
-    border-color: #8E7CFF;
-}
-
-[upload-image-preview] {
-    max-height: 120px;
-    border-radius: 10px;
-    margin-top: 10px;
-    border: 2px solid rgba(90, 91, 255, 0.2);
-}
 
 [close-preview] {
     display: inline-block;

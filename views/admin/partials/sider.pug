@@ -1,41 +1,51 @@
 .sider 
     .inner-menu 
         ul 
-            li(class=currentPath.startsWith(`${PATH_ADMIN}/dashboard`) ? 'active' : '')
+            // Tổng quan
+            li(class=(currentPath === `${PATH_ADMIN}/dashboard` ? 'active' : ''))
                 a(href=`${PATH_ADMIN}/dashboard`) Tổng quan 
 
+            // Danh mục sản phẩm
             if(role.permission.includes("products-category_view"))
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/product-category`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/product-category` || currentPath.startsWith(`${PATH_ADMIN}/product-category/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/product-category`) Danh mục sản phẩm  
 
+            // Danh sách sản phẩm
             if(role.permission.includes("products_view"))
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/products`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/products` || currentPath.startsWith(`${PATH_ADMIN}/products/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/products`) Danh sách sản phẩm
 
+            // Danh mục bài viết
             if(role.permission.includes("blog-category_view"))
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/blog-category`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/blog-category` || currentPath.startsWith(`${PATH_ADMIN}/blog-category/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/blog-category`) Danh mục bài viết
 
-            if(1)
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/blogs`) ? 'active' : '')
+            // Danh sách bài viết
+            if(role.permission.includes("blogs_view"))
+                li(class=((currentPath === `${PATH_ADMIN}/blogs` || currentPath.startsWith(`${PATH_ADMIN}/blogs/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/blogs`) Danh sách bài viết
 
+            // Nhóm quyền
             if(role.permission.includes("roles_view"))  
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/roles`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/roles`) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/roles`) Nhóm quyền
 
+            // Phân quyền
             if(role.permission.includes("permission_view"))
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/roles/permissions`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/roles/permissions` || currentPath.startsWith(`${PATH_ADMIN}/roles/permissions/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/roles/permissions`) Phân quyền
 
+            // Danh sách tài khoản
             if(role.permission.includes("accounts_view"))
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/accounts`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/accounts` || currentPath.startsWith(`${PATH_ADMIN}/accounts/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/accounts`) Danh sách tài khoản
 
+            // Danh sách đơn hàng
             if(role.permission.includes("orders_view"))
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/orders`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/orders` || currentPath.startsWith(`${PATH_ADMIN}/orders/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/orders`) Danh sách đơn hàng
 
+            // Cài đặt chung
             if(1)
-                li(class=currentPath.startsWith(`${PATH_ADMIN}/settings/general`) ? 'active' : '')
+                li(class=((currentPath === `${PATH_ADMIN}/settings/general` || currentPath.startsWith(`${PATH_ADMIN}/settings/general/`)) ? 'active' : ''))
                     a(href=`${PATH_ADMIN}/settings/general`) Cài đặt chung

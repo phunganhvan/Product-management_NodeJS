@@ -1,5 +1,5 @@
 module.exports = (query) =>{
-    let orderStatus = [
+    let paymentStatus = [
         {
             name: "Tất cả",
             status: "",
@@ -33,7 +33,7 @@ module.exports = (query) =>{
     ];
     if (query.status) {
         // find.status =query.status;
-        // orderStatus.map(item => {
+        // paymentStatus.map(item => {
         //     if (item.status === find.status) {
         //         item.class = "active";
         //     }
@@ -42,13 +42,13 @@ module.exports = (query) =>{
         //     }
         //     return item;
         // })
-        const index= orderStatus.findIndex(item => item.status ==query.status);
-        orderStatus[index].class ="active";
+        const index= paymentStatus.findIndex(item => item.status ==query.status);
+        paymentStatus[index].class ="active";
     }
     else{
-        const index= orderStatus.findIndex(item => item.status =="");
-        orderStatus[index].class ="active";
+        const index= paymentStatus.findIndex(item => item.status =="");
+        paymentStatus[index].class ="active";
     }
-    return orderStatus;
+    return paymentStatus;
  
 }

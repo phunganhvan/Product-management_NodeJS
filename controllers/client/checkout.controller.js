@@ -1,7 +1,8 @@
 const Cart = require("../../models/carts.model")
 const Product = require("../../models/product.model")
-const Order= require("../../models/orders.model")
+const Order = require("../../models/orders.model")
 const productHelper = require("../../helpers/product")
+const { generateOrderCode } = require("../../helpers/generate")
 
 
 // /checkout  - trang chủ
@@ -23,9 +24,9 @@ module.exports.index = async (req, res) => {
                 _id: item.product_id,
                 deleted: false
             }).select("title thumbnail slug price discountPercentage stock")
-            if(item.quantity > product.stock || item.quantity <1){
+            if (item.quantity > product.stock || item.quantity < 1) {
                 // item.quantity=1;
-                req.flash("error","số lượng hàng không hợp lệ");
+                req.flash("error", "số lượng hàng không hợp lệ");
                 res.redirect("/cart");
                 return;
             }
@@ -48,20 +49,26 @@ module.exports.index = async (req, res) => {
 }
 
 // [POST] /checkout/order
-module.exports.orderPost = async(req, res) =>{
-    const cartId= req.cookies.cartId;
-    const userInfo= req.body;
-    const myCart= await Cart.findOne({
+module.exports.orderPost = async (req, res) => {
+    const cartId = req.cookies.cartId;
+    const userInfo = {
+        fullName: req.body.fullName,
+        phone: req.body.phone,
+        address: req.body.address
+    };
+    const paymentMethod = req.body.paymentMethod;
+    const myCart = await Cart.findOne({
         _id: cartId
     })
-    let products=[];
-    if(myCart.products.length >0){
-        for(item of myCart.products){
-            const product= await Product.findOne({
+    // console.log(req.body);
+    let products = [];
+    if (myCart.products.length > 0) {
+        for (item of myCart.products) {
+            const product = await Product.findOne({
                 _id: item.product_id
             }).select("price discountPercentage")
-            product.quantity= item.quantity;
-            const objectProduct={
+            product.quantity = item.quantity;
+            const objectProduct = {
                 product_id: item.product_id,
                 price: product.price,
                 discountPercentage: product.discountPercentage,
@@ -70,12 +77,14 @@ module.exports.orderPost = async(req, res) =>{
             products.push(objectProduct)
         }
     }
-    const orderInfo={
+    const orderInfo = {
         cart_id: cartId,
         userInfo: userInfo,
-        products: products
+        products: products,
+        paymentMethod: paymentMethod
     }
-    const order= new Order(orderInfo);
+    orderInfo.orderCode = generateOrderCode();
+    const order = new Order(orderInfo);
     order.save();
 
     await Cart.updateOne(
@@ -85,28 +94,92 @@ module.exports.orderPost = async(req, res) =>{
         {
             products: [],
         }
-    )
+    );
+    if (req.body.paymentMethod === "bank" || req.body.paymentMethod === "momo" ) {
+        return res.redirect(`/checkout/payment/${order.id}`)
+    }
     res.redirect(`/checkout/success/${order.id}`)
 }
 
-module.exports.success = async(req, res) =>{
+// [GET] /checkout/payment/:orderId
+module.exports.payment = async (req, res) => {
+    const orderId = req.params.orderId;
+    const order = await Order.findOne({
+        _id: orderId
+    });
+    // console.log(order);
+    if(order.paymentMethod === "momo"){
+        res.render("client/pages/checkout/payment-momo", {
+            titlePage: "Thanh toán MoMo",
+            momoInfo: {
+                momoName: "MOMO",
+                accountNumber: "0966490431",
+                accountName: "PHUNG ANH VAN",
+                qrImage: "/images/QRMoMo.jpg",
+                orderId: orderId
+                // transferNote: "Thanh toan don hang #" + req.session.orderCode   
+            }
+        });
+        return;
+    }
+    res.render("client/pages/checkout/payment-bank", {
+        titlePage: "Thanh toán chuyển khoản",
+        bankInfo: {
+            bankName: "MBbank",
+            accountName: "Ngô Minh Sơn",
+            accountNumber: "54936666868",
+            qrImage: "/images/mbBank.jfif",
+            orderId: orderId
+            // transferNote: "Thanh toan don hang #" + req.session.orderCode
+        }
+        // bankInfo: {
+        //     bankName: "Vietinbank",
+        //     accountName: "PHUNG ANH VAN",
+        //     accountNumber: "102877060925",
+        //     qrImage: "/images/QRNganHang.jpg",
+        //     orderId: orderId
+        //     // transferNote: "Thanh toan don hang #" + req.session.orderCode
+        // }
+    });
+
+}
+
+// [POST] /checkout/payment/confirm/:orderId
+module.exports.paymentConfirmPost = async (req, res) => {
+    console.log(req.body);
+    const orderId = req.params.orderId;
+    let paymentProofUrl = req.body.paymentProof;
+    await Order.updateOne(
+        {
+            _id: orderId
+        },
+        {
+            paymentProof: paymentProofUrl,
+            paymentStatus: "pending"
+        }
+    );
+    res.redirect(`/checkout/success/${orderId}`)
+}
+
+// [GET] /checkout/success/:orderId
+module.exports.success = async (req, res) => {
     // console.log(req.params.orderId);
 
-    const order= await Order.findOne({
+    const order = await Order.findOne({
         _id: req.params.orderId
     });
 
-    for( product of order.products){
-        const productInfo= await Product.findOne({
+    for (product of order.products) {
+        const productInfo = await Product.findOne({
             _id: product.product_id
         }).select("title thumbnail")
-        
-        product.productInfo= productInfo;
-        product= productHelper.priceNewProduct(product);
-        product.totalPrice= product.priceNew * product.quantity;
+
+        product.productInfo = productInfo;
+        product = productHelper.priceNewProduct(product);
+        product.totalPrice = product.priceNew * product.quantity;
         // console.log(product.productInfo)
     }
-    order.totalPrice= order.products.reduce((sum, item) => sum+ item.totalPrice, 0);
+    order.totalPrice = order.products.reduce((sum, item) => sum + item.totalPrice, 0);
     // console.log(order.totalPrice);
     res.render("client/pages/checkout/success", {
         titlePage: "Đặt hàng thành công",

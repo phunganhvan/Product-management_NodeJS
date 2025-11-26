@@ -44,46 +44,77 @@ block main
                                 td #{item.userInfo.fullName}
                                 td #{item.userInfo.phone}
                                 td #{item.userInfo.address}
-                                td #{item.id}
+                                td #{item.orderCode || item.id}
                                 td  
                                     if(role.permission.includes("orders_edit"))
-                                        if(item.statusOrder==="active")
-                                            a(
-                                                href="javascript:;" 
-                                                data-status= item.statusOrder
-                                                data-id= item.id
-                                                button-change-status
-                                                class="badge text-bg-success"
-                                            ) Hoạt động
-                                        else if(item.statusOrder==="inactive")
-                                            a(
-                                                href="javascript:;"
-                                                data-status=item.statusOrder
-                                                data-id= item.id
-                                                button-change-status 
-                                                class="badge text-bg-danger"
-                                            ) Không hoạt động 
-                                        else if(item.statusOrder==="initial")
-                                            a(
-                                                href="javascript:;"
-                                                data-status=item.statusOrder
-                                                data-id= item.id
-                                                button-change-status 
-                                                class="badge text-bg-primary"
-                                            ) Chờ duyệt
+                                        //- Status Dropdown
+                                        div.dropdown
+                                            button.btn.btn-sm(
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                                class= item.statusOrder === "active" ? "btn-success dropdown-toggle"
+                                                    : item.statusOrder === "inactive" ? "btn-danger dropdown-toggle"
+                                                    : item.statusOrder === "initial" ? "btn-primary dropdown-toggle"
+                                                    : item.statusOrder=== "completed" ? "badge bg-info text-dark"
+                                                    : "btn-primary dropdown-toggle"
+                                            )
+                                                if item.statusOrder === "active"
+                                                    | Đang giao hàng
+                                                else if item.statusOrder === "inactive"
+                                                    | Đã hủy
+                                                else if item.statusOrder === "initial"
+                                                    | Đã đặt
+                                                else if item.statusOrder === "completed"
+                                                    | Đã giao thành công
+
+                                            ul.dropdown-menu
+                                                li
+                                                    a.dropdown-item(
+                                                        href="javascript:;"
+                                                        data-id=item.id
+                                                        data-new-status="initial"
+                                                        btn-status-change
+                                                    ) Đã đặt
+                                                li
+                                                    a.dropdown-item(
+                                                        href="javascript:;"
+                                                        data-id=item.id
+                                                        data-new-status="active"
+                                                        btn-status-change
+                                                    ) Đang giao hàng
+                                                li
+                                                    a.dropdown-item(
+                                                        href="javascript:;"
+                                                        data-id=item.id
+                                                        data-new-status="inactive"
+                                                        btn-status-change
+                                                    ) Đã hủy
+                                                li
+                                                    a.dropdown-item(
+                                                        btn-status-change
+                                                        href="javascript:;"
+                                                        data-id=item.id
+                                                        data-new-status="completed"
+                                                    ) Đã giao thành công
+
                                     else 
                                         if(item.statusOrder==="active")
                                             div(
                                                 class="badge text-bg-success"
-                                            ) Hoạt động
+                                            ) Đang giao hàng
                                         else if(item.statusOrder==="inactive")
                                             div(
                                                 class="badge text-bg-danger"
-                                            ) Không hoạt động 
+                                            ) Đã hủy
                                         else if(item.statusOrder==="initial")
                                             div(
                                                 class="badge text-bg-primary"
-                                            ) Chờ duyệt 
+                                            ) Đã đặt 
+                                        else if( item.statusOrder==="completed")
+                                            div(
+                                                class="badge text-bg-secondary"
+                                            ) Đã giao thành công
                                 td  #{item.products.length}
                                 td  #{formatVND(item.total)} 
                                 td

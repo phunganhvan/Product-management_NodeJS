@@ -2051,3 +2051,102 @@ form {
 
 
 /* end order css  */
+
+/* phương thức css */
+.payment-methods {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.payment-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 0.25s;
+  user-select: none;
+}
+
+/* Ẩn radio */
+.payment-item input[type="radio"] {
+  display: none;
+}
+
+/* Icon */
+.payment-item i {
+  font-size: 1.3rem;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+
+/* Hover */
+.payment-item:hover {
+  background: #f0f8ff;
+  border-color: #cce6ff;
+}
+
+/* Khi được chọn */
+.payment-item input[type="radio"]:checked + i + span,
+.payment-item input[type="radio"]:checked + i {
+  color: #0d6efd;
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* Viền & nền khi chọn */
+.payment-item input[type="radio"]:checked + i + span {
+  /* để span nhận */
+
+}
+
+.payment-item input[type="radio"]:checked ~ * {
+  color: #0d6efd;
+}
+
+.payment-item input[type="radio"]:checked {
+  /* nothing */
+}
+
+/* Viền highlight toàn label */
+.payment-item input[type="radio"]:checked ~ span,
+.payment-item input[type="radio"]:checked ~ i {
+  /* để tính sau */
+}
+
+.payment-item input[type="radio"]:checked {
+  /* nothing */
+}
+
+.payment-item input[type="radio"]:checked {
+  /* nothing */
+}
+
+.payment-item input[type="radio"]:checked {
+  /* nothing */
+}
+
+/* Khi chọn → highlight cả label */
+.payment-item input[type="radio"]:checked {
+  /* nothing */
+}
+
+/* Trick highlight bằng label */
+.payment-item input[type="radio"]:checked {
+  /* nothing */
+}
+
+.payment-item input[type="radio"]:checked:parent {
+  /* placeholder */
+}
+
+/* Cách hoàn chỉnh: dùng :has() */
+.payment-item:has(input[type="radio"]:checked) {
+  background: #e7f1ff;
+  border-color: #0d6efd;
+}

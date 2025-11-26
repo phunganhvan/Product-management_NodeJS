@@ -1,0 +1,213 @@
+extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug
+
+block main
+    .momo-container
+        .momo-card
+            form#paymentForm(
+                method="POST" 
+                action=`/checkout/payment/confirm/${momoInfo.orderId}` 
+                enctype="multipart/form-data"
+            )
+                .momo-header
+                    img.logo(src="/images/MOMO-Logo-App.png")
+                    h2.payment-title Thanh toán MoMo chuyển khoản
+
+                .qr-area
+                    img.qr(src=momoInfo.qrImage)
+
+                .info
+                    p
+                        strong Ví điện tử:
+                        |  #{momoInfo.momoName}
+
+                    p
+                        strong Chủ tài khoản:
+                        |  #{momoInfo.accountName}
+
+                    p
+                        strong Số tài khoản:
+                        |  #{momoInfo.accountNumber}
+
+                    .copy-row
+                        span.copy-label Mã đơn hàng / Nội dung:
+                        span.copy-value #{momoInfo.transferNote}
+                        button.copy-btn(type="button" onclick=`copyText('${momoInfo.transferNote}')`)
+                            | Sao chép
+
+                .notice
+                    p Vui lòng chuyển khoản đúng nội dung để hệ thống tự động xác nhận đơn hàng.
+                
+                .upload-section
+                    label.upload-title Tải ảnh minh chứng chuyển khoản:
+                    input#upload-proof(type="file" accept="image/*" name="paymentProof" required)
+                    img#preview(src="", hidden=true)
+
+                button.confirm-btn(type="submit") Xác nhận thanh toán
+
+        script.
+            function copyText(text) {
+                navigator.clipboard.writeText(text);
+                alert("Đã sao chép!");
+            }
+            // Preview image
+            document.addEventListener("DOMContentLoaded", () => {
+                const input = document.getElementById("upload-proof");
+                const preview = document.getElementById("preview");
+
+                input.addEventListener("change", function() {
+                    const file = this.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.hidden = false;
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+
+block styles
+    style.
+        .momo-container {
+            display: flex;
+            justify-content: center;
+            padding: 32px 0;
+        }
+
+        .momo-card {
+            width: 380px;
+            background: #fff;
+            border-radius: 22px;
+            padding: 20px 25px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            text-align: center;
+            border: 2px solid #e72b73;
+        }
+
+        .momo-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            width: 70px;
+            margin-bottom: 8px;
+        }
+
+        .payment-title {
+            color: #d6006c;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .qr-area {
+            margin: 18px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .qr {
+            width: 190px;
+            height: auto;
+            border-radius: 14px;
+            border: 2px solid #ffd5e5;
+        }
+
+        .info p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        .copy-row {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .copy-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .copy-value {
+            font-size: 14px;
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .copy-btn {
+            background: #d6006c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .copy-btn:hover {
+            background: #b00059;
+        }
+
+        .notice {
+            margin-top: 16px;
+            background: #fff2f7;
+            border-left: 4px solid #d6006c;
+            padding: 10px;
+            font-size: 13px;
+            border-radius: 10px;
+        }
+        /* Upload Section */
+        .upload-section {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .upload-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        #upload-proof {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            background: #fafafa;
+            cursor: pointer;
+        }
+
+        #preview {
+            margin-top: 12px;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .confirm-btn {
+            margin-top: 18px;
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .confirm-btn:hover {
+            background: #218838;
+        }

@@ -17,3 +17,11 @@ module.exports.generateRandomOtp= (length) =>{
     }
     return result;
 }
+
+module.exports.generateOrderCode= (length) =>{
+    let result= "OD"+Date.now(); 
+    for(let i =0; i< length; i++){
+        result+=characters.charAt(Math.floor(Math.random()*900+100))
+    }      
+    return result;
+}

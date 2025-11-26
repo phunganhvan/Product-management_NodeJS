@@ -67,8 +67,44 @@ block main
                                         required    
                                     ) 
                                 div(class="mb-3")
+                                    label.form-label Phương thức thanh toán
+
+                                    .payment-methods
+                                        label.payment-item
+                                            input(type="radio" name="paymentMethod" value="cod" checked)
+                                            i(class="fa-solid fa-money-bill-1-wave")
+                                            span Thanh toán khi nhận hàng (COD)
+
+                                        label.payment-item
+                                            input(type="radio" name="paymentMethod" value="bank")
+                                            i(class="fa-solid fa-building-columns")
+                                            span Chuyển khoản ngân hàng
+
+                                        label.payment-item
+                                            input(type="radio" name="paymentMethod" value="card")
+                                            i(class="fa-solid fa-credit-card")
+                                            span Thẻ ATM / Internet Banking
+
+                                        label.payment-item
+                                            input(type="radio" name="paymentMethod" value="visa")
+                                            i(class="fa-brands fa-cc-visa")
+                                            span Visa / MasterCard
+
+                                        label.payment-item
+                                            input(type="radio" name="paymentMethod" value="momo")
+                                            img(src="/images/MOMO-Logo-App.png" alt="MoMo" width="20px" style="margin-right: 8px;")
+                                            span Ví MoMo
+
+                                        label.payment-item
+                                            input(type="radio" name="paymentMethod" value="vnpay")
+                                            i(class="fa-solid fa-qrcode")
+                                            span QR VNPAY
+
+                                div(class="mb-3")
                                     button(
                                         type="submit"
                                         class="btn btn-success w-100"
                                     ) Đặt hàng
+                
+
     script(src="/js/cart.js")

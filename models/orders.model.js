@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { payment } = require("../controllers/client/checkout.controller");
 const orderSchema = new mongoose.Schema(
     {
         user_id: String,
@@ -20,6 +21,16 @@ const orderSchema = new mongoose.Schema(
                 quantity: Number
             }
         ],
+        orderCode: String,
+        paymentMethod: String,
+        paymentStatus: {
+            type: String,
+            default: "inactive"
+        },
+        paymentProof: {
+            type: String,
+            default: ""
+        },
         deleted:{
             type: Boolean,
             default: false

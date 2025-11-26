@@ -1,72 +1,111 @@
 //Change-Status
 const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
-if(buttonChangeStatus.length >0){
+if (buttonChangeStatus.length > 0) {
     const formChangeStatus = document.querySelector("#form-change-status");
     // console.log(formChangeStatus);
     const path = formChangeStatus.getAttribute("data-path");
     // console.log(path);
-    buttonChangeStatus.forEach(button =>{
-        button.addEventListener("click", () =>{
+    buttonChangeStatus.forEach(button => {
+        button.addEventListener("click", () => {
             // const url= new URL(document.location.href);
             // console.log(url);
-            const statusCurrent= button.getAttribute("data-status");
+            const statusCurrent = button.getAttribute("data-status");
             const idCurrent = button.getAttribute("data-id");
             // console.log(statusCurrent, idCurrent);
             let statusChange
-            if(statusCurrent =="active"){
-                statusChange= "inactive";
+            if (statusCurrent == "active") {
+                statusChange = "inactive";
             }
-            else if(statusCurrent=="initial"){
-                statusChange="active";
+            else if (statusCurrent == "initial") {
+                statusChange = "active";
             }
-            else if(statusCurrent=="inactive"){
-                statusChange="active";
+            else if (statusCurrent == "inactive") {
+                statusChange = "active";
             }
-            const action = path+ `/${statusChange}` + `/${idCurrent}?_method=PATCH`;
-            console.log(action);
+            const action = path + `/${statusChange}` + `/${idCurrent}?_method=PATCH`;
+            // console.log(action);
             // formChangeStatus.path= url.href;
-            formChangeStatus.action= action;
+            formChangeStatus.action = action;
             formChangeStatus.submit();
         });
+
     })
+    
     // console.log(buttonChangeStatus);
 }
 
+//button change status order admin
+const statusButtons = document.querySelectorAll("[btn-status-change]");
+if (statusButtons.length > 0){
+    const formChangeStatus = document.querySelector("#form-change-status");
+    // console.log(formChangeStatus);
+    const path = formChangeStatus.getAttribute("data-path");
+    statusButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const newStatus = btn.getAttribute("data-new-status");
+            const id = btn.getAttribute("data-id");
+
+            const action = `${path}/${newStatus}/${id}?_method=PATCH`;
+            console.log(action);
+            formChangeStatus.action = action;
+            formChangeStatus.submit();
+        });
+    });
+}
+
+//
+const statusPaymentButtons = document.querySelectorAll("[btn-statusPayment-change]");
+if( statusPaymentButtons.length > 0){
+    const formChangeStatus= document.querySelector("#form-change-statusPayment");
+    const path= formChangeStatus.getAttribute("data-path");
+    statusPaymentButtons.forEach( btn => {
+        btn.addEventListener("click", () => {
+            const newStatus= btn.getAttribute("data-new-statusPayment");
+            const id= btn.getAttribute("data-id");   
+            const action= `${path}/${newStatus}/${id}?_method=PATCH`;
+            console.log(action);
+            formChangeStatus.action= action;
+            formChangeStatus.submit();
+        });
+    });
+}
+            
+    
 //delete
-const btnDelete= document.querySelectorAll("[button-delete]");
-if(btnDelete.length>0){
+const btnDelete = document.querySelectorAll("[button-delete]");
+if (btnDelete.length > 0) {
     // console.log(btnDelete);
-    const formDelete= document.querySelector("#form-delete");
-    const path= formDelete.getAttribute("data-path");
-    btnDelete.forEach( item =>{
-        item.addEventListener("click", () =>{
+    const formDelete = document.querySelector("#form-delete");
+    const path = formDelete.getAttribute("data-path");
+    btnDelete.forEach(item => {
+        item.addEventListener("click", () => {
             // Product.delete(item.id);
             // console.log(item);
-            const isConfirm= confirm("Bạn có chắc chắn muốn xóa đơn hàng này không");
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa đơn hàng này không");
             //ham built in true hoặc false
-            if(isConfirm){
-                const id= item.getAttribute("data_id");
+            if (isConfirm) {
+                const id = item.getAttribute("data_id");
                 const action = `${path}/${id}?_method=DELETE`;
                 // console.log(action)
-                formDelete.action= action;
+                formDelete.action = action;
                 formDelete.submit();
             }
         })
     })
-}       
+}
 // restore
 const btnRestore = document.querySelectorAll("[button-restore]");
-if(btnRestore.length>0){
-    const formRestore= document.querySelector("#form-restore");
-    const path= formRestore.getAttribute("data-path");
+if (btnRestore.length > 0) {
+    const formRestore = document.querySelector("#form-restore");
+    const path = formRestore.getAttribute("data-path");
     // console.log(btnRestore);
-    btnRestore.forEach(button =>{
-        button.addEventListener("click", ()=>{
-            const isConfirm= confirm("Bạn có muốn khôi phục đơn hàng này không");
-            if(isConfirm){
-                const id= button.getAttribute("data_id");
-                const action= `${path}/${id}?_method=PATCH`
-                formRestore.action= action;
+    btnRestore.forEach(button => {
+        button.addEventListener("click", () => {
+            const isConfirm = confirm("Bạn có muốn khôi phục đơn hàng này không");
+            if (isConfirm) {
+                const id = button.getAttribute("data_id");
+                const action = `${path}/${id}?_method=PATCH`
+                formRestore.action = action;
                 formRestore.submit();
                 console.log(id);
             }

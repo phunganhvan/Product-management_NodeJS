@@ -1,0 +1,221 @@
+extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug
+
+block main
+    .payment-container
+        .card
+            form#paymentForm(
+                method="POST" 
+                action=`/checkout/payment/confirm/${bankInfo.orderId}` 
+                enctype="multipart/form-data"
+            )
+                .bank-header
+                    //- img.logo(src="/images/logo-vietinbank.png")
+                    img.logo(src="/images/logo-MBBank.png")
+                    h2.center Thanh toán bằng chuyển khoản ngân hàng
+                .qr-box
+                    img.qr-image(src=bankInfo.qrImage)
+
+                .info
+                    p
+                        strong Ngân hàng:
+                        |  #{bankInfo.bankName}
+
+                    p
+                        strong Chủ tài khoản:
+                        |  #{bankInfo.accountName}
+
+                    p
+                        strong Số tài khoản:
+                        |  #{bankInfo.accountNumber}
+
+                    .copy-row
+                        span.copy-label Mã đơn hàng / Nội dung chuyển khoản: 
+                        span.copy-value #{bankInfo.transferNote}
+                        button.copy-btn(type="button" onclick=`copyText('${bankInfo.transferNote}')`)
+                            | Sao chép
+
+                .notice
+                    p Lưu ý: Vui lòng chuyển khoản đúng nội dung để hệ thống tự động xác nhận đơn hàng.
+
+                .upload-section
+                    label.upload-title Tải ảnh minh chứng chuyển khoản:
+                    input#upload-proof(type="file" accept="image/*" name="paymentProof" required)
+                    img#preview(src="", hidden=true)
+
+                button.confirm-btn(type="submit") Xác nhận thanh toán
+        script.
+            function copyText(text) {
+                navigator.clipboard.writeText(text);
+                alert("Đã sao chép!");
+            }
+            // Preview image
+            document.addEventListener("DOMContentLoaded", () => {
+                const input = document.getElementById("upload-proof");
+                const preview = document.getElementById("preview");
+
+                input.addEventListener("change", function() {
+                    const file = this.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.hidden = false;
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+
+block styles
+    style.
+        .bank-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .payment-container {
+            display: flex;
+            justify-content: center;
+            padding: 30px 0;
+        }
+        .logo {
+            width: 70px;
+            margin-bottom: 8px;
+        }
+        .card {
+            width: 360px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            text-align: center;
+            font-family: "Inter", sans-serif;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .qr-box {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .qr-image {
+            width: 200px;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid #e2e2e2;
+            padding: 8px;
+            background: #fafafa;
+        }
+
+        .info p {
+            margin: 6px 0;
+            font-size: 15px;
+            text-align: left;
+        }
+
+        .copy-row {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f6f6f6;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .copy-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .copy-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #0066d3;
+        }
+
+        .notice {
+            background: #fff7df;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 18px;
+            font-size: 13px;
+            border-left: 4px solid #f6c85b;
+            text-align: left;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .upload-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        #upload-proof {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            background: #fafafa;
+            cursor: pointer;
+        }
+
+        #preview {
+            margin-top: 12px;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .confirm-btn {
+            margin-top: 18px;
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .confirm-btn:hover {
+            background: #218838;
+        }
+        /* Responsive */
+        @media (max-width: 480px) {
+            .card {
+                width: 90%;
+                padding: 18px;
+            }
+            .qr-image {
+                width: 180px;
+            }
+        }

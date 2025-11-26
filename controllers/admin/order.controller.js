@@ -76,6 +76,32 @@ module.exports.changeStatus = async (req, res) => {
     }
 }
 
+// /admin/orders/change-statusPayment/:statusPayment/:id [PATCH]
+module.exports.changeStatusPayment= async(req, res) =>{
+    // const permission= res.locals.role.permission;        
+    // if( permission.includes("orders_edit")){    
+        const statusPayment= req.params.statusPayment;
+        const id= req.params.id;
+        const updatedBy= {
+            accountId: res.locals.user.id,
+            updatedAt: new Date()
+        }
+        await Order.updateOne(
+            {
+                _id: id
+            },
+            { paymentStatus: statusPayment, $push: { updatedBy: updatedBy } }
+        );
+        req.flash("success", "Đã cập nhật trạng thái thanh toán đơn hàng");
+        res.redirect(req.get('Referrer'));
+    // }
+    // else {
+    //     return;
+    // }   
+}
+
+
+
 // /admin/orders/detail/:id [GET]
 module.exports.detail= async(req, res) =>{
     try {

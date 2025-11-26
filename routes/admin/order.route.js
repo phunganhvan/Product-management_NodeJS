@@ -9,6 +9,8 @@ router.get("/", controller.index);
 // /admin/orders/change-status/:status/:id
 router.patch("/change-status/:status/:id", controller.changeStatus);
 
+// /admin/orders/change-statusPayment/:statusPayment/:id
+router.patch("/change-statusPayment/:statusPayment/:id", controller.changeStatusPayment);
 // /admin/orders/detail/:id  
 router.get("/detail/:id", controller.detail);
 

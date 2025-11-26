@@ -4,7 +4,8 @@ block main
     if(role.permission.includes("orders_view"))
         h1(class="mb-4") Chi tiết đơn hàng
         if(order.id)
-            h3(class="mb-4") Mã đơn hàng: #{order.id}
+            h3(class="mb-4") Mã đơn hàng: 
+                strong #{order.id}
         h3(class="mb-4") Thông tin khách hàng: 
         if(order.userInfo)
             div(class="mb-4") Tên khách hàng: <b>#{order.userInfo.fullName}</b>
@@ -47,6 +48,66 @@ block main
                     span( class= "badge text-bg-danger") Dừng Hoạt động
                 else if(order.statusOrder==="initial")
                     span( class= "badge text-bg-primary") Chờ duyệt 
+        if(order.paymentMethod)
+            div(class="mb-4") Phương thức thanh toán: 
+                if(order.paymentMethod==="cod")
+                    span Thanh toán khi nhận hàng
+                else if(order.paymentMethod==="momo")
+                    span Thanh toán MoMo
+                else if(order.paymentMethod==="bank")
+                    span 
+                        strong Thanh toán chuyển khoản ngân hàng ( MB BANK )
+        
+        if(order.paymentStatus)
+            div(class="mb-4")
+                span Trạng thái thanh toán:
+                div.dropdown
+                    button.btn.btn-sm(
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        class= order.paymentStatus === "active" ? "btn-success dropdown-toggle"
+                            : order.paymentStatus === "inactive" ? "btn-danger dropdown-toggle"
+                            : "btn-primary dropdown-toggle"
+                    )
+                        if order.paymentStatus === "active"
+                            | Đã thanh toán
+                        else if order.paymentStatus === "inactive"
+                            | Chưa thanh toán
+                        else if order.paymentStatus === "pending"
+                            | Đang chờ duyệt
+                    ul.dropdown-menu
+                        li
+                            a.dropdown-item(
+                                href="javascript:;"
+                                data-id=order.id
+                                data-new-statusPayment="pending"
+                                btn-statusPayment-change
+                            ) Đang chờ duyệt
+                        li
+                            a.dropdown-item(
+                                href="javascript:;"
+                                data-id=order.id
+                                data-new-statusPayment="active"
+                                btn-statusPayment-change
+                            ) Đã thanh toán
+                        li
+                            a.dropdown-item(
+                                href="javascript:;"
+                                data-id=order.id
+                                data-new-statusPayment="inactive"
+                                btn-statusPayment-change
+                            ) Chưa thanh toán
+        if(order.paymentProof)
+            div(class="mb-4")
+                span 
+                    strong Ảnh minh chứng thanh toán:
+                div 
+                    img(
+                        src= order.paymentProof
+                        alt="Payment Proof"
+                        style="max-width: 300px; max-height: 300px;"
+                    )
         if(role.permission.includes("orders_delete"))
             row 
                 col-6 
@@ -55,6 +116,12 @@ block main
                         button-delete
                         data_id= order.id   
                     ) Xóa
+        form(
+            action= ""
+            method="POST"
+            id="form-change-statusPayment"
+            data-path =`${PATH_ADMIN}/orders/change-statusPayment`
+        )            
         form(
             action=""
             method="POST"

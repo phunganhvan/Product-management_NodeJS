@@ -113,9 +113,9 @@ module.exports.payment = async (req, res) => {
             titlePage: "Thanh toán MoMo",
             momoInfo: {
                 momoName: "MOMO",
-                accountNumber: "null",
+                accountNumber: "NTHT1221332",
                 accountName: "Nguyen Thi Huyen Trang",
-                qrImage: "/images/momo.jpg",
+                qrImage: "/images/momo.jfif",
                 orderId: orderId
                 // transferNote: "Thanh toan don hang #" + req.session.orderCode   
             }
